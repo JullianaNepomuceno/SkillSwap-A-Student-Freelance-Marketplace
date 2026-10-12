@@ -69,7 +69,7 @@ ASCII wireframes are in [docs/WIREFRAMES.md](docs/WIREFRAMES.md).
 
 ## Project Structure
 
-Planned layout (adjust to match your final code):
+Planned layout:
 
 ```
 skillswap/
