@@ -4,7 +4,7 @@ A web platform where students offer their skills for hire and clients post small
 
 > **Course:** WEBPROG Final Project · **Section:** BSCS241A
 > **Team:** Arandela, Jherrymei D. · Nepomuceno, Julliana P.
-> **Status:** In development (see [Roadmap](docs/ROADMAP.md))
+> **Status:** In development (see [Roadmap](docs/ROADMAP.md) and [Change-logs](doc/CHANGELOG.md))
 
 ---
 
@@ -69,7 +69,7 @@ ASCII wireframes are in [docs/WIREFRAMES.md](docs/WIREFRAMES.md).
 
 ## Project Structure
 
-Planned layout (adjust to match your final code):
+Planned layout:
 
 ```
 skillswap/
