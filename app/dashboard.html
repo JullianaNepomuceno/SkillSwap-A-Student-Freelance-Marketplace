@@ -42,11 +42,13 @@
     <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
     <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-log-out" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M21 3v18"/></symbol>
   </svg>
   <!-- HEADER -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="index.html" aria-label="SkillSwap NU Laguna home">
+      <a class="brand" href="homepage.html" aria-label="SkillSwap NU Laguna home">
         <span class="brand__mark">
           <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
         </span>
@@ -57,7 +59,7 @@
       </a>
       <!-- NAVIGATION -->
       <nav class="main-nav" aria-label="Main">
-        <a href="index.html">Find a Commission</a>
+        <a href="homepage.html">Find a Commission</a>
         <a href="commission.html">Find Student Help</a>
         <a href="dashboard.html" aria-current="page">My Dashboard</a>
       </nav>
@@ -67,11 +69,23 @@
         <button class="icon-btn" type="button" aria-label="Notifications">
           <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
         </button>
-        <a class="user-chip" href="dashboard.html">
-          <span class="avatar">JS</span>
-          <span class="user-chip__name">Hi, Nationalian</span>
-          <svg class="ic ic-sm" aria-hidden="true"><use href="#i-chevron"/></svg>
-        </a>
+        <div class="user-menu">
+          <button class="user-chip" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu">
+            <span class="avatar">JS</span>
+            <span class="user-chip__name">Hi, Nationalian</span>
+            <svg class="ic ic-sm user-chip__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+          <div class="user-menu__dropdown" id="user-menu" role="menu" hidden>
+            <a href="dashboard.html" role="menuitem">
+              <svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>
+              Profile
+            </a>
+            <a href="login.html" role="menuitem">
+              <svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>
+              Log out
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -99,7 +113,7 @@
           </span>
           <h2>Browse commissions and earn ₱</h2>
           <p>Coding, design, writing, tutoring and more — pick a commission that matches your skills and get paid in PHP.</p>
-          <a class="btn btn--gold btn--sm" href="index.html">
+          <a class="btn btn--gold btn--sm" href="homepage.html">
             Browse Open Commissions <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
           </a>
         </div>
@@ -300,7 +314,7 @@
             <h2 id="open-title">Open commissions to apply <small>(Find work &amp; earn ₱)</small></h2>
             <p>Pick a commission that matches your skills and get paid by a fellow Nationalian.</p>
           </div>
-          <a class="btn btn--ghost btn--sm" href="index.html">Browse all commissions</a>
+          <a class="btn btn--ghost btn--sm" href="homepage.html">Browse all commissions</a>
         </div>
         <div class="card-grid">
           <article class="commission" data-category="Tutoring & Review">

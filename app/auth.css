@@ -1,0 +1,237 @@
+/* Authentication page layout and form states. */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-main {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 32px 24px 48px;
+}
+
+.auth-shell {
+  width: min(100%, 960px);
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 14px 40px rgba(20, 33, 61, .08);
+  overflow: hidden;
+}
+
+.auth-intro {
+  padding: 40px;
+  background: var(--navy);
+  color: #fff;
+}
+
+.auth-intro h1 {
+  margin: 24px 0 10px;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.auth-intro p {
+  color: var(--on-navy-muted);
+  line-height: 1.7;
+}
+
+.auth-benefits {
+  display: grid;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.auth-benefit {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 12px;
+  color: var(--on-navy);
+}
+
+.auth-benefit .ic { color: var(--gold); margin-top: 2px; }
+
+.auth-form-panel {
+  padding: 40px;
+}
+
+.auth-form-panel h2 {
+  color: var(--navy);
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.auth-subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.auth-form {
+  display: grid;
+  gap: 16px;
+}
+
+.auth-field {
+  display: grid;
+  gap: 6px;
+}
+
+.auth-field label {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.auth-field input,
+.auth-field select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  padding: 11px 12px;
+  font-size: 13px;
+}
+
+.auth-field input:focus,
+.auth-field select:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 .2rem rgba(27, 58, 140, .12);
+  outline: 0;
+}
+
+.auth-input-wrap {
+  position: relative;
+}
+
+.auth-input-wrap input { padding-right: 74px; }
+
+.password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.auth-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+}
+
+.auth-options input { accent-color: var(--navy); }
+
+.auth-link {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.auth-link:hover { text-decoration: underline; }
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--line);
+}
+
+.auth-note {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.password-strength {
+  display: grid;
+  gap: 5px;
+}
+
+.password-strength__track {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: var(--neutral-tint);
+}
+
+.password-strength__bar {
+  width: 0;
+  height: 100%;
+  background: var(--red);
+  transition: width .2s, background-color .2s;
+}
+
+.password-strength__label {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.auth-field .field__hint {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.auth-field .field__hint--error {
+  color: var(--red);
+}
+
+.auth-field.is-invalid input,
+.auth-field.is-invalid select {
+  border-color: var(--red);
+}
+
+.auth-field.is-valid input,
+.auth-field.is-valid select {
+  border-color: var(--green);
+}
+
+.auth-footer {
+  max-width: none;
+  width: 100%;
+  padding-inline: 24px;
+}
+
+@media (max-width: 768px) {
+  .auth-main { padding: 20px 16px 32px; }
+  .auth-shell { grid-template-columns: 1fr; }
+  .auth-intro { padding: 28px; }
+  .auth-intro h1 { font-size: 24px; }
+  .auth-benefits { grid-template-columns: repeat(3, 1fr); margin-top: 24px; }
+  .auth-form-panel { padding: 28px; }
+}
+
+@media (max-width: 520px) {
+  .auth-benefits { grid-template-columns: 1fr; }
+  .auth-form-panel, .auth-intro { padding: 24px 20px; }
+  .auth-options { align-items: flex-start; flex-direction: column; }
+}
