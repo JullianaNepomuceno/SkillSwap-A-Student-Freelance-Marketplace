@@ -531,3 +531,45 @@ tbody td { padding: 12px 16px; border-top: 1px solid var(--line); font-size: 12p
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* Commission cards use the current commission naming while older dashboard
+   markup still uses gig naming. Keep both surfaces visually consistent. */
+.commission {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 16px; display: flex; flex-direction: column; box-shadow: var(--shadow);
+}
+.commission__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.commission__cat { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; color: var(--navy); }
+.commission__cat-ic {
+  width: 28px; height: 28px; border-radius: 8px; background: var(--tint); color: var(--navy);
+  display: grid; place-items: center;
+}
+.commission__save { background: none; border: 0; color: var(--placeholder); padding: 4px; border-radius: 6px; display: grid; }
+.commission__save:hover { color: var(--navy); }
+.commission h3 { font-size: 15px; font-weight: 700; line-height: 1.3; }
+.commission__by { font-size: 11px; color: var(--muted); margin: 2px 0 8px; }
+.commission__desc {
+  font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.commission__meta { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; }
+.commission__foot { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--line); }
+.commission .gig__top,
+.commission .gig__meta,
+.commission .gig__foot { display: flex; }
+.commission .gig__top { justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.commission .gig__meta { justify-content: space-between; align-items: center; margin: 12px 0; }
+.commission .gig__foot { justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--line); }
+.commission .gig__cat { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; color: var(--navy); }
+.commission .gig__cat-ic {
+  width: 28px; height: 28px; border-radius: 8px; background: var(--tint); color: var(--navy);
+  display: grid; place-items: center;
+}
+.commission .gig__save { background: none; border: 0; color: var(--placeholder); padding: 4px; border-radius: 6px; display: grid; }
+.commission .gig__by { font-size: 11px; color: var(--muted); margin: 2px 0 8px; }
+.commission .gig__desc {
+  font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.commission .gig__save:hover { color: var(--navy); }
+.preview .commission { color: var(--ink); }
