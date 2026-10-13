@@ -7,7 +7,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Bootstrap provides the responsive wireframe grid and accessible UI primitives. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="bootstrap.patch.css">
 </head>
 <body>
 
@@ -54,8 +57,8 @@
       </a>
 
       <nav class="main-nav" aria-label="Main">
-        <a href="index.html" aria-current="page">Find a Commission</a>
-        <a href="commission.html">Find Student Help</a>
+        <a href="index.html">Find a Commission</a>
+        <a href="commission.html" aria-current="page">Find Student Help</a>
         <a href="dashboard.html">My Dashboard</a>
       </nav>
 
@@ -85,7 +88,7 @@
             <div class="detail__head">
               <span class="cat-tag">Arts &amp; Design</span>
               <span class="badge badge--open">Open</span>
-            </section>
+            </div>
             <h1>Logo for NU Laguna Org Fest</h1>
             <p class="posted"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-landmark"/></svg> Posted by Student Council · Oct 12, 2026</p>
             <dl class="facts">
@@ -220,5 +223,8 @@
     <span>© 2026 NU Laguna SkillSwap · Student-exclusive marketplace</span>
   </footer>
 
+  <!-- Bootstrap bundle enables future component behavior; app.js owns marketplace interactions. -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
