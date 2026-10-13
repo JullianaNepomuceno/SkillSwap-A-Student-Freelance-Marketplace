@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Dashboard · SkillSwap NU Laguna</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- SVG sprite sheet import -->
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="m17 3 4 4-4 4"/><path d="M3 7h18"/><path d="m7 21-4-4 4-4"/><path d="M21 17H3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 22a10 10 0 1 1 10-10c0 3-2 4-4 4h-2a2 2 0 0 0-1 3.7c.6.5.5 2.3-3 2.3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="12" cy="7" r="1"/><circle cx="16.5" cy="10" r="1"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+    <symbol id="i-landmark" viewBox="0 0 24 24"><path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="m12 2 9 5H3z"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.9 4.2 11 8l3.8 1.1L11 10.2 9.9 14l-1.1-3.8L5 9.1l3.8-1.1z"/><path d="m18 14 .7 2.3L21 17l-2.3.7L18 20l-.7-2.3L15 17l2.3-.7z"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
+  </svg>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="index.html" aria-label="SkillSwap NU Laguna home">
+        <span class="brand__mark">
+          <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
+        </span>
+        <span>
+          <span class="brand__name">SkillSwap</span>
+          <span class="brand__school">NU LAGUNA</span>
+        </span>
+      </a>
+      <!-- NAVIGATION -->
+      <nav class="main-nav" aria-label="Main">
+        <a href="index.html">Find a Commission</a>
+        <a href="commission.html">Find Student Help</a>
+        <a href="dashboard.html" aria-current="page">My Dashboard</a>
+      </nav>
+
+      <!-- USER BAR CODE -->
+      <div class="user-bar">
+        <button class="icon-btn" type="button" aria-label="Notifications">
+          <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
+        </button>
+        <a class="user-chip" href="dashboard.html">
+          <span class="avatar">JS</span>
+          <span class="user-chip__name">Hi, Nationalian</span>
+          <svg class="ic ic-sm" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="page">
+      <section class="hero" aria-labelledby="welcome">
+        <div>
+          <p class="hero__tag"><span class="hero__tag-mark">N</span>NU Laguna · For Nationalians</p>
+          <h1 id="welcome">Welcome back, Lyn! 👋</h1>
+          <p>Ready to earn or get help from a fellow Nationalian? Your campus marketplace is active.</p>
+        </div>
+        <div class="hero__stats">
+          <div class="stat"><strong>8</strong><span>Commissions posted</span></div>
+          <div class="hero__divider"></div>
+          <div class="stat"><strong>21</strong><span>Applications</span></div>
+          <div class="hero__badge"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-sparkles"/></svg></div>
+        </div>
+      </section>
+
+      <section class="cta-row" aria-label="Quick actions">
+        <div class="cta cta--navy">
+          <span class="cta__label">
+            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg> Find a commission
+          </span>
+          <h2>Browse commissions and earn ₱</h2>
+          <p>Coding, design, writing, tutoring and more — pick a commission that matches your skills and get paid in PHP.</p>
+          <a class="btn btn--gold btn--sm" href="index.html">
+            Browse Open Commissions <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </a>
+        </div>
+        <div class="cta cta--gold">
+          <span class="cta__label">
+            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-users"/></svg> Find student help
+          </span>
+          <h2>Post a commission and get student help</h2>
+          <p>Need help with a project? Post a commission with a student-friendly ₱ budget and connect with a skilled Nationalian.</p>
+          <a class="btn btn--primary btn--sm" href="post_gig.html">
+            Post a Commission <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </a>
+        </div>
+      </section>
+
+      <section class="stat-cards" aria-label="Summary">
+        <div class="card stat-card">
+          <div class="stat-card__label">Posted</div>
+          <div class="stat-card__num">8</div>
+          <div class="stat-card__sub">Commissions shared with campus</div>
+          <span class="stat-card__ic"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-card__label">In Progress</div>
+          <div class="stat-card__num">3</div>
+          <div class="stat-card__sub">Active collaborations</div>
+          <span class="stat-card__ic"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg></span>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-card__label">Completed</div>
+          <div class="stat-card__num stat-card__num--green">5</div>
+          <div class="stat-card__sub">Projects delivered</div>
+          <span class="stat-card__ic stat-card__ic--green"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg></span>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-card__label">Applications</div>
+          <div class="stat-card__num">21</div>
+          <div class="stat-card__sub">Received this week</div>
+          <span class="stat-card__ic"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-send"/></svg></span>
+        </div>
+      </section>
+
+      <section class="dash-grid" aria-label="Dashboard activity">
+        <div class="dash-side">
+          <section class="card chart-card" aria-labelledby="chart-title">
+            <div class="card__head card__head--flush">
+              <div><h2 id="chart-title">Applications / Week</h2></div>
+              <span class="chart-card__range">Oct 12–18, 2026</span>
+            </section>
+            <div class="chart-total"><strong>21</strong><span>↑ 5 more than last week</span></div>
+            <div class="bars" role="img" aria-label="Applications per day: Mon 2, Tue 3, Wed 4, Thu 6, Fri 2, Sat 3, Sun 1">
+              <div class="bars__col">2<div class="bars__bar" style="height:26%"></div></div>
+              <div class="bars__col">3<div class="bars__bar" style="height:39%"></div></div>
+              <div class="bars__col">4<div class="bars__bar" style="height:52%"></div></div>
+              <div class="bars__col bars__col--peak">6<div class="bars__bar" style="height:78%"></div></div>
+              <div class="bars__col">2<div class="bars__bar" style="height:26%"></div></div>
+              <div class="bars__col">3<div class="bars__bar" style="height:39%"></div></div>
+              <div class="bars__col">1<div class="bars__bar" style="height:13%"></div></div>
+            </div>
+            <div class="bars-days" aria-hidden="true">
+              <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+            <p class="chart-foot">Thursday was your busiest day with 6 applications. Keep the momentum going!</p>
+          </section>
+
+          <section class="upnext" aria-labelledby="upnext-title">
+            <p class="upnext__label" id="upnext-title">
+              <svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg> Up next
+            </p>
+            <h3>Logo for Org Fest</h3>
+            <p>Due Oct 20 · 3 students are waiting to hear from you.</p>
+            <a href="commission.html"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg> Review applicants</a>
+          </section>
+
+          <div class="note-card">
+            <svg class="ic ic-lg" aria-hidden="true"><use href="#i-cap"/></svg>
+            <h3>NU Laguna students only.</h3>
+            <p>SkillSwap is exclusive to NU Laguna students. Skill areas include Coding &amp; IT, Arts &amp; Design, Writing &amp; Research, Tutoring, and Media &amp; Content.</p>
+          </div>
+        </div>
+
+        <section class="card" aria-labelledby="mine-title">
+          <div class="mine__head">
+            <div>
+              <h2 id="mine-title">My Commissions</h2>
+              <p>Manage your listings, applicants, and active projects.</p>
+            </div>
+            <div class="mine__tools">
+              <label class="sr-only" for="mine-status">Filter by status</label>
+              <select class="select" id="mine-status">
+                <option>All statuses</option>
+                <option>Open</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+              </select>
+              <a class="btn btn--primary btn--sm" href="post_commission.html">
+                <svg class="ic ic-sm" aria-hidden="true"><use href="#i-plus"/></svg> Post a Commission
+              </a>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Commission name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Budget</th>
+                  <th scope="col">Deadline</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="title-cell">
+                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-palette"/></svg>
+                      <div><strong>Logo for Org Fest</strong><span>Arts & Design · 3 applicants</span></div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge--open">Open</span></td>
+                  <td class="rate">₱500</td>
+                  <td>Oct 20</td>
+                  <td><a class="btn btn--outline" href="commission.html">View applicants</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="title-cell">
+                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-code"/></svg>
+                      <div><strong>Club landing page</strong><span>Coding & IT · Ana Reyes</span></div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge--progress">In Progress</span></td>
+                  <td class="rate">₱1,500</td>
+                  <td>Oct 22</td>
+                  <td><a class="btn btn--outline" href="commission.html">Mark Completed</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="title-cell">
+                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-palette"/></svg>
+                      <div><strong>Social posts for Art Week</strong><span>Arts & Design · 1 applicant</span></div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge--open">Open</span></td>
+                  <td class="rate">₱700</td>
+                  <td>Oct 25</td>
+                  <td><a class="btn btn--outline" href="commission.html">View applicants</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="title-cell">
+                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-camera"/></svg>
+                      <div><strong>Event photo edits</strong><span>Media & Content · Sia Cruz</span></div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge--done">Completed</span></td>
+                  <td class="rate">₱400</td>
+                  <td>Oct 10</td>
+                  <td><a class="btn btn--outline" href="commission.html">View details</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="title-cell">
+                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-pen"/></svg>
+                      <div><strong>Polish a research abstract</strong><span>Writing & Research · Marc Santos</span></div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge--done">Completed</span></td>
+                  <td class="rate">₱250</td>
+                  <td>Oct 19</td>
+                  <td><a class="btn btn--outline" href="commission.html">View details</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="title-cell">
+                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-code"/></svg>
+                      <div><strong>Society website refresh</strong><span>Coding & IT · Dan Lim</span></div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge--progress">In Progress</span></td>
+                  <td class="rate">₱1,200</td>
+                  <td>Oct 24</td>
+                  <td><a class="btn btn--outline" href="commission.html">Mark Completed</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mine__foot">
+            <span>Showing 6 of 8 posted commissions</span>
+            <a href="#">View all commissions <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          </div>
+        </section>
+      </div>
+
+      <section aria-labelledby="open-title">
+        <div class="section-head">
+          <div>
+            <h2 id="open-title">Open commissions to apply <small>(Find work &amp; earn ₱)</small></h2>
+            <p>Pick a commission that matches your skills and get paid by a fellow Nationalian.</p>
+          </div>
+          <a class="btn btn--ghost btn--sm" href="index.html">Browse all commissions</a>
+        </div>
+        <div class="card-grid">
+          <article class="commission" data-category="Tutoring & Review">
+            <div class="gig__top">
+              <span class="gig__cat">
+                <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span>Tutoring & Review
+              </span>
+              <span class="gig__badge-new">NEW</span>
+            </div>
+            <h3>Calculus study sessions</h3>
+            <p class="gig__by">Mia Santos – 1st Year</p>
+            <p class="gig__desc">Help a first-year Nationalian review derivatives in two 1-hour online sessions.</p>
+            <div class="gig__meta">
+              <span class="price">₱800</span>
+              <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 23</span>
+            </div>
+            <div class="gig__foot">
+              <span class="pill">4 applicants</span>
+              <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+            </div>
+          </article>
+
+          <article class="commission" data-category="Writing & Research">
+            <div class="gig__top">
+              <span class="gig__cat">
+                <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span>Writing & Research
+              </span>
+              <button class="gig__save" type="button" aria-label="Save commission">
+                <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
+              </button>
+            </div>
+            <h3>NU campus newsletter article</h3>
+            <p class="gig__by">The Nationalian Press</p>
+            <p class="gig__desc">Write a 600-word feature on student-led sustainability projects on our campus.</p>
+            <div class="gig__meta">
+              <span class="price">₱350</span>
+              <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 18</span>
+            </div>
+            <div class="gig__foot">
+              <span class="pill">3 applicants</span>
+              <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+            </div>
+          </article>
+
+          <article class="commission" data-category="Coding & IT">
+            <div class="gig__top">
+              <span class="gig__cat">
+                <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span>Coding & IT
+              </span>
+              <button class="gig__save" type="button" aria-label="Save commission">
+                <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
+              </button>
+            </div>
+            <h3>Club landing page</h3>
+            <p class="gig__by">Dev Society – NU Laguna</p>
+            <p class="gig__desc">Build a responsive one-page site for our NU Laguna student developer community.</p>
+            <div class="gig__meta">
+              <span class="price">₱1,500</span>
+              <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 22</span>
+            </div>
+            <div class="gig__foot">
+              <span class="pill">5 applicants</span>
+              <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span class="brand">
+      <span class="brand__mark"><svg class="ic" aria-hidden="true"><use href="#i-swap"/></svg></span>
+      SkillSwap · NU Laguna · For Nationalians, by Nationalians.
+    </span>
+    <span>© 2026 NU Laguna SkillSwap · Student-exclusive marketplace</span>
+  </footer>
+
+</body>
+</html>

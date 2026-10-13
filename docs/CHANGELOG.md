@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Shelfd will be documented in this file.
+* All notable changes to Shelfd will be documented in this file.
 ---
 
 ## 10-12-2026
@@ -9,6 +9,7 @@ All notable changes to Shelfd will be documented in this file.
 
 * Created the initial HTML and CSS files.
 * Updated Repo Rulesets.
+* Reworked HTML and CSS files.
 
 ---
 

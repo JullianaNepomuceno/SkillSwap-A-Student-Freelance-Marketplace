@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- SVG sprite sheet import -->
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="i-swap" viewBox="0 0 24 24"><path d="m17 3 4 4-4 4"/><path d="M3 7h18"/><path d="m7 21-4-4 4-4"/><path d="M21 17H3"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
     <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
@@ -41,9 +41,10 @@
     <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
   </svg>
 
+<!-- HEADER -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="#browse" aria-label="SkillSwap NU Laguna home">
+      <a class="brand" href="index.html" aria-label="SkillSwap NU Laguna home">
         <span class="brand__mark">
           <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
         </span>
@@ -52,18 +53,18 @@
           <span class="brand__school">NU LAGUNA</span>
         </span>
       </a>
-
+      <!-- NAV BAR CODE-->
       <nav class="main-nav" aria-label="Main">
-        <a href="#browse">Find a Commission</a>
-        <a href="#post">Find Student Help</a>
-        <a href="#dashboard">My Dashboard</a>
+        <a href="index.html" aria-current="page">Find a Commission</a>
+        <a href="commission.html">Find Student Help</a>
+        <a href="dashboard.html">My Dashboard</a>
       </nav>
-
+      <!-- USER BAR CODE -->
       <div class="user-bar">
         <button class="icon-btn" type="button" aria-label="Notifications">
           <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
         </button>
-        <a class="user-chip" href="#dashboard">
+        <a class="user-chip" href="dashboard.html">
           <span class="avatar">JS</span>
           <span class="user-chip__name">Hi, Nationalian</span>
           <svg class="ic ic-sm" aria-hidden="true"><use href="#i-chevron"/></svg>
@@ -73,7 +74,8 @@
   </header>
 
   <main>
-    <section class="page screen" id="browse">
+    <div class="page">
+      <!-- HERO SECTION -->
       <section class="hero" aria-labelledby="hero-title">
         <div>
           <p class="hero__tag"><span class="hero__tag-mark">N</span>NU Laguna · For Nationalians</p>
@@ -89,16 +91,15 @@
           </div>
         </div>
       </section>
-
       <section class="cta-row" aria-label="What would you like to do?">
-        <a class="cta cta--navy" href="#browse">
+        <a class="cta cta--navy" href="index.html">
           <span class="cta__label">
             <svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg> Find a commission
           </span>
           <h2>Browse open commission and earn</h2>
           <p>Students post tasks they need done — pick one that matches your skills and get paid.</p>
         </a>
-        <a class="cta cta--gold" href="#post">
+        <a class="cta cta--gold" href="post_commission.html">
           <span class="cta__label">
             <svg class="ic ic-sm" aria-hidden="true"><use href="#i-users"/></svg> Find student help
           </span>
@@ -118,14 +119,14 @@
         </button>
       </form>
 
-      <div class="browse">
+      <section class="browse" aria-label="Browse commissions">
         <aside class="sidebar" aria-label="Filters">
           <form class="card filters" id="filters">
             <div class="filters__head">
               <h2>Filters</h2>
               <button class="link-gold" type="reset">Reset all</button>
-            </div>
-            <fieldset class="filter-group" style="border:0;margin:0;padding-inline:0;min-width:0">
+            </section>
+            <fieldset class="filter-group filter-group--fieldset">
               <legend class="sr-only">Skill area</legend>
               <h3 aria-hidden="true">Skill Area</h3>
               <label class="check"><input type="checkbox" name="skill" value="Coding & IT"> Coding & IT</label>
@@ -138,8 +139,10 @@
               <h3>Budget (PHP)</h3>
               <div class="range">
                 <div class="range__track"></div>
-                <input type="range" min="0" max="2000" value="0" step="50" aria-label="Minimum budget">
-                <input type="range" min="0" max="2000" value="2000" step="50" aria-label="Maximum budget">
+                <label class="sr-only" for="budget-min">Minimum budget</label>
+                <input id="budget-min" type="range" min="0" max="2000" value="0" step="50">
+                <label class="sr-only" for="budget-max">Maximum budget</label>
+                <input id="budget-max" type="range" min="0" max="2000" value="2000" step="50">
               </div>
               <div class="range-labels">
                 <span>₱0</span>
@@ -165,8 +168,8 @@
         <section aria-labelledby="results-title">
           <div class="results-head">
             <h2 id="results-title">Open commissions <small>(12 results)</small></h2>
-            <label class="sort">Sort by:
-              <select aria-label="Sort commissions">
+            <label class="sort" for="sort">Sort by:
+              <select id="sort">
                 <option>Newest first</option>
                 <option>Budget: high to low</option>
                 <option>Budget: low to high</option>
@@ -175,136 +178,136 @@
             </label>
           </div>
 
-          <div class="card-grid card-grid--browse">
-            <article class="gig" data-category="Arts & Design">
-              <div class="gig__top">
-                <span class="gig__cat">
-                  <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></span>Arts & Design
+          <div class="card-grid">
+            <article class="commission" data-category="Arts & Design">
+              <div class="commission__top">
+                <span class="commission__cat">
+                  <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></span>Arts & Design
                 </span>
-                <button class="gig__save" type="button" aria-label="Save commission">
+                <button class="commission__save" type="button" aria-label="Save commission">
                   <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
                 </button>
               </div>
               <h3>Logo for NU Laguna Org Fest</h3>
-              <p class="gig__by">Student Council – NU Laguna</p>
-              <p class="gig__desc">Create a vibrant logo for our annual campus organization fair representing all NU Laguna colleges.</p>
-              <div class="gig__meta">
+              <p class="commission__by">Student Council – NU Laguna</p>
+              <p class="commission__desc">Create a vibrant logo for our annual campus organization fair representing all NU Laguna colleges.</p>
+              <div class="commission__meta">
                 <span class="price">₱500</span>
                 <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 20</span>
               </div>
-              <div class="gig__foot">
+              <div class="commission__foot">
                 <span class="pill">3 applicants</span>
-                <a class="btn btn--primary btn--sm" href="#commission">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
               </div>
             </article>
 
-            <article class="gig" data-category="Coding & IT">
-              <div class="gig__top">
-                <span class="gig__cat">
-                  <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span>Coding & IT
+            <article class="commission" data-category="Coding & IT">
+              <div class="commission__top">
+                <span class="commission__cat">
+                  <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span>Coding & IT
                 </span>
-                <button class="gig__save" type="button" aria-label="Save commission">
+                <button class="commission__save" type="button" aria-label="Save commission">
                   <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
                 </button>
               </div>
               <h3>Club landing page</h3>
-              <p class="gig__by">Dev Society – NU Laguna</p>
-              <p class="gig__desc">Build a responsive one-page site for our NU Laguna student developer community.</p>
-              <div class="gig__meta">
+              <p class="commission__by">Dev Society – NU Laguna</p>
+              <p class="commission__desc">Build a responsive one-page site for our NU Laguna student developer community.</p>
+              <div class="commission__meta">
                 <span class="price">₱1,500</span>
                 <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 22</span>
               </div>
-              <div class="gig__foot">
+              <div class="commission__foot">
                 <span class="pill">5 applicants</span>
-                <a class="btn btn--primary btn--sm" href="#commission">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
               </div>
             </article>
 
-            <article class="gig" data-category="Writing & Research">
-              <div class="gig__top">
-                <span class="gig__cat">
-                  <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span>Writing & Research
+            <article class="commission" data-category="Writing & Research">
+              <div class="commission__top">
+                <span class="commission__cat">
+                  <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span>Writing & Research
                 </span>
-                <button class="gig__save" type="button" aria-label="Save commission">
+                <button class="commission__save" type="button" aria-label="Save commission">
                   <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
                 </button>
               </div>
               <h3>NU campus newsletter article</h3>
-              <p class="gig__by">The Nationalian Press</p>
-              <p class="gig__desc">Write a 600-word feature on student-led sustainability projects on our campus.</p>
-              <div class="gig__meta">
+              <p class="commission__by">The Nationalian Press</p>
+              <p class="commission__desc">Write a 600-word feature on student-led sustainability projects on our campus.</p>
+              <div class="commission__meta">
                 <span class="price">₱350</span>
                 <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 18</span>
               </div>
-              <div class="gig__foot">
+              <div class="commission__foot">
                 <span class="pill">2 applicants</span>
-                <a class="btn btn--primary btn--sm" href="#commission">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
               </div>
             </article>
 
-            <article class="gig" data-category="Tutoring & Review">
-              <div class="gig__top">
-                <span class="gig__cat">
-                  <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span>Tutoring & Review
+            <article class="commission" data-category="Tutoring & Review">
+              <div class="commission__top">
+                <span class="commission__cat">
+                  <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span>Tutoring & Review
                 </span>
-                <button class="gig__save" type="button" aria-label="Save commission">
+                <button class="commission__save" type="button" aria-label="Save commission">
                   <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
                 </button>
               </div>
               <h3>Calculus study sessions</h3>
-              <p class="gig__by">Eri Arandela – BSIT 1st Year</p>
-              <p class="gig__desc">Help a first-year Nationalian review derivatives in two 1-hour online sessions.</p>
-              <div class="gig__meta">
+              <p class="commission__by">Eri Arandela – BSIT 1st Year</p>
+              <p class="commission__desc">Help a first-year Nationalian review derivatives in two 1-hour online sessions.</p>
+              <div class="commission__meta">
                 <span class="price">₱800</span>
                 <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 23</span>
               </div>
-              <div class="gig__foot">
+              <div class="commission__foot">
                 <span class="pill">4 applicants</span>
-                <a class="btn btn--primary btn--sm" href="#commission">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
               </div>
             </article>
 
-            <article class="gig" data-category="Arts & Design">
-              <div class="gig__top">
-                <span class="gig__cat">
-                  <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></span>Arts & Design
+            <article class="commission" data-category="Arts & Design">
+              <div class="commission__top">
+                <span class="commission__cat">
+                  <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></span>Arts & Design
                 </span>
-                <button class="gig__save" type="button" aria-label="Save commission">
+                <button class="commission__save" type="button" aria-label="Save commission">
                   <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
                 </button>
               </div>
               <h3>Social posts for NU Art Week</h3>
-              <p class="gig__by">NU Arts Collective</p>
-              <p class="gig__desc">Design five eye-catching Instagram posts for our NU Laguna campus art week.</p>
-              <div class="gig__meta">
+              <p class="commission__by">NU Arts Collective</p>
+              <p class="commission__desc">Design five eye-catching Instagram posts for our NU Laguna campus art week.</p>
+              <div class="commission__meta">
                 <span class="price">₱700</span>
                 <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 25</span>
               </div>
-              <div class="gig__foot">
+              <div class="commission__foot">
                 <span class="pill">1 applicant</span>
-                <a class="btn btn--primary btn--sm" href="#commission">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
               </div>
             </article>
 
-            <article class="gig" data-category="Writing & Research">
-              <div class="gig__top">
-                <span class="gig__cat">
-                  <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span>Writing & Research
+            <article class="commission" data-category="Writing & Research">
+              <div class="commission__top">
+                <span class="commission__cat">
+                  <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span>Writing & Research
                 </span>
-                <button class="gig__save" type="button" aria-label="Save commission">
+                <button class="commission__save" type="button" aria-label="Save commission">
                   <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
                 </button>
               </div>
               <h3>Polish a research abstract</h3>
-              <p class="gig__by">Yana Nepomuceno – BSBA 3rd Year</p>
-              <p class="gig__desc">Edit a 300-word abstract for clarity, grammar, and academic tone for a research submission.</p>
-              <div class="gig__meta">
+              <p class="commission__by">Yana Nepomuceno – BSBA 3rd Year</p>
+              <p class="commission__desc">Edit a 300-word abstract for clarity, grammar, and academic tone for a research submission.</p>
+              <div class="commission__meta">
                 <span class="price">₱250</span>
                 <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 19</span>
               </div>
-              <div class="gig__foot">
+              <div class="commission__foot">
                 <span class="pill">2 applicants</span>
-                <a class="btn btn--primary btn--sm" href="#commission">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
               </div>
             </article>
           </div>
@@ -320,597 +323,7 @@
           </nav>
         </section>
       </div>
-    </section>
-
-    <section class="page screen" id="commission">
-      <div class="back-row">
-        <a class="back-link" href="#browse"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-left"/></svg> Back to Browse</a>
-        <span>Browse / Commission details</span>
-      </div>
-
-      <div class="detail">
-        <div class="detail__main">
-          <article class="card card--pad">
-            <div class="detail__head">
-              <span class="cat-tag">Arts &amp; Design</span>
-              <span class="badge badge--open">Open</span>
-            </div>
-            <h1>Logo for NU Laguna Org Fest</h1>
-            <p class="posted"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-landmark"/></svg> Posted by Student Council · Oct 12, 2026</p>
-            <dl class="facts">
-              <div><dt>Project budget</dt><dd class="price">₱500</dd></div>
-              <div><dt>Deadline</dt><dd>Oct 20, 2026</dd></div>
-              <div><dt>Applications</dt><dd>3 applicants</dd></div>
-            </dl>
-            <div class="prose">
-              <h2>About this commission</h2>
-              <p>Our annual Org Fest brings NU Laguna student organizations together for a day of discovery. We’re looking for a student designer to create a playful, vibrant logo that celebrates connection, creativity, and student life.</p>
-              <p>The logo will be used on event posters, social media, and booth signage. Please keep it clear at small sizes and use the NU Laguna blue and gold palette.</p>
-              <h3>What you’ll deliver</h3>
-              <ul class="bullets">
-                <li>Two initial logo concepts and one round of revisions</li>
-                <li>Final logo in SVG, PNG, and an editable source file</li>
-                <li>A full-color version and a single-color version</li>
-              </ul>
-            </div>
-          </article>
-
-          <section class="card client-view" aria-labelledby="client-view-title">
-            <div class="client-view__head">
-              <div>
-                <h2 id="client-view-title">Client View</h2>
-                <p>Review applications for this commission as the poster.</p>
-              </div>
-              <span class="badge badge--muted">3 applicants</span>
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th scope="col">Nationalian applicant</th>
-                    <th scope="col">Portfolio link</th>
-                    <th scope="col">Proposed rate (PHP)</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="who">
-                        <span class="avatar">AR</span>
-                        <div><strong>Alex Rivera</strong><span>Arts & Design · NU Laguna student</span></div>
-                      </div>
-                    </td>
-                    <td><a class="table-link" href="https://behance.net/alex">behance.net/alex</a></td>
-                    <td class="rate">₱500</td>
-                    <td>
-                      <div class="actions">
-                        <button class="btn btn--green" type="button">Accept</button>
-                        <button class="btn btn--red-soft" type="button">Reject</button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="who">
-                        <span class="avatar">BC</span>
-                        <div><strong>Bea Cruz</strong><span>Illustration · NU Laguna student</span></div>
-                      </div>
-                    </td>
-                    <td><a class="table-link" href="https://beacruz.design">beacruz.design</a></td>
-                    <td class="rate">₱450</td>
-                    <td>
-                      <div class="actions">
-                        <button class="btn btn--green" type="button">Accept</button>
-                        <button class="btn btn--red-soft" type="button">Reject</button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="who">
-                        <span class="avatar">NG</span>
-                        <div><strong>Nico Garcia</strong><span>Graphic Design · NU Laguna student</span></div>
-                      </div>
-                    </td>
-                    <td><a class="table-link" href="https://behance.net/nico">behance.net/nico</a></td>
-                    <td class="rate">₱500</td>
-                    <td>
-                      <div class="actions">
-                        <button class="btn btn--green" type="button">Accept</button>
-                        <button class="btn btn--red-soft" type="button">Reject</button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
-        </div>
-
-        <aside class="detail__side">
-          <section class="card apply" aria-labelledby="apply-title">
-            <h2 id="apply-title">Apply to this Commission</h2>
-            <p class="apply__intro">Introduce yourself and show why you’re a great fit for this project.</p>
-            <form action="apply.php" method="post" id="apply-form">
-              <div class="field">
-                <label for="full-name">Full Name</label>
-                <input class="input" id="full-name" name="full_name" type="text" value="Jamie Santos" required>
-              </div>
-              <div class="field">
-                <label for="proposal">Proposal</label>
-                <textarea class="textarea" id="proposal" name="proposal" rows="6" required>Hi Student Council! I’m a second-year design student. I’d love to create a bold, welcoming identity for Org Fest. I can share two concepts by Oct 16 and deliver the final files before Oct 20.</textarea>
-              </div>
-              <div class="field">
-                <label for="rate">Proposed Rate (PHP)</label>
-                <input class="input" id="rate" name="rate" type="text" inputmode="numeric" value="₱500" required>
-                <span class="field__hint">Stay within the ₱500 project budget.</span>
-              </div>
-              <button class="btn btn--primary btn--lg btn--block" type="submit">
-                <svg class="ic" aria-hidden="true"><use href="#i-send"/></svg> Submit Application
-              </button>
-              <p class="apply__fine">Your profile and portfolio will be shared with the client.</p>
-            </form>
-          </section>
-          <aside class="tip">
-            <strong><svg class="ic ic-sm" aria-hidden="true"><use href="#i-bulb"/></svg> Make your proposal count</strong>
-            Mention a relevant project, share your approach, and be realistic about your timeline. A little personality goes a long way.
-          </aside>
-        </aside>
-      </div>
-    </section>
-
-    <section class="page screen" id="post">
-      <a class="back-link" href="#browse"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-left"/></svg> Back to Find a Commission</a>
-
-      <section class="hero hero--compact" aria-labelledby="post-hero">
-        <div>
-          <p class="hero__tag"><span class="hero__tag-mark">N</span>NU Laguna · By Nationalians, for Nationalians</p>
-          <h1 id="post-hero">Find Student Help — Post a Commission</h1>
-          <p>Need help with a project or task? Post your commission and connect with a skilled Nationalian. Student-friendly budgets in ₱ PHP.</p>
-        </div>
-        <div class="hero__stats">
-          <div class="stat"><strong>12</strong><span>Open commissions</span></div>
-          <div class="hero__divider"></div>
-          <div class="stat"><strong>5</strong><span>Skill areas</span></div>
-          <div class="hero__badge">
-            <svg class="ic ic-lg" aria-hidden="true"><use href="#i-sparkles"/></svg>
-          </div>
-        </div>
-      </section>
-
-      <section class="cta-row" aria-label="Posting options">
-        <a class="cta cta--soft" href="#browse">
-          <span class="cta__label">
-            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg> Find a commission instead?
-          </span>
-          <p>Browse open commissions posted by fellow Nationalians and earn by using your skills.</p>
-        </a>
-        <div class="cta cta--soft-gold">
-          <span class="cta__label">
-            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-users"/></svg> You’re posting a commission
-          </span>
-          <p>Describe your task, set a student-friendly ₱ budget, and let skilled Nationalians apply.</p>
-        </div>
-      </section>
-
-      <div class="post-title">
-        <h2>Post a Commission</h2>
-        <p>Share what you need help with and a fair student budget in ₱ (Philippine Pesos). Only NU Laguna Nationalians can apply.</p>
-      </div>
-
-      <div class="post-grid">
-        <form class="card form-card" id="post-form" action="post_commission.php" method="post" novalidate>
-          <div class="form-card__head">
-            <h3><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg> Commission details</h3>
-            <span>All fields are required</span>
-          </div>
-          <div class="form-grid">
-            <div class="field">
-              <label for="title">Commission Title</label>
-              <input class="input" id="title" name="title" type="text" value="Logo for NU Laguna Org Fest" required>
-              <span class="field__hint">e.g. “Make a poster for our org event”, “Help me review Calculus”</span>
-            </div>
-            <div class="field">
-              <label for="category">Skill Area / Category</label>
-              <select class="select" id="category" name="category">
-                <option>Coding & IT</option>
-                <option selected>Arts & Design</option>
-                <option>Writing & Research</option>
-                <option>Tutoring & Review</option>
-                <option>Media & Content</option>
-              </select>
-              <div class="chips" role="group" aria-label="Quick pick skill area">
-                <button type="button" class="chip" aria-pressed="false">Coding & IT</button>
-                <button type="button" class="chip" aria-pressed="true">Arts & Design</button>
-                <button type="button" class="chip" aria-pressed="false">Writing & Research</button>
-                <button type="button" class="chip" aria-pressed="false">Tutoring & Review</button>
-                <button type="button" class="chip" aria-pressed="false">Media & Content</button>
-              </div>
-            </div>
-            <div class="form-split">
-              <div class="field field--error">
-                <span class="label-row">
-                  <label for="budget">Budget (Philippine Pesos)</label>
-                  <span class="tag-php">PHP</span>
-                </span>
-                <div class="field-wrap">
-                  <input class="input" id="budget" name="budget" type="text" inputmode="numeric" value="five hundred" aria-invalid="true" aria-describedby="budget-error budget-tip" required>
-                  <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>
-                </div>
-                <span class="field__hint field__hint--error" id="budget-error" role="alert">! Budget must be a number &gt; 0</span>
-                <span class="field__hint" id="budget-tip">Tip: Student-friendly budgets range from ₱100 – ₱2,000.</span>
-              </div>
-              <div class="field">
-                <span class="label-row"><label for="deadline">Deadline</label></span>
-                <div class="field-wrap field-wrap--date">
-                  <input class="input" id="deadline" name="deadline" type="date" value="2026-10-20" required>
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <label for="details">Details / Description</label>
-              <textarea class="textarea" id="details" name="details" rows="5" required>Create a fresh, vibrant logo for our annual campus organization fair. We need two initial concepts, one revision, and final SVG and PNG files. Use an NU blue and gold palette and deliver by Oct 20.</textarea>
-              <span class="field__hint">Include deliverables, requirements, and a realistic timeline. The more specific you are, the better the applicants.</span>
-            </div>
-            <div class="form-banner">
-              <svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>
-              Only NU Laguna Nationalians can view and apply to your commission. Keep budgets fair and campus-friendly.
-            </div>
-            <div class="form-foot">
-              <span class="form-foot__msg">Correct the budget to publish your commission.</span>
-              <button class="btn btn--ghost" type="reset">Cancel</button>
-              <button class="btn btn--primary" type="submit" disabled>
-                <svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg> Post Commission
-              </button>
-            </div>
-          </div>
-        </form>
-
-        <aside class="detail__side" aria-label="Preview and checklist">
-          <section class="preview" aria-labelledby="preview-title">
-            <div class="preview__head">
-              <h3 id="preview-title"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg> Live Preview</h3>
-              <span class="badge">Not published</span>
-            </div>
-            <p>Here’s how your commission will appear in the NU Laguna SkillSwap marketplace once published.</p>
-            <article class="gig">
-              <div class="gig__top">
-                <span class="gig__cat">
-                  <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></span>Arts &amp; Design
-                </span>
-                <span class="badge badge--draft">Draft</span>
-              </div>
-              <h3>Logo for NU Laguna Org Fest</h3>
-              <p class="gig__by">Jamie Santos – NU Laguna</p>
-              <p class="gig__desc">Create a fresh, vibrant logo for our annual campus organization fair. We need two initial concepts, one revision, and final SVG…</p>
-              <div class="gig__meta">
-                <span class="due" style="font-weight:600;color:var(--ink)">Budget pending</span>
-                <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 20</span>
-              </div>
-              <div class="gig__foot">
-                <span class="pill">0 applicants</span>
-                <span class="btn btn--ghost btn--sm" aria-disabled="true">View &amp; Apply</span>
-              </div>
-            </article>
-            <div class="preview__note">
-              <svg class="ic ic-sm" aria-hidden="true"><use href="#i-alert"/></svg> Your ₱ budget will appear here after you enter a valid number above.
-            </div>
-          </section>
-
-          <section class="card card--pad" aria-labelledby="checklist-title">
-            <h3 class="card__title" id="checklist-title" style="font-size:13px">Before you post</h3>
-            <ul class="checklist">
-              <li class="done"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Clear title and skill area category</li>
-              <li class="done"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Deadline and deliverables added</li>
-              <li class="todo"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg> Valid ₱ budget still needed</li>
-            </ul>
-            <div class="fair-note">
-              <svg class="ic ic-sm" aria-hidden="true"><use href="#i-bulb"/></svg>
-              <span>SkillSwap is for NU Laguna Nationalians only. Set a fair ₱ budget — good briefs attract the right student faster.</span>
-            </div>
-          </section>
-
-          <div class="note-card">
-            <svg class="ic ic-lg" aria-hidden="true"><use href="#i-cap"/></svg>
-            <h3>NU Laguna students only.</h3>
-            <p>SkillSwap is exclusive to the NU Laguna community. Build your portfolio, earn extra, and help fellow Nationalians — all within your campus.</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="page screen" id="dashboard">
-      <section class="hero" aria-labelledby="welcome">
-        <div>
-          <p class="hero__tag"><span class="hero__tag-mark">N</span>NU Laguna · For Nationalians</p>
-          <h1 id="welcome">Welcome back, Lyn! 👋</h1>
-          <p>Ready to earn or get help from a fellow Nationalian? Your campus marketplace is active.</p>
-        </div>
-        <div class="hero__stats">
-          <div class="stat"><strong>8</strong><span>Commissions posted</span></div>
-          <div class="hero__divider"></div>
-          <div class="stat"><strong>21</strong><span>Applications</span></div>
-          <div class="hero__badge"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-sparkles"/></svg></div>
-        </div>
-      </section>
-
-      <section class="cta-row" aria-label="Quick actions">
-        <div class="cta cta--navy">
-          <span class="cta__label">
-            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg> Find a commission
-          </span>
-          <h2>Browse commissions and earn ₱</h2>
-          <p>Coding, design, writing, tutoring and more — pick a commission that matches your skills and get paid in PHP.</p>
-          <a class="btn btn--gold btn--sm" href="#browse">
-            Browse Open Commissions <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-          </a>
-        </div>
-        <div class="cta cta--gold">
-          <span class="cta__label">
-            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-users"/></svg> Find student help
-          </span>
-          <h2>Post a commission and get student help</h2>
-          <p>Need help with a project? Post a commission with a student-friendly ₱ budget and connect with a skilled Nationalian.</p>
-          <a class="btn btn--primary btn--sm" href="#post">
-            Post a Commission <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-          </a>
-        </div>
-      </section>
-
-      <section class="stat-cards" aria-label="Summary">
-        <div class="card stat-card">
-          <div class="stat-card__label">Posted</div>
-          <div class="stat-card__num">8</div>
-          <div class="stat-card__sub">Commissions shared with campus</div>
-          <span class="stat-card__ic"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-card__label">In Progress</div>
-          <div class="stat-card__num">3</div>
-          <div class="stat-card__sub">Active collaborations</div>
-          <span class="stat-card__ic"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg></span>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-card__label">Completed</div>
-          <div class="stat-card__num stat-card__num--green">5</div>
-          <div class="stat-card__sub">Projects delivered</div>
-          <span class="stat-card__ic stat-card__ic--green"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg></span>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-card__label">Applications</div>
-          <div class="stat-card__num">21</div>
-          <div class="stat-card__sub">Received this week</div>
-          <span class="stat-card__ic"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-send"/></svg></span>
-        </div>
-      </section>
-
-      <div class="dash-grid">
-        <div class="dash-side">
-          <section class="card chart-card" aria-labelledby="chart-title">
-            <div class="card__head" style="margin-bottom:0">
-              <div><h2 id="chart-title">Applications / Week</h2></div>
-              <span class="chart-card__range">Oct 12–18, 2026</span>
-            </div>
-            <div class="chart-total"><strong>21</strong><span>↑ 5 more than last week</span></div>
-            <div class="bars" role="img" aria-label="Applications per day: Mon 2, Tue 3, Wed 4, Thu 6, Fri 2, Sat 3, Sun 1">
-              <div class="bars__col">2<div class="bars__bar" style="height:26%"></div></div>
-              <div class="bars__col">3<div class="bars__bar" style="height:39%"></div></div>
-              <div class="bars__col">4<div class="bars__bar" style="height:52%"></div></div>
-              <div class="bars__col bars__col--peak">6<div class="bars__bar" style="height:78%"></div></div>
-              <div class="bars__col">2<div class="bars__bar" style="height:26%"></div></div>
-              <div class="bars__col">3<div class="bars__bar" style="height:39%"></div></div>
-              <div class="bars__col">1<div class="bars__bar" style="height:13%"></div></div>
-            </div>
-            <div class="bars-days" aria-hidden="true">
-              <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-            </div>
-            <p class="chart-foot">Thursday was your busiest day with 6 applications. Keep the momentum going!</p>
-          </section>
-
-          <section class="upnext" aria-labelledby="upnext-title">
-            <p class="upnext__label" id="upnext-title">
-              <svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg> Up next
-            </p>
-            <h3>Logo for Org Fest</h3>
-            <p>Due Oct 20 · 3 students are waiting to hear from you.</p>
-            <a href="#commission"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg> Review applicants</a>
-          </section>
-
-          <div class="note-card">
-            <svg class="ic ic-lg" aria-hidden="true"><use href="#i-cap"/></svg>
-            <h3>NU Laguna students only.</h3>
-            <p>SkillSwap is exclusive to NU Laguna students. Skill areas include Coding &amp; IT, Arts &amp; Design, Writing &amp; Research, Tutoring, and Media &amp; Content.</p>
-          </div>
-        </div>
-
-        <section class="card" aria-labelledby="mine-title">
-          <div class="mine__head">
-            <div>
-              <h2 id="mine-title">My Commissions</h2>
-              <p>Manage your listings, applicants, and active projects.</p>
-            </div>
-            <div class="mine__tools">
-              <select class="select" aria-label="Filter by status">
-                <option>All statuses</option>
-                <option>Open</option>
-                <option>In Progress</option>
-                <option>Completed</option>
-              </select>
-              <a class="btn btn--primary btn--sm" href="#post">
-                <svg class="ic ic-sm" aria-hidden="true"><use href="#i-plus"/></svg> Post a Commission
-              </a>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Commission name</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Budget</th>
-                  <th scope="col">Deadline</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="title-cell">
-                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-palette"/></svg>
-                      <div><strong>Logo for Org Fest</strong><span>Arts & Design · 3 applicants</span></div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge--open">Open</span></td>
-                  <td class="rate">₱500</td>
-                  <td>Oct 20</td>
-                  <td><a class="btn btn--outline" href="#commission">View applicants</a></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="title-cell">
-                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-code"/></svg>
-                      <div><strong>Club landing page</strong><span>Coding & IT · Ana Reyes</span></div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge--progress">In Progress</span></td>
-                  <td class="rate">₱1,500</td>
-                  <td>Oct 22</td>
-                  <td><a class="btn btn--outline" href="#commission">Mark Completed</a></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="title-cell">
-                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-palette"/></svg>
-                      <div><strong>Social posts for Art Week</strong><span>Arts & Design · 1 applicant</span></div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge--open">Open</span></td>
-                  <td class="rate">₱700</td>
-                  <td>Oct 25</td>
-                  <td><a class="btn btn--outline" href="#commission">View applicants</a></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="title-cell">
-                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-camera"/></svg>
-                      <div><strong>Event photo edits</strong><span>Media & Content · Sia Cruz</span></div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge--done">Completed</span></td>
-                  <td class="rate">₱400</td>
-                  <td>Oct 10</td>
-                  <td><a class="btn btn--outline" href="#commission">View details</a></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="title-cell">
-                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-pen"/></svg>
-                      <div><strong>Polish a research abstract</strong><span>Writing & Research · Marc Santos</span></div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge--done">Completed</span></td>
-                  <td class="rate">₱250</td>
-                  <td>Oct 19</td>
-                  <td><a class="btn btn--outline" href="#commission">View details</a></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="title-cell">
-                      <svg class="ic ic-sm" aria-hidden="true"><use href="#i-code"/></svg>
-                      <div><strong>Society website refresh</strong><span>Coding & IT · Dan Lim</span></div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge--progress">In Progress</span></td>
-                  <td class="rate">₱1,200</td>
-                  <td>Oct 24</td>
-                  <td><a class="btn btn--outline" href="#commission">Mark Completed</a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="mine__foot">
-            <span>Showing 6 of 8 posted commissions</span>
-            <a href="#">View all commissions <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-          </div>
-        </section>
-      </div>
-
-      <section aria-labelledby="open-title">
-        <div class="section-head" style="margin-bottom:14px">
-          <div>
-            <h2 id="open-title">Open commissions to apply <small>(Find work &amp; earn ₱)</small></h2>
-            <p>Pick a commission that matches your skills and get paid by a fellow Nationalian.</p>
-          </div>
-          <a class="btn btn--ghost btn--sm" href="#browse">Browse all commissions</a>
-        </div>
-        <div class="card-grid">
-          <article class="gig" data-category="Tutoring & Review">
-            <div class="gig__top">
-              <span class="gig__cat">
-                <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span>Tutoring & Review
-              </span>
-              <span class="gig__badge-new">NEW</span>
-            </div>
-            <h3>Calculus study sessions</h3>
-            <p class="gig__by">Mia Santos – 1st Year</p>
-            <p class="gig__desc">Help a first-year Nationalian review derivatives in two 1-hour online sessions.</p>
-            <div class="gig__meta">
-              <span class="price">₱800</span>
-              <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 23</span>
-            </div>
-            <div class="gig__foot">
-              <span class="pill">4 applicants</span>
-              <a class="btn btn--primary btn--sm" href="#commission">View &amp; Apply</a>
-            </div>
-          </article>
-
-          <article class="gig" data-category="Writing & Research">
-            <div class="gig__top">
-              <span class="gig__cat">
-                <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span>Writing & Research
-              </span>
-              <button class="gig__save" type="button" aria-label="Save commission">
-                <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
-              </button>
-            </div>
-            <h3>NU campus newsletter article</h3>
-            <p class="gig__by">The Nationalian Press</p>
-            <p class="gig__desc">Write a 600-word feature on student-led sustainability projects on our campus.</p>
-            <div class="gig__meta">
-              <span class="price">₱350</span>
-              <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 18</span>
-            </div>
-            <div class="gig__foot">
-              <span class="pill">3 applicants</span>
-              <a class="btn btn--primary btn--sm" href="#commission">View &amp; Apply</a>
-            </div>
-          </article>
-
-          <article class="gig" data-category="Coding & IT">
-            <div class="gig__top">
-              <span class="gig__cat">
-                <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span>Coding & IT
-              </span>
-              <button class="gig__save" type="button" aria-label="Save commission">
-                <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
-              </button>
-            </div>
-            <h3>Club landing page</h3>
-            <p class="gig__by">Dev Society – NU Laguna</p>
-            <p class="gig__desc">Build a responsive one-page site for our NU Laguna student developer community.</p>
-            <div class="gig__meta">
-              <span class="price">₱1,500</span>
-              <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 22</span>
-            </div>
-            <div class="gig__foot">
-              <span class="pill">5 applicants</span>
-              <a class="btn btn--primary btn--sm" href="#commission">View &amp; Apply</a>
-            </div>
-          </article>
-        </div>
-      </section>
-    </section>
+    </div>
   </main>
 
   <footer class="site-footer">
