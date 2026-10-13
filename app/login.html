@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in · SkillSwap NU Laguna</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Bootstrap provides the same responsive base used across the marketplace. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="bootstrap.patch.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body class="auth-page">
+  <!-- Shared logo icon definition used by the marketplace pages. -->
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-swap" viewBox="0 0 24 24">
+      <path d="m17 3 4 4-4 4"/>
+      <path d="M3 7h18"/>
+      <path d="m7 21-4-4 4-4"/>
+      <path d="M21 17H3"/>
+    </symbol>
+  </svg>
+
+  <!-- Shared SkillSwap brand header. -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="homepage.html" aria-label="SkillSwap NU Laguna home">
+        <span class="brand__mark">
+          <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
+        </span>
+        <span>
+          <span class="brand__name">SkillSwap</span>
+          <span class="brand__school">NU LAGUNA</span>
+        </span>
+      </a>
+      <div class="user-bar">
+        <span class="user-chip__name">New to SkillSwap?</span>
+        <a class="btn btn--gold btn--sm" href="signup.html">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <section class="auth-shell" aria-labelledby="login-title">
+      <aside class="auth-intro">
+        <p class="hero__tag"><span class="hero__tag-mark">N</span>NU Laguna · For Nationalians</p>
+        <h1>Your campus skills marketplace.</h1>
+        <p>Connect with fellow students, earn from your skills, and get help with projects that matter.</p>
+        <div class="auth-benefits">
+          <div class="auth-benefit"><span aria-hidden="true">✓</span><span>Find student-friendly commissions</span></div>
+          <div class="auth-benefit"><span aria-hidden="true">✓</span><span>Build your campus portfolio</span></div>
+          <div class="auth-benefit"><span aria-hidden="true">✓</span><span>Work with fellow Nationalians</span></div>
+        </div>
+      </aside>
+
+      <div class="auth-form-panel">
+        <h2 id="login-title">Welcome back</h2>
+        <p class="auth-subtitle">Log in to manage your commissions and applications.</p>
+        <form class="auth-form" id="login-form" action="login.php" method="post" novalidate>
+          <div class="auth-field">
+            <label for="email">School email</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@national-u.edu.ph" required>
+            <span class="field__hint">Use the email connected to your SkillSwap account.</span>
+          </div>
+          <div class="auth-field">
+            <label for="password">Password</label>
+            <div class="auth-input-wrap">
+              <input id="password" name="password" type="password" autocomplete="current-password" minlength="8" required>
+              <button class="password-toggle" type="button" data-target="password" aria-label="Show password">Show</button>
+            </div>
+          </div>
+          <div class="auth-options">
+            <label><input type="checkbox" name="remember"> Remember me</label>
+            <a class="auth-link" href="signup.html">Create an account</a>
+          </div>
+          <button class="btn btn--primary btn--lg btn--block" type="submit">Log in</button>
+          <div class="auth-divider">or</div>
+          <p class="auth-note">Don’t have an account? <a class="auth-link" href="signup.html">Create one</a></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer auth-footer"><span>© 2026 NU Laguna SkillSwap · Student-exclusive marketplace</span></footer>
+  <script src="auth.js"></script>
+</body>
+</html>
