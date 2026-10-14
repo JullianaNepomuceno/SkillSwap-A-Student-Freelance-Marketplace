@@ -1,6 +1,6 @@
 # Changelog
 
-* All notable changes to Shelfd will be documented in this file.
+* All notable changes to SkillSwap will be documented in this file.
 ---
 ## 10-14-2026
 
