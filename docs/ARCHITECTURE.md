@@ -7,14 +7,14 @@ SkillSwap is a classic server-rendered web app: PHP generates pages from MySQL d
 ```
 ┌────────────────────────┐        HTTP         ┌────────────────────────┐
 │        Browser         │ ◄─────────────────► │   Apache + PHP         │
-│  HTML / CSS / JS       │   GET / POST        │   (index.php, gig.php, │
-│  Chart.js              │                     │   post_gig.php, ...)   │
+│  HTML / CSS / JS       │   GET / POST        │   (index.php, commission.php, │
+│  Chart.js              │                     │   post_commission.php, ...)   │
 └────────────────────────┘                     └───────────┬────────────┘
                                                            │ prepared SQL
                                                            ▼
                                                ┌────────────────────────┐
                                                │        MySQL           │
-                                               │  gigs · applications   │
+                                               │  commissions · applications   │
                                                └────────────────────────┘
 ```
 
@@ -26,23 +26,23 @@ SkillSwap is a classic server-rendered web app: PHP generates pages from MySQL d
 | **CSS3** | Layout (Grid/Flexbox), status badges, hover effects, responsive breakpoints |
 | **JavaScript** | Form validation, live preview, filter/search via DOM manipulation, Chart.js rendering |
 | **PHP** | Request handling, server-side validation, sanitizing, prepared queries, page rendering |
-| **MySQL** | Persistent storage of gigs and applications |
+| **MySQL** | Persistent storage of commissions and applications |
 
 ## Request Flows
 
-### Browse gigs
+### Browse commissions
 1. Browser requests `index.php`.
-2. PHP queries open gigs (with applicant counts) from MySQL.
-3. PHP renders gig cards into the HTML.
+2. PHP queries open commissions (with applicant counts) from MySQL.
+3. PHP renders commission cards into the HTML.
 4. JavaScript attaches filter/search listeners and hides or shows cards client-side.
 
-### Post a gig
-1. Client fills in `post_gig.php`; JS validates and updates the live preview.
+### Post a commission
+1. Client fills in `post_commission.php`; JS validates and updates the live preview.
 2. Form is submitted via `POST`.
-3. PHP validates and sanitizes, inserts into `gigs` with a prepared statement, and redirects to the board.
+3. PHP validates and sanitizes, inserts into `commissions` with a prepared statement, and redirects to the board.
 
-### Apply to a gig
-1. Freelancer opens `gig.php?id=<n>`; PHP loads the gig and its applicants.
+### Apply to a commission
+1. Freelancer opens `commission.php?id=<n>`; PHP loads the commission and its applicants.
 2. Freelancer submits the application form (`POST`).
 3. PHP validates, inserts into `applications` with status `Pending`, and reloads the page.
 4. The client can accept or reject; PHP updates the application status.
@@ -57,9 +57,11 @@ SkillSwap is a classic server-rendered web app: PHP generates pages from MySQL d
 | --- | --- |
 | `includes/db.php` | Single place that opens the MySQL connection |
 | `includes/header.php` / `footer.php` | Shared navigation and layout |
-| `assets/js/filter.js` | Category filter and keyword search |
-| `assets/js/validate.js` | Form validation and live preview |
-| `assets/js/chart.js` | Dashboard chart initialization |
+| `app/css/styles.css` | Shared layout, components, and responsive styles |
+| `app/css/auth.css` | Login and signup page styles |
+| `app/js/ui.js` | Shared toast and live-region helper |
+| `app/js/app.js` | Marketplace interactions and live preview |
+| `app/js/auth.js` | Authentication form validation |
 
 ## Design Decisions
 

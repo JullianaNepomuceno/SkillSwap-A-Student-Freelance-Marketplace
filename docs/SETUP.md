@@ -14,6 +14,8 @@ git clone https://github.com/<your-username>/skillswap.git
 cd skillswap
 ```
 
+The static frontend pages are in `app/`. Shared styles are in `app/css/`, and browser scripts are in `app/js/`. The HTML pages remain at the root of `app/`.
+
 ## 2. Create the database
 
 **Option A: command line**
@@ -63,4 +65,4 @@ Then open `http://localhost:8000/`.
 | "Database connection failed" | Check MySQL is running and the credentials in `includes/db.php` |
 | Blank page | Enable `display_errors` in `php.ini` while developing |
 | Chart does not appear | Confirm the Chart.js script loads (check the browser console) |
-| Foreign key error on import | Make sure the `gigs` table is created before `applications` |
+| Foreign key error on import | Make sure the `commissions` table is created before `applications` |

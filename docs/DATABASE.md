@@ -6,10 +6,10 @@
 
 ```
 ┌─────────────────────┐  1        N  ┌──────────────────────────┐
-│        gigs         │──────────────│       applications       │
+│        commissions         │──────────────│       applications       │
 ├─────────────────────┤              ├──────────────────────────┤
 │ id (PK)             │              │ id (PK)                  │
-│ title               │              │ gig_id (FK → gigs.id)    │
+│ title               │              │ commission_id (FK → commissions.id)    │
 │ category            │              │ freelancer_name          │
 │ description         │              │ proposal                 │
 │ budget              │              │ proposed_rate            │
@@ -19,9 +19,9 @@
 └─────────────────────┘
 ```
 
-One gig can have many applications.
+One commission can have many applications.
 
-## Table: `gigs`
+## Table: `commissions`
 
 | Column | Type | Notes |
 | --- | --- | --- |
@@ -39,7 +39,7 @@ One gig can have many applications.
 | Column | Type | Notes |
 | --- | --- | --- |
 | `id` | INT, PK, auto-increment | |
-| `gig_id` | INT, FK → `gigs.id` | `ON DELETE CASCADE` |
+| `commission_id` | INT, FK → `commissions.id` | `ON DELETE CASCADE` |
 | `freelancer_name` | VARCHAR(100) | |
 | `proposal` | TEXT | |
 | `proposed_rate` | DECIMAL(10,2) | Pesos, must be > 0 |
@@ -52,25 +52,25 @@ One gig can have many applications.
 
 Use **prepared statements** in PHP for every query that takes user input.
 
-**Open gigs with applicant counts (Browse Gigs):**
+**Open commissions with applicant counts (Browse commissions):**
 ```sql
 SELECT g.*, COUNT(a.id) AS applicants
-FROM gigs g
-LEFT JOIN applications a ON a.gig_id = g.id
+FROM commissions g
+LEFT JOIN applications a ON a.commission_id = g.id
 WHERE g.status = 'Open'
 GROUP BY g.id
 ORDER BY g.created_at DESC;
 ```
 
-**Insert a gig:**
+**Insert a commission:**
 ```sql
-INSERT INTO gigs (title, category, description, budget, deadline)
+INSERT INTO commissions (title, category, description, budget, deadline)
 VALUES (?, ?, ?, ?, ?);
 ```
 
 **Insert an application:**
 ```sql
-INSERT INTO applications (gig_id, freelancer_name, proposal, proposed_rate)
+INSERT INTO applications (commission_id, freelancer_name, proposal, proposed_rate)
 VALUES (?, ?, ?, ?);
 ```
 
@@ -83,14 +83,14 @@ GROUP BY DATE(created_at)
 ORDER BY day;
 ```
 
-**Gig counts by status (Dashboard summary):**
+**commission counts by status (Dashboard summary):**
 ```sql
 SELECT status, COUNT(*) AS total
-FROM gigs
+FROM commissions
 GROUP BY status;
 ```
 
-**Update gig status:**
+**Update commission status:**
 ```sql
-UPDATE gigs SET status = ? WHERE id = ?;
+UPDATE commissions SET status = ? WHERE id = ?;
 ```

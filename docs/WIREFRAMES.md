@@ -2,16 +2,16 @@
 
 Low-fidelity layouts for the four main screens.
 
-## Screen 1: Browse Gigs (`index.php`)
+## Screen 1: Browse commissions (`index.php`)
 CSS Grid · JS filter · PHP/MySQL loop
 
 ```
 +-----------------------------------------------------------------------+
-| SKILLSWAP  [Browse] [Post a Gig] [My Dashboard]      [ Hi, Student ]  |
+| SKILLSWAP  [Browse] [Post a commission] [My Dashboard]      [ Hi, Student ]  |
 +-----------------------------------------------------------------------+
-| Find a gig: [ Search keyword...                 ]  [ Search ]         |
+| Find a commission: [ Search keyword...                 ]  [ Search ]         |
 +-----------------------+-----------------------------------------------+
-| FILTERS (JS)          | OPEN GIGS (12 results)                        |
+| FILTERS (JS)          | OPEN commissionS (12 results)                        |
 | Category:             | +--------------------+ +--------------------+ |
 | [x] Graphic Design    | | Logo for Org Fest  | | Python Tutoring    | |
 | [ ] Web Development   | | Graphic Design     | | Tutoring           | |
@@ -19,18 +19,18 @@ CSS Grid · JS filter · PHP/MySQL loop
 | [ ] Tutoring          | | 3 applicants       | | 1 applicant        | |
 |                       | | [ View & Apply ]   | | [ View & Apply ]   | |
 | Budget: P0 --o-- P2k  | +--------------------+ +--------------------+ |
-| Status: [ Open v ]    |   ...more gig cards...  [ 1 ] [ 2 ] [ 3 ]     |
+| Status: [ Open v ]    |   ...more commission cards...  [ 1 ] [ 2 ] [ 3 ]     |
 +-----------------------+-----------------------------------------------+
 ```
 
-## Screen 2: Gig Details & Apply (`gig.php?id=1`)
+## Screen 2: commission Details & Apply (`commission.php?id=1`)
 PHP POST · JS validation
 
 ```
 +-----------------------------------------------------------------------+
 | < Back to Browse                                   [ Hi, Student ]    |
 +-------------------------------------+---------------------------------+
-| Logo for Org Fest                   | Apply to this Gig               |
+| Logo for Org Fest                   | Apply to this commission               |
 | Graphic Design | Status: Open       | Name: [ Juan D.          ]      |
 | Budget: P500   Due: Oct 20          | Proposal:                       |
 | Posted by: Student Council          | [ I can deliver in 3 days ]     |
@@ -45,7 +45,7 @@ PHP POST · JS validation
 +-----------------------------------------------------------------------+
 ```
 
-## Screen 3: Post a Gig (`post_gig.php`)
+## Screen 3: Post a commission (`post_commission.php`)
 JS validation · live preview
 
 ```
@@ -58,7 +58,7 @@ JS validation · live preview
 | Deadline: [ 2026-10-20 ]            | | Graphic Design          |     |
 | Details:  [ Need a logo and... ]    | | P500 | Due Oct 20       |     |
 |                                     | | Status: Open            |     |
-| [ Post Gig ]                        | +-------------------------+     |
+| [ Post commission ]                        | +-------------------------+     |
 |                                     |                                 |
 | ! Budget must be a number > 0       |                                 |
 +-------------------------------------+---------------------------------+
@@ -71,7 +71,7 @@ Chart.js · PHP/MySQL loop
 +-----------------------------------------------------------------------+
 | Posted: 8     In Progress: 3     Completed: 5     Applications: 21    |
 +-----------------------------+-----------------------------------------+
-| Applications / Week (JS)    | My Gigs                    Status       |
+| Applications / Week (JS)    | My commissions                    Status       |
 |   8|    *                   | Logo Design                Open         |
 |   4|  * * *   *             | Python Tutoring            In Progress  |
 |   0+------------            | Poster Layout              Completed    |

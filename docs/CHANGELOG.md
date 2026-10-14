@@ -2,6 +2,14 @@
 
 * All notable changes to Shelfd will be documented in this file.
 ---
+## 10-14-2026
+
+### Frontend
+
+* Reorganized frontend styles and scripts into `app/css/` and `app/js/`.
+* Centralized the shared toast helper and completed the commission naming cleanup.
+
+---
 ## 10-13-2026
 
 ### Frontend

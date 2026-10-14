@@ -9,8 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Bootstrap provides the responsive wireframe grid and accessible UI primitives. -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="bootstrap.patch.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <!-- SVG sprite sheet import -->
@@ -95,7 +94,7 @@
       <section class="hero" aria-labelledby="welcome">
         <div>
           <p class="hero__tag"><span class="hero__tag-mark">N</span>NU Laguna · For Nationalians</p>
-          <h1 id="welcome">Welcome back, Lyn! 👋</h1>
+          <h1 id="welcome">Welcome back, Nationalian!</h1>
           <p>Ready to earn or get help from a fellow Nationalian? Your campus marketplace is active.</p>
         </div>
         <div class="hero__stats">
@@ -123,7 +122,7 @@
           </span>
           <h2>Post a commission and get student help</h2>
           <p>Need help with a project? Post a commission with a student-friendly ₱ budget and connect with a skilled Nationalian.</p>
-          <a class="btn btn--primary btn--sm" href="post_gig.html">
+          <a class="btn btn--primary btn--sm" href="post_commission.html">
             Post a Commission <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
           </a>
         </div>
@@ -318,64 +317,64 @@
         </div>
         <div class="card-grid">
           <article class="commission" data-category="Tutoring & Review">
-            <div class="gig__top">
-              <span class="gig__cat">
-                <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span>Tutoring & Review
+            <div class="commission__top">
+              <span class="commission__cat">
+                <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg></span>Tutoring & Review
               </span>
-              <span class="gig__badge-new">NEW</span>
+              <span class="commission__badge-new">NEW</span>
             </div>
             <h3>Calculus study sessions</h3>
-            <p class="gig__by">Mia Santos – 1st Year</p>
-            <p class="gig__desc">Help a first-year Nationalian review derivatives in two 1-hour online sessions.</p>
-            <div class="gig__meta">
+            <p class="commission__by">Mia Santos – 1st Year</p>
+            <p class="commission__desc">Help a first-year Nationalian review derivatives in two 1-hour online sessions.</p>
+            <div class="commission__meta">
               <span class="price">₱800</span>
               <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 23</span>
             </div>
-            <div class="gig__foot">
+            <div class="commission__foot">
               <span class="pill">4 applicants</span>
               <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
             </div>
           </article>
 
           <article class="commission" data-category="Writing & Research">
-            <div class="gig__top">
-              <span class="gig__cat">
-                <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span>Writing & Research
+            <div class="commission__top">
+              <span class="commission__cat">
+                <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span>Writing & Research
               </span>
-              <button class="gig__save" type="button" aria-label="Save commission">
+              <button class="commission__save" type="button" aria-label="Save commission">
                 <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
               </button>
             </div>
             <h3>NU campus newsletter article</h3>
-            <p class="gig__by">The Nationalian Press</p>
-            <p class="gig__desc">Write a 600-word feature on student-led sustainability projects on our campus.</p>
-            <div class="gig__meta">
+            <p class="commission__by">The Nationalian Press</p>
+            <p class="commission__desc">Write a 600-word feature on student-led sustainability projects on our campus.</p>
+            <div class="commission__meta">
               <span class="price">₱350</span>
               <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 18</span>
             </div>
-            <div class="gig__foot">
+            <div class="commission__foot">
               <span class="pill">3 applicants</span>
               <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
             </div>
           </article>
 
           <article class="commission" data-category="Coding & IT">
-            <div class="gig__top">
-              <span class="gig__cat">
-                <span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span>Coding & IT
+            <div class="commission__top">
+              <span class="commission__cat">
+                <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span>Coding & IT
               </span>
-              <button class="gig__save" type="button" aria-label="Save commission">
+              <button class="commission__save" type="button" aria-label="Save commission">
                 <svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg>
               </button>
             </div>
             <h3>Club landing page</h3>
-            <p class="gig__by">Dev Society – NU Laguna</p>
-            <p class="gig__desc">Build a responsive one-page site for our NU Laguna student developer community.</p>
-            <div class="gig__meta">
+            <p class="commission__by">Dev Society – NU Laguna</p>
+            <p class="commission__desc">Build a responsive one-page site for our NU Laguna student developer community.</p>
+            <div class="commission__meta">
               <span class="price">₱1,500</span>
               <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 22</span>
             </div>
-            <div class="gig__foot">
+            <div class="commission__foot">
               <span class="pill">5 applicants</span>
               <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
             </div>
@@ -395,6 +394,7 @@
 
   <!-- Bootstrap bundle enables future component behavior; app.js owns marketplace interactions. -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="app.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
