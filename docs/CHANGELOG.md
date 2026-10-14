@@ -11,6 +11,7 @@
 * Fixed the Find Student Help hyperlink in the NavBar.
 * Updated schema.
 * Updated index.html into a landing page and added in the css.
+* Updated CSS into a different file for organization.
 
 ---
 ## 10-13-2026
