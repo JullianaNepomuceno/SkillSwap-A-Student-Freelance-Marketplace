@@ -10,6 +10,7 @@
 * Centralized the shared toast helper and completed the commission naming cleanup.
 * Fixed the Find Student Help hyperlink in the NavBar.
 * Updated schema.
+* Updated index.html into a landing page and added in the css.
 
 ---
 ## 10-13-2026
