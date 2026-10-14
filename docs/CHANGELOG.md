@@ -8,6 +8,8 @@
 
 * Reorganized frontend styles and scripts into `app/css/` and `app/js/`.
 * Centralized the shared toast helper and completed the commission naming cleanup.
+* Fixed the Find Student Help hyperlink in the NavBar.
+* Updated schema.
 
 ---
 ## 10-13-2026
