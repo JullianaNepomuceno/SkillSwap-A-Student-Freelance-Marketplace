@@ -1,31 +1,21 @@
 /* Shared SkillSwap interactions. All handlers are guarded so each static page
    can use the same script without console errors. */
 document.addEventListener("DOMContentLoaded", () => {
-  // Header notification feedback keeps the prototype feeling responsive.
-  document
-    .querySelectorAll(".icon-btn[aria-label='Notifications']")
-    .forEach((button) => {
-      button.addEventListener("click", () =>
-        showMessage("You’re all caught up — no new notifications."),
-      );
-    });
-
   // User menu: keep profile actions keyboard- and pointer-accessible.
   document.querySelectorAll(".user-menu").forEach((menu) => {
     const toggle = menu.querySelector(".user-chip");
     const dropdown = menu.querySelector(".user-menu__dropdown");
     if (!toggle || !dropdown) return;
+    dropdown.hidden = false;
 
     const closeMenu = () => {
       menu.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
-      dropdown.hidden = true;
     };
 
     toggle.addEventListener("click", () => {
       const isOpen = menu.classList.toggle("is-open");
       toggle.setAttribute("aria-expanded", String(isOpen));
-      dropdown.hidden = !isOpen;
     });
 
     document.addEventListener("click", (event) => {
@@ -39,6 +29,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  const markAllReadButton = document.querySelector(".notifications-page .btn");
+  if (markAllReadButton) {
+    markAllReadButton.addEventListener("click", () => {
+      document
+        .querySelectorAll(".notification")
+        .forEach((notification) => notification.classList.add("notification--read"));
+      document
+        .querySelectorAll(".notification__status[aria-label='Unread']")
+        .forEach((status) => {
+          status.removeAttribute("aria-label");
+          status.setAttribute("aria-hidden", "true");
+        });
+      markAllReadButton.disabled = true;
+      markAllReadButton.textContent = "All caught up";
+    });
+  }
 
   // Browse page: search, category, budget, status, sorting, saving, and paging.
   const cards = Array.from(document.querySelectorAll(".card-grid .commission"));

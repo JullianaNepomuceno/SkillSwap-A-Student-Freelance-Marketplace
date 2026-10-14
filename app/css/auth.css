@@ -10,9 +10,30 @@
   display: grid;
   place-items: center;
   padding: 32px 24px 48px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.auth-main::before {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  z-index: -2;
+  background: url("../img/NULagunaFacade.jpg") center / cover no-repeat;
+  filter: blur(8px);
+}
+
+.auth-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(243, 245, 251, .48);
 }
 
 .auth-shell {
+  position: relative;
   width: min(100%, 960px);
   display: grid;
   grid-template-columns: .9fr 1.1fr;
