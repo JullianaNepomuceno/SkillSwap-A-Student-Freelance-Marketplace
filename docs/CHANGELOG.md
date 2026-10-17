@@ -12,6 +12,7 @@
 * Updated schema.
 * Updated index.html into a landing page and added in the css.
 * Updated CSS into a different file for organization.
+* Added the Resume & Profile page, redesigned the dashboard layout, and fixed the Profile link and the Post Commission live preview.
 
 ---
 ## 10-13-2026

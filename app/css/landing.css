@@ -15,7 +15,7 @@
   background:
     radial-gradient(900px 420px at 85% 10%, rgba(245,166,35,.28), transparent 60%),
     linear-gradient(105deg, rgba(14,34,90,.97) 0%, rgba(27,58,140,.92) 55%, rgba(27,58,140,.78) 100%),
-    url("images/nu-laguna.jpg") center / cover no-repeat,
+    url("../img/NULagunaFacade.jpg") center / cover no-repeat,
     var(--navy);
 }
 .lp-hero::before { 
@@ -96,9 +96,9 @@
 .lp-skills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
 .lp-skill {
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 22px 18px; display: grid; gap: 10px; transition: transform .15s, border-color .15s, box-shadow .15s;
+  padding: 22px 18px; display: grid; gap: 10px; transition: border-color .15s;
 }
-.lp-skill:hover { transform: translateY(-3px); border-color: var(--navy); box-shadow: 0 10px 24px rgba(27,58,140,.12); }
+.lp-skill:hover { border-color: var(--navy); }
 .lp-skill__ic { width: 44px; height: 44px; border-radius: 12px; background: var(--tint); color: var(--navy); display: grid; place-items: center; }
 .lp-skill:nth-child(even) .lp-skill__ic { background: var(--warn-tint); color: var(--gold-dark); }
 .lp-skill h3 { font-size: 15px; font-weight: 700; }
@@ -106,7 +106,7 @@
 .lp-skill small { font-size: 11px; font-weight: 700; color: var(--green); }
 
 .lp-talents { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.talent { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 12px; box-shadow: var(--shadow); display: block; }
+.talent { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 12px; box-shadow: var(--shadow); }
 .talent:hover { border-color: var(--navy); }
 .talent__top { display: flex; align-items: center; gap: 12px; }
 .talent .avatar { width: 48px; height: 48px; font-size: 14px; }
@@ -116,6 +116,35 @@
 .talent__skills { display: flex; flex-wrap: wrap; gap: 6px; }
 .talent__foot { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
 .talent__foot strong { color: var(--green); font-size: 15px; }
+
+.lp-section .gig {
+  position: relative; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column;
+  box-shadow: var(--shadow); transition: border-color .15s;
+}
+.lp-section .gig__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.lp-section .gig__cat { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; color: var(--navy); }
+.lp-section .gig__cat-ic {
+  width: 28px; height: 28px; border-radius: 8px; background: var(--tint); color: var(--navy);
+  display: grid; place-items: center;
+}
+.lp-section .gig__save {
+  background: none; border: 0; color: var(--placeholder); padding: 4px; border-radius: 6px;
+  display: grid;
+}
+.lp-section .gig__save:hover { color: var(--navy); }
+.lp-section .gig h3 { font-size: 15px; font-weight: 700; line-height: 1.3; }
+.lp-section .gig__by { font-size: 11px; color: var(--muted); margin: 2px 0 8px; }
+.lp-section .gig__desc {
+  font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1;
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.lp-section .gig__meta { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; }
+.lp-section .gig__foot { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--line); }
+.lp-section .gig:hover { border-color: var(--navy); }
+.lp-section .gig .btn::after, .lp-section .gig .gig__save::after {
+  content: ""; position: absolute; inset: 0; border-radius: var(--radius);
+}
 
 .lp-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
 .lp-step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; position: relative; display: block; }
@@ -140,10 +169,6 @@
 .lp-band .lp-cta { margin-top: 0; }
 .lp-footer { margin-top: 48px; }
 
-.lp-section .gig { position: relative; }
-.lp-section .gig .btn::after, .lp-section .gig .gig__save::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
-.lp-section .gig:hover { border-color: var(--navy); }
-
 @media (max-width: 1040px) {
   .lp-hero__inner { grid-template-columns: 1fr; padding: 48px 24px 56px; }
   .lp-stack { max-width: 520px; }
@@ -153,7 +178,7 @@
   .lp-talents { grid-template-columns: repeat(2, 1fr); }
   .lp-strip__inner { grid-template-columns: repeat(2, 1fr); }
   .lp-header .site-header__inner { grid-template-columns: 1fr auto; }
-  .lp-header .main-nav { display: none; }
+  .lp-header .main-nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; overflow-x: auto; }
 }
 @media (max-width: 640px) {
   .lp-skills, .lp-talents, .lp-steps { grid-template-columns: 1fr; }

@@ -77,7 +77,7 @@
             <svg class="ic ic-sm user-chip__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
           </button>
           <div class="user-menu__dropdown" id="user-menu" role="menu" hidden>
-            <a href="dashboard.html" role="menuitem">
+            <a href="profile.html" role="menuitem">
               <svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>
               Profile
             </a>
@@ -157,13 +157,12 @@
         </div>
       </section>
 
-      <section class="dash-grid" aria-label="Dashboard activity">
-        <div class="dash-side">
+      <section class="dash-top" aria-label="Dashboard activity">
           <section class="card chart-card" aria-labelledby="chart-title">
             <div class="card__head card__head--flush">
               <div><h2 id="chart-title">Applications / Week</h2></div>
               <span class="chart-card__range">Oct 12–18, 2026</span>
-            </section>
+            </div>
             <div class="chart-total"><strong>21</strong><span>↑ 5 more than last week</span></div>
             <div class="bars" role="img" aria-label="Applications per day: Mon 2, Tue 3, Wed 4, Thu 6, Fri 2, Sat 3, Sun 1">
               <div class="bars__col">2<div class="bars__bar" style="height:26%"></div></div>
@@ -180,6 +179,7 @@
             <p class="chart-foot">Thursday was your busiest day with 6 applications. Keep the momentum going!</p>
           </section>
 
+          <div class="dash-side">
           <section class="upnext" aria-labelledby="upnext-title">
             <p class="upnext__label" id="upnext-title">
               <svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg> Up next
@@ -194,9 +194,10 @@
             <h3>NU Laguna students only.</h3>
             <p>SkillSwap is exclusive to NU Laguna students. Skill areas include Coding &amp; IT, Arts &amp; Design, Writing &amp; Research, Tutoring, and Media &amp; Content.</p>
           </div>
-        </div>
+          </div>
+      </section>
 
-        <section class="card" aria-labelledby="mine-title">
+      <section class="card mine" aria-labelledby="mine-title">
           <div class="mine__head">
             <div>
               <h2 id="mine-title">My Commissions</h2>
@@ -306,10 +307,9 @@
             <span>Showing 6 of 8 posted commissions</span>
             <a href="#">View all commissions <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </div>
-        </section>
-      </div>
+      </section>
 
-      <section aria-labelledby="open-title">
+      <section class="card card--pad open-box" aria-labelledby="open-title">
         <div class="section-head">
           <div>
             <h2 id="open-title">Open commissions to apply <small>(Find work &amp; earn ₱)</small></h2>
