@@ -2,7 +2,7 @@
 
 Low-fidelity layouts for the four main screens.
 
-## Screen 1: Browse commissions (`index.php`)
+## Screen 1: Browse commissions (`homepage.php`)
 CSS Grid · JS filter · PHP/MySQL loop
 
 ```

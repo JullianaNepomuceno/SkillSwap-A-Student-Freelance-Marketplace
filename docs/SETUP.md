@@ -14,7 +14,7 @@ git clone https://github.com/<your-username>/skillswap.git
 cd skillswap
 ```
 
-The static frontend pages are in `app/`. Shared styles are in `app/css/`, and browser scripts are in `app/js/`. The HTML pages remain at the root of `app/`.
+The PHP frontend pages are in `app/`. Shared styles are in `app/css/`, browser scripts are in `app/js/`, and JSON API endpoints are in `api/`.
 
 ## 2. Create the database
 
@@ -42,13 +42,13 @@ The committed defaults automatically connect to the local XAMPP `skillswap` data
 
 ## 4. Run the app
 
-**With XAMPP/WAMP:** copy the folder into `htdocs` (or `www`), start Apache and MySQL, then open `http://localhost/skillswap/`.
+**With XAMPP/WAMP:** copy the folder into `htdocs` (or `www`), start Apache and MySQL, then open `http://localhost/SkillSwap-A-Student-Freelance-Marketplace/app/`.
 
 **With PHP's built-in server:**
 ```bash
 php -S localhost:8000
 ```
-Then open `http://localhost:8000/`.
+Then open `http://localhost:8000/app/`.
 
 ## Troubleshooting
 
@@ -58,3 +58,5 @@ Then open `http://localhost:8000/`.
 | Blank page | Enable `display_errors` in `php.ini` while developing |
 | Chart does not appear | Confirm the Chart.js script loads (check the browser console) |
 | Foreign key error on import | Make sure the `commissions` table is created before `applications` |
+| API returns an authentication error | Log in through `app/login.php`; API requests use the PHP session cookie |
+| Browser shows stale commission data | Perform a hard refresh; commission list requests use no-cache headers and cache-busting parameters |
