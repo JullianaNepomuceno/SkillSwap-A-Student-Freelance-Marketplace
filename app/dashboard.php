@@ -100,9 +100,9 @@
           <p>Ready to earn or get help from a fellow Nationalian? Your campus marketplace is active.</p>
         </div>
         <div class="hero__stats">
-          <div class="stat"><strong>8</strong><span>Commissions posted</span></div>
+          <div class="stat"><strong id="hero-commissions-posted">0</strong><span>Commissions posted</span></div>
           <div class="hero__divider"></div>
-          <div class="stat"><strong>21</strong><span>Applications</span></div>
+          <div class="stat"><strong id="hero-applications">0</strong><span>Applications</span></div>
           <div class="hero__badge"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-sparkles"/></svg></div>
         </div>
       </section>
@@ -133,25 +133,25 @@
       <section class="stat-cards" aria-label="Summary">
         <div class="card stat-card">
           <div class="stat-card__label">Posted</div>
-          <div class="stat-card__num">8</div>
+          <div class="stat-card__num" id="metric-posted">0</div>
           <div class="stat-card__sub">Commissions shared with campus</div>
           <span class="stat-card__ic"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
         </div>
         <div class="card stat-card">
           <div class="stat-card__label">In Progress</div>
-          <div class="stat-card__num">3</div>
+          <div class="stat-card__num" id="metric-in-progress">0</div>
           <div class="stat-card__sub">Active collaborations</div>
           <span class="stat-card__ic"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg></span>
         </div>
         <div class="card stat-card">
           <div class="stat-card__label">Completed</div>
-          <div class="stat-card__num stat-card__num--green">5</div>
+          <div class="stat-card__num stat-card__num--green" id="metric-completed">0</div>
           <div class="stat-card__sub">Projects delivered</div>
           <span class="stat-card__ic stat-card__ic--green"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg></span>
         </div>
         <div class="card stat-card">
           <div class="stat-card__label">Applications</div>
-          <div class="stat-card__num">21</div>
+          <div class="stat-card__num" id="metric-applications">0</div>
           <div class="stat-card__sub">Received this week</div>
           <span class="stat-card__ic"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-send"/></svg></span>
         </div>
@@ -161,32 +161,32 @@
           <section class="card chart-card" aria-labelledby="chart-title">
             <div class="card__head card__head--flush">
               <div><h2 id="chart-title">Applications / Week</h2></div>
-              <span class="chart-card__range">Oct 12–18, 2026</span>
+              <span class="chart-card__range" id="chart-range">Loading activity...</span>
             </div>
-            <div class="chart-total"><strong>21</strong><span>↑ 5 more than last week</span></div>
-            <div class="bars" role="img" aria-label="Applications per day: Mon 2, Tue 3, Wed 4, Thu 6, Fri 2, Sat 3, Sun 1">
-              <div class="bars__col">2<div class="bars__bar" style="height:26%"></div></div>
-              <div class="bars__col">3<div class="bars__bar" style="height:39%"></div></div>
-              <div class="bars__col">4<div class="bars__bar" style="height:52%"></div></div>
-              <div class="bars__col bars__col--peak">6<div class="bars__bar" style="height:78%"></div></div>
-              <div class="bars__col">2<div class="bars__bar" style="height:26%"></div></div>
-              <div class="bars__col">3<div class="bars__bar" style="height:39%"></div></div>
-              <div class="bars__col">1<div class="bars__bar" style="height:13%"></div></div>
+            <div class="chart-total"><strong id="chart-total">0</strong><span id="chart-total-note">Applications received this week</span></div>
+            <div class="bars" id="application-bars" role="img" aria-label="Applications per day">
+              <div class="bars__col">0<div class="bars__bar" style="height:0%"></div></div>
+              <div class="bars__col">0<div class="bars__bar" style="height:0%"></div></div>
+              <div class="bars__col">0<div class="bars__bar" style="height:0%"></div></div>
+              <div class="bars__col">0<div class="bars__bar" style="height:0%"></div></div>
+              <div class="bars__col">0<div class="bars__bar" style="height:0%"></div></div>
+              <div class="bars__col">0<div class="bars__bar" style="height:0%"></div></div>
+              <div class="bars__col">0<div class="bars__bar" style="height:0%"></div></div>
             </div>
-            <div class="bars-days" aria-hidden="true">
-              <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            <div class="bars-days" id="application-bar-labels" aria-hidden="true">
+              <span>—</span><span>—</span><span>—</span><span>—</span><span>—</span><span>—</span><span>—</span>
             </div>
-            <p class="chart-foot">Thursday was your busiest day with 6 applications. Keep the momentum going!</p>
+            <p class="chart-foot" id="chart-foot">Loading application activity...</p>
           </section>
 
           <div class="dash-side">
-          <section class="upnext" aria-labelledby="upnext-title">
+          <section class="upnext" id="dashboard-upnext" aria-labelledby="upnext-title">
             <p class="upnext__label" id="upnext-title">
               <svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg> Up next
             </p>
-            <h3>Logo for Org Fest</h3>
-            <p>Due Oct 20 · 3 students are waiting to hear from you.</p>
-            <a href="commission.php"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg> Review applicants</a>
+            <h3 id="upnext-name">No upcoming commissions</h3>
+            <p id="upnext-description">Your commission activity will appear here.</p>
+            <a id="upnext-link" href="homepage.php"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg> Browse commissions</a>
           </section>
 
           <div class="note-card">
@@ -227,7 +227,7 @@
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="my-commissions-body">
                 <tr>
                   <td>
                     <div class="title-cell">
@@ -304,7 +304,7 @@
             </table>
           </div>
           <div class="mine__foot">
-            <span>Showing 6 of 8 posted commissions</span>
+            <span id="my-commissions-summary">Loading your commissions...</span>
             <a href="#">View all commissions <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </div>
       </section>

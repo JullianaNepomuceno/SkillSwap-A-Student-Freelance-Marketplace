@@ -95,26 +95,19 @@
         <div class="detail__main">
           <article class="card card--pad">
             <div class="detail__head">
-              <span class="cat-tag">Arts &amp; Design</span>
-              <span class="badge badge--open">Open</span>
+              <span class="cat-tag" id="commission-category">Loading...</span>
+              <span class="badge badge--open" id="commission-status">Loading...</span>
             </div>
-            <h1>Logo for NU Laguna Org Fest</h1>
-            <p class="posted"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-landmark"/></svg> Posted by Student Council · Oct 12, 2026</p>
+            <h1 id="commission-title">Loading commission...</h1>
+            <p class="posted"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-landmark"/></svg> Posted by <span id="commission-owner">Loading...</span> · <span id="commission-created">Loading...</span></p>
             <dl class="facts">
-              <div><dt>Project budget</dt><dd class="price">₱500</dd></div>
-              <div><dt>Deadline</dt><dd>Oct 20, 2026</dd></div>
-              <div><dt>Applications</dt><dd>3 applicants</dd></div>
+              <div><dt>Project budget</dt><dd class="price" id="commission-budget">Loading...</dd></div>
+              <div><dt>Deadline</dt><dd id="commission-deadline">Loading...</dd></div>
+              <div><dt>Applications</dt><dd id="commission-application-count">0 applicants</dd></div>
             </dl>
             <div class="prose">
               <h2>About this commission</h2>
-              <p>Our annual Org Fest brings NU Laguna student organizations together for a day of discovery. We’re looking for a student designer to create a playful, vibrant logo that celebrates connection, creativity, and student life.</p>
-              <p>The logo will be used on event posters, social media, and booth signage. Please keep it clear at small sizes and use the NU Laguna blue and gold palette.</p>
-              <h3>What you’ll deliver</h3>
-              <ul class="bullets">
-                <li>Two initial logo concepts and one round of revisions</li>
-                <li>Final logo in SVG, PNG, and an editable source file</li>
-                <li>A full-color version and a single-color version</li>
-              </ul>
+              <p id="commission-description">Loading commission description...</p>
             </div>
           </article>
 
@@ -124,90 +117,47 @@
                 <h2 id="client-view-title">Client View</h2>
                 <p>Review applications for this commission as the poster.</p>
               </div>
-              <span class="badge badge--muted">3 applicants</span>
+              <span class="badge badge--muted" id="applicant-count">0 applicants</span>
             </div>
             <div class="table-wrap">
               <table>
                 <thead>
                   <tr>
                     <th scope="col">Nationalian applicant</th>
-                    <th scope="col">Portfolio link</th>
+                    <th scope="col">Contact email</th>
                     <th scope="col">Proposed rate (PHP)</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="who">
-                        <span class="avatar">AR</span>
-                        <div><strong>Alex Rivera</strong><span>Arts & Design · NU Laguna student</span></div>
-                      </div>
-                    </td>
-                    <td><a class="table-link" href="https://behance.net/alex">behance.net/alex</a></td>
-                    <td class="rate">₱500</td>
-                    <td>
-                      <div class="actions">
-                        <button class="btn btn--green" type="button">Accept</button>
-                        <button class="btn btn--red-soft" type="button">Reject</button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="who">
-                        <span class="avatar">BC</span>
-                        <div><strong>Bea Cruz</strong><span>Illustration · NU Laguna student</span></div>
-                      </div>
-                    </td>
-                    <td><a class="table-link" href="https://beacruz.design">beacruz.design</a></td>
-                    <td class="rate">₱450</td>
-                    <td>
-                      <div class="actions">
-                        <button class="btn btn--green" type="button">Accept</button>
-                        <button class="btn btn--red-soft" type="button">Reject</button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="who">
-                        <span class="avatar">NG</span>
-                        <div><strong>Nico Garcia</strong><span>Graphic Design · NU Laguna student</span></div>
-                      </div>
-                    </td>
-                    <td><a class="table-link" href="https://behance.net/nico">behance.net/nico</a></td>
-                    <td class="rate">₱500</td>
-                    <td>
-                      <div class="actions">
-                        <button class="btn btn--green" type="button">Accept</button>
-                        <button class="btn btn--red-soft" type="button">Reject</button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody id="applicants-body"></tbody>
               </table>
             </div>
           </section>
         </div>
 
         <div class="detail__side">
-          <section class="card apply" aria-labelledby="apply-title">
+          <section class="card apply" id="apply-panel" aria-labelledby="apply-title">
             <h2 id="apply-title">Apply to this Commission</h2>
             <p class="apply__intro">Introduce yourself and show why you’re a great fit for this project.</p>
-            <form action="apply.php" method="post" id="apply-form">
+            <p class="apply__fine" id="accepted-contact" hidden></p>
+            <form action="../api/applications/create.php" method="post" id="apply-form">
               <div class="field">
                 <label for="full-name">Full Name</label>
-                <input class="input" id="full-name" name="full_name" type="text" value="Jamie Santos" required>
+                <input class="input" id="full-name" name="full_name" type="text" autocomplete="name" readonly required>
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input class="input" id="email" name="email" type="email" autocomplete="email" readonly required>
               </div>
               <div class="field">
                 <label for="proposal">Proposal</label>
-                <textarea class="textarea" id="proposal" name="proposal" rows="6" required>Hi Student Council! I’m a second-year design student. I’d love to create a bold, welcoming identity for Org Fest. I can share two concepts by Oct 16 and deliver the final files before Oct 20.</textarea>
+                <textarea class="textarea" id="proposal" name="proposal" rows="6" required></textarea>
               </div>
               <div class="field">
                 <label for="rate">Proposed Rate (PHP)</label>
-                <input class="input" id="rate" name="rate" type="text" inputmode="numeric" value="₱500" required>
-                <span class="field__hint">Stay within the ₱500 project budget.</span>
+                <input class="input" id="rate" name="proposed_rate" type="number" inputmode="decimal" min="0.01" step="0.01" required>
+                <span class="field__hint field__hint--error" id="rate-error" role="alert" hidden></span>
+                <span class="field__hint" id="commission-budget-hint">Stay within the project budget.</span>
               </div>
               <button class="btn btn--primary btn--lg btn--block" type="submit">
                 <svg class="ic" aria-hidden="true"><use href="#i-send"/></svg> Submit Application
@@ -235,6 +185,6 @@
   <!-- Bootstrap bundle enables future component behavior; app.js owns marketplace interactions. -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=20261018"></script>
 </body>
 </html>

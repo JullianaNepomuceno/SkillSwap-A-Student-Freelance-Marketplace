@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     field.addEventListener("blur", () => validateField(field));
   });
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const valid = Array.from(form.querySelectorAll("input, select")).every(
       validateField,
@@ -85,19 +85,53 @@ document.addEventListener("DOMContentLoaded", () => {
       showMessage("Please review the highlighted fields.", "error", 4000);
       return;
     }
+
     const isSignUp = form.id === "signup-form";
-    showMessage(
-      isSignUp
-        ? "Account details saved. Welcome to SkillSwap!"
-        : "Welcome back to SkillSwap!",
-      "success",
-      4000,
-    );
-    form.reset();
-    form
-      .querySelectorAll(".auth-field")
-      .forEach((field) => field.classList.remove("is-valid"));
-    updateStrength();
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalLabel = submitButton?.textContent;
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = isSignUp ? "Creating account..." : "Logging in...";
+    }
+
+    try {
+      const response = await fetch(
+        isSignUp ? "../api/auth/signup.php" : "../api/auth/login.php",
+        {
+          method: "POST",
+          body: new FormData(form),
+          credentials: "same-origin",
+        },
+      );
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Authentication failed.");
+      }
+
+      showMessage(
+        isSignUp
+          ? "Account created. Redirecting..."
+          : "Welcome back. Redirecting...",
+        "success",
+        2000,
+      );
+      window.setTimeout(() => {
+        window.location.href = "homepage.php";
+      }, 250);
+    } catch (error) {
+      showMessage(
+        error instanceof Error
+          ? error.message
+          : "Unable to complete authentication. Please try again.",
+        "error",
+        5000,
+      );
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalLabel;
+      }
+    }
   });
 
   updateStrength();

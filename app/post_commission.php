@@ -95,9 +95,9 @@
           <p>Need help with a project or task? Post your commission and connect with a skilled Nationalian. Student-friendly budgets in ₱ PHP.</p>
         </div>
         <div class="hero__stats">
-          <div class="stat"><strong>12</strong><span>Open commissions</span></div>
+          <div class="stat"><strong id="open-commission-count">0</strong><span>Open commissions</span></div>
           <div class="hero__divider"></div>
-          <div class="stat"><strong>5</strong><span>Skill areas</span></div>
+          <div class="stat"><strong id="open-skill-area-count">0</strong><span>Skill areas</span></div>
           <div class="hero__badge">
             <svg class="ic ic-lg" aria-hidden="true"><use href="#i-sparkles"/></svg>
           </div>
@@ -156,14 +156,14 @@
               </div>
             </div>
             <div class="form-split">
-              <div class="field field--error">
+              <div class="field">
                 <span class="label-row">
                   <label for="budget">Budget (Philippine Pesos)</label>
                   <span class="tag-php">PHP</span>
                 </span>
                 <div class="field-wrap">
-                  <input class="input" id="budget" name="budget" type="text" inputmode="numeric" value="five hundred" aria-invalid="true" aria-describedby="budget-error budget-tip" required>
-                  <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>
+                  <input class="input" id="budget" name="budget" type="number" inputmode="decimal" min="1" step="0.01" value="500" aria-invalid="false" aria-describedby="budget-error budget-tip" required>
+                  <svg class="ic" aria-hidden="true" hidden><use href="#i-alert"/></svg>
                 </div>
                 <span class="field__hint field__hint--error" id="budget-error" role="alert">! Budget must be a number &gt; 0</span>
                 <span class="field__hint" id="budget-tip">Tip: Student-friendly budgets range from ₱100 – ₱2,000.</span>
@@ -259,6 +259,6 @@
   <!-- Bootstrap bundle enables future component behavior; app.js owns marketplace interactions. -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=20261018"></script>
 </body>
 </html>

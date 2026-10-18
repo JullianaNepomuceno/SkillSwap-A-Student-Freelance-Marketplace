@@ -20,33 +20,25 @@ The static frontend pages are in `app/`. Shared styles are in `app/css/`, and br
 
 **Option A: command line**
 ```bash
-mysql -u root -p < database/schema.sql
+mysql -u root -p < database/skillswap.sql
 ```
 
 **Option B: phpMyAdmin**
 1. Open `http://localhost/phpmyadmin`.
 2. Go to the **Import** tab.
-3. Choose `database/schema.sql` and click **Go**.
+3. Choose `database/skillswap.sql` and click **Go**.
 
 ## 3. Configure the connection
 
-Edit `includes/db.php`:
+Configure the API connection in `api/config/config.php`, or set these environment variables:
 
 ```php
-<?php
-$host = 'localhost';
-$db   = 'skillswap';
-$user = 'root';
-$pass = '';          // set your MySQL password
-
-$mysqli = new mysqli($host, $user, $pass, $db);
-if ($mysqli->connect_errno) {
-    die('Database connection failed.');
-}
-$mysqli->set_charset('utf8mb4');
+SKILLSWAP_DB_DSN=mysql:host=localhost;port=3306;dbname=skillswap;charset=utf8mb4
+SKILLSWAP_DB_USER=root
+SKILLSWAP_DB_PASSWORD=
 ```
 
-> Do not commit real credentials. Keep them out of version control (for example in a git-ignored `config.local.php`).
+The committed defaults automatically connect to the local XAMPP `skillswap` database. Start Apache and MySQL in XAMPP first. Do not commit real credentials.
 
 ## 4. Run the app
 
@@ -62,7 +54,7 @@ Then open `http://localhost:8000/`.
 
 | Problem | Fix |
 | --- | --- |
-| "Database connection failed" | Check MySQL is running and the credentials in `includes/db.php` |
+| "Database connection failed" | Check MySQL is running and the API DSN/user/password configuration |
 | Blank page | Enable `display_errors` in `php.ini` while developing |
 | Chart does not appear | Confirm the Chart.js script loads (check the browser console) |
 | Foreign key error on import | Make sure the `commissions` table is created before `applications` |

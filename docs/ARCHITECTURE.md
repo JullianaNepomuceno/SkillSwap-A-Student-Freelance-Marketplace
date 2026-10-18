@@ -1,6 +1,6 @@
 # Architecture
 
-SkillSwap is a classic server-rendered web app: PHP generates pages from MySQL data, and JavaScript enhances them in the browser.
+SkillSwap uses a static frontend and a JSON API: browser JavaScript calls native PHP endpoints, which validate requests and persist data in MySQL.
 
 ## High-Level Overview
 
@@ -25,7 +25,7 @@ SkillSwap is a classic server-rendered web app: PHP generates pages from MySQL d
 | **HTML5** | Semantic page structure and forms |
 | **CSS3** | Layout (Grid/Flexbox), status badges, hover effects, responsive breakpoints |
 | **JavaScript** | Form validation, live preview, filter/search via DOM manipulation, Chart.js rendering |
-| **PHP** | Request handling, server-side validation, sanitizing, prepared queries, page rendering |
+| **PHP** | Thin JSON endpoints, session authentication, service rules, validation, and prepared queries |
 | **MySQL** | Persistent storage of commissions and applications |
 
 ## Request Flows
@@ -51,7 +51,7 @@ SkillSwap is a classic server-rendered web app: PHP generates pages from MySQL d
 1. PHP aggregates counts per status and applications per day for the last 7 days.
 2. Data is passed to JavaScript (e.g. as JSON) and rendered with Chart.js.
 
-## Planned Modules
+## API Modules
 
 | File | Purpose |
 | --- | --- |

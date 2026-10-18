@@ -67,40 +67,7 @@
         <button class="btn btn--ghost btn--sm" type="button">Mark all as read</button>
       </div>
 
-      <section class="notifications-list" aria-label="Recent notifications">
-        <article class="notification">
-          <span class="notification__icon notification__icon--gold" aria-hidden="true">
-            <svg class="ic" aria-hidden="true"><use href="#i-send"/></svg>
-          </span>
-          <div class="notification__body">
-            <strong>Your application was sent</strong>
-            <p>Your application for “Campus Sustainability Feature” is now under review.</p>
-            <span class="notification__time">Today · 10:42 AM</span>
-          </div>
-          <span class="notification__status" aria-label="Unread"></span>
-        </article>
-        <article class="notification">
-          <span class="notification__icon notification__icon--green" aria-hidden="true">
-            <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>
-          </span>
-          <div class="notification__body">
-            <strong>Commission application accepted</strong>
-            <p>Your application for “Derivative Review Sessions” was accepted by Mia Santos.</p>
-            <span class="notification__time">Yesterday · 4:18 PM</span>
-          </div>
-          <span class="notification__status" aria-label="Unread"></span>
-        </article>
-        <article class="notification notification--read">
-          <span class="notification__icon" aria-hidden="true">
-            <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
-          </span>
-          <div class="notification__body">
-            <strong>New commissions are available</strong>
-            <p>There are new opportunities in Writing &amp; Research and Coding &amp; IT.</p>
-            <span class="notification__time">Oct 12, 2026 · 9:00 AM</span>
-          </div>
-          <span class="notification__status" aria-hidden="true"></span>
-        </article>
+      <section class="notifications-list" id="notifications-list" aria-label="Recent notifications">
       </section>
     </div>
   </main>
@@ -109,6 +76,6 @@
     <span>© 2026 NU Laguna SkillSwap · Student-exclusive marketplace</span>
   </footer>
   <script src="js/ui.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=20261018-notifications1"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/variable.css">
   <link rel="stylesheet" href="css/resets.css">
-  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/components.css?v=20261018-icons">
 </head>
 <body>
   <!-- SVG sprite sheet import -->
@@ -95,7 +95,7 @@
           <p>Earn by helping fellow Nationalians — or find the right student for your project.</p>
         </div>
         <div class="hero__stats">
-          <div class="stat"><strong>12</strong><span>Open commissions</span></div>
+          <div class="stat"><strong id="open-commission-count">0</strong><span>Open commissions</span></div>
           <div class="hero__divider"></div>
           <div class="stat"><strong>5</strong><span>Skill areas</span></div>
           <div class="hero__badge">
@@ -179,7 +179,7 @@
 
         <section aria-labelledby="results-title">
           <div class="results-head">
-            <h2 id="results-title">Open commissions <small>(12 results)</small></h2>
+            <h2 id="results-title">Open commissions <small>(0 results)</small></h2>
             <label class="sort" for="sort">Sort by:
               <select id="sort">
                 <option>Newest first</option>
@@ -190,7 +190,8 @@
             </label>
           </div>
 
-          <div class="card-grid">
+          <div class="card-grid" id="open-commissions-grid">
+            <div hidden aria-hidden="true">
             <article class="commission" data-category="Arts & Design">
               <div class="commission__top">
                 <span class="commission__cat">
@@ -322,6 +323,7 @@
                 <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
+            </div>
           </div>
 
           <nav class="pagination" aria-label="Pagination">
@@ -349,6 +351,6 @@
   <!-- Bootstrap bundle enables future component behavior; app.js owns marketplace interactions. -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=20261018-live11"></script>
 </body>
 </html>
