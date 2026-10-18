@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Profile &amp; Resume · SkillSwap NU Laguna</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variable.css">
+  <link rel="stylesheet" href="css/resets.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="m17 3 4 4-4 4"/><path d="M3 7h18"/><path d="m7 21-4-4 4-4"/><path d="M21 17H3"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.9 4.2 11 8l3.8 1.1L11 10.2 9.9 14l-1.1-3.8L5 9.1l3.8-1.1z"/><path d="m18 14 .7 2.3L21 17l-2.3.7L18 20l-.7-2.3L15 17l2.3-.7z"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 22a10 10 0 1 1 10-10c0 3-2 4-4 4h-2a2 2 0 0 0-1 3.7c.6.5.5 2.3-3 2.3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="12" cy="7" r="1"/><circle cx="16.5" cy="10" r="1"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><path d="M7 7h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+  <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-log-out" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M21 3v18"/></symbol>
+  <symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="homepage.php" aria-label="SkillSwap NU Laguna home">
+      <span class="brand__mark"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg></span>
+      <span><span class="brand__name">SkillSwap</span><span class="brand__school">NU LAGUNA</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <a href="homepage.php">Find a Commission</a>
+      <a href="post_commission.php">Find Student Help</a>
+      <a href="dashboard.php">My Dashboard</a>
+    </nav>
+    <div class="user-bar">
+      <a class="icon-btn" href="notifications.php" aria-label="Notifications"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg></a>
+      <div class="user-menu">
+        <button class="user-chip" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu">
+          <span class="avatar">JS</span>
+          <span class="user-chip__name">Hi, Nationalian</span>
+          <svg class="ic ic-sm user-chip__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </button>
+        <div class="user-menu__dropdown" id="user-menu" role="menu" hidden>
+          <a href="profile.php" role="menuitem" aria-current="page"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
+          <a href="login.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="pf-page">
+  <div class="pf-head">
+    <div>
+      <p class="pf-kicker">My profile</p>
+      <h1>Resume &amp; Profile</h1>
+      <p class="pf-sub">Build a resume that shows fellow Nationalians what you can do. Clients see it when you apply to a commission.</p>
+    </div>
+    <div class="pf-head__actions">
+      <a class="btn btn--ghost" href="#pf-preview" id="btn-preview"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Preview resume</a>
+      <button class="btn btn--ghost" type="button" id="btn-print"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-printer"/></svg> Print / PDF</button>
+      <button class="btn btn--primary" type="submit" form="profile-form"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-save"/></svg> Save profile</button>
+    </div>
+  </div>
+
+  <div class="pf-layout">
+    <form class="pf-form" id="profile-form" novalidate autocomplete="on">
+
+      <section class="pf-card" aria-labelledby="pf-contact-title">
+        <header class="pf-card__head">
+          <span class="pf-card__ic"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span>
+          <div><h2 id="pf-contact-title">Contact information</h2><p>How clients and fellow students can reach you.</p></div>
+          <span class="pf-card__tag">* Required</span>
+        </header>
+        <div class="pf-grid">
+          <div class="field">
+            <label for="fullName">Full name <span class="pf-req" aria-hidden="true">*</span></label>
+            <input class="input" id="fullName" name="fullName" type="text" autocomplete="name" placeholder="e.g. Jamie Santos" maxlength="80" aria-describedby="fullName-error" required>
+            <p class="field__hint field__hint--error" id="fullName-error" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="headline">Headline</label>
+            <input class="input" id="headline" name="headline" type="text" placeholder="e.g. BSIT 3rd Year · Web Developer" maxlength="80">
+          </div>
+          <div class="field">
+            <label for="email">Email <span class="pf-req" aria-hidden="true">*</span></label>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="you@students.national-u.edu.ph" maxlength="120" aria-describedby="email-error" required>
+            <p class="field__hint field__hint--error" id="email-error" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input class="input" id="phone" name="phone" type="tel" autocomplete="tel" placeholder="e.g. 0917 123 4567" maxlength="24" aria-describedby="phone-error">
+            <p class="field__hint field__hint--error" id="phone-error" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="location">Location</label>
+            <input class="input" id="location" name="location" type="text" autocomplete="address-level2" placeholder="e.g. Calamba, Laguna" maxlength="80">
+          </div>
+          <div class="field">
+            <label for="portfolio">Portfolio link</label>
+            <input class="input" id="portfolio" name="portfolio" type="text" inputmode="url" placeholder="e.g. behance.net/yourname" maxlength="160" aria-describedby="portfolio-error">
+            <p class="field__hint field__hint--error" id="portfolio-error" role="alert" hidden></p>
+          </div>
+          <div class="field pf-span">
+            <label for="summary">Short summary</label>
+            <textarea class="textarea" id="summary" name="summary" rows="4" maxlength="400" placeholder="Two or three sentences about you, your strengths, and the kind of commissions you enjoy."></textarea>
+            <p class="field__hint pf-counter"><span id="summary-count">0</span>/400</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="pf-card" aria-labelledby="pf-edu-title">
+        <header class="pf-card__head">
+          <span class="pf-card__ic"><svg class="ic" aria-hidden="true"><use href="#i-cap"/></svg></span>
+          <div><h2 id="pf-edu-title">Educational attainment</h2><p>Your school, program, and year level.</p></div>
+        </header>
+        <div class="pf-entries" id="list-education">
+<div class="pf-entry">
+    <div class="pf-entry__head">
+      <h3 class="pf-entry__title" data-label="Education"></h3>
+      <button class="btn btn--red-soft pf-remove" type="button" data-remove aria-label="Remove this education entry"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-trash"/></svg> Remove</button>
+    </div>
+    <div class="pf-grid">
+      <label class="field"><span class="field__label">School</span><input class="input" type="text" data-f="school" maxlength="100" placeholder="e.g. National University – Laguna" value="National University – Laguna"></label>
+      <label class="field"><span class="field__label">Program / degree</span><input class="input" type="text" data-f="program" maxlength="100" placeholder="e.g. BS Information Technology"></label>
+      <label class="field"><span class="field__label">Year level or dates</span><input class="input" type="text" data-f="years" maxlength="40" placeholder="e.g. 3rd Year · 2023 – Present"></label>
+      <label class="field"><span class="field__label">Honors / notes</span><input class="input" type="text" data-f="details" maxlength="120" placeholder="e.g. Dean’s Lister"></label>
+    </div>
+  </div>
+</div>
+        <button class="btn btn--ghost btn--sm pf-add" type="button" data-add="education"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-plus"/></svg> Add education</button>
+      </section>
+
+      <section class="pf-card" aria-labelledby="pf-exp-title">
+        <header class="pf-card__head">
+          <span class="pf-card__ic"><svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
+          <div><h2 id="pf-exp-title">Work / volunteer experience</h2><p>Jobs, org roles, school projects, and volunteer work all count.</p></div>
+        </header>
+        <div class="pf-entries" id="list-experience">
+<div class="pf-entry">
+    <div class="pf-entry__head">
+      <h3 class="pf-entry__title" data-label="Experience"></h3>
+      <button class="btn btn--red-soft pf-remove" type="button" data-remove aria-label="Remove this experience entry"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-trash"/></svg> Remove</button>
+    </div>
+    <div class="pf-grid">
+      <label class="field"><span class="field__label">Role</span><input class="input" type="text" data-f="role" maxlength="80" placeholder="e.g. Layout Artist"></label>
+      <label class="field"><span class="field__label">Organization</span><input class="input" type="text" data-f="org" maxlength="100" placeholder="e.g. NU Arts Collective"></label>
+      <label class="field"><span class="field__label">Start</span><input class="input" type="text" data-f="start" maxlength="24" placeholder="e.g. Aug 2024"></label>
+      <label class="field"><span class="field__label">End</span><input class="input" type="text" data-f="end" maxlength="24" placeholder="e.g. Present"></label>
+      <label class="field pf-span"><span class="field__label">What you did</span><textarea class="textarea" data-f="description" rows="3" maxlength="400" placeholder="Describe your responsibilities and results."></textarea></label>
+    </div>
+  </div>
+</div>
+        <button class="btn btn--ghost btn--sm pf-add" type="button" data-add="experience"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-plus"/></svg> Add experience</button>
+      </section>
+
+      <section class="pf-card" aria-labelledby="pf-skills-title">
+        <header class="pf-card__head">
+          <span class="pf-card__ic"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg></span>
+          <div><h2 id="pf-skills-title">Skills &amp; accomplishments</h2><p>Pick the skills you offer, then list what you’re proud of.</p></div>
+          <span class="pf-card__tag"><span id="skill-total">0</span> selected</span>
+        </header>
+
+        <div class="pf-skillgroups" id="skill-groups">
+<fieldset class="pf-skillgroup" data-category="Art &amp; Design"><legend class="pf-skillgroup__title"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-palette"/></svg>Art &amp; Design<span class="pf-skillgroup__count">0</span></legend><div class="pf-pills"><label class="pf-pill"><input type="checkbox" name="skill" value="Logo design" data-category="Art &amp; Design"><span>Logo design</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Illustration" data-category="Art &amp; Design"><span>Illustration</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Poster layout" data-category="Art &amp; Design"><span>Poster layout</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Photo editing" data-category="Art &amp; Design"><span>Photo editing</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Branding" data-category="Art &amp; Design"><span>Branding</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Social media graphics" data-category="Art &amp; Design"><span>Social media graphics</span></label></div></fieldset>
+<fieldset class="pf-skillgroup" data-category="Writing &amp; Research"><legend class="pf-skillgroup__title"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-pen"/></svg>Writing &amp; Research<span class="pf-skillgroup__count">0</span></legend><div class="pf-pills"><label class="pf-pill"><input type="checkbox" name="skill" value="Article writing" data-category="Writing &amp; Research"><span>Article writing</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Editing" data-category="Writing &amp; Research"><span>Editing</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Proofreading" data-category="Writing &amp; Research"><span>Proofreading</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Research" data-category="Writing &amp; Research"><span>Research</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Copywriting" data-category="Writing &amp; Research"><span>Copywriting</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Transcription" data-category="Writing &amp; Research"><span>Transcription</span></label></div></fieldset>
+<fieldset class="pf-skillgroup" data-category="Coding &amp; IT"><legend class="pf-skillgroup__title"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-code"/></svg>Coding &amp; IT<span class="pf-skillgroup__count">0</span></legend><div class="pf-pills"><label class="pf-pill"><input type="checkbox" name="skill" value="HTML &amp; CSS" data-category="Coding &amp; IT"><span>HTML &amp; CSS</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="JavaScript" data-category="Coding &amp; IT"><span>JavaScript</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="PHP" data-category="Coding &amp; IT"><span>PHP</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="MySQL" data-category="Coding &amp; IT"><span>MySQL</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Python" data-category="Coding &amp; IT"><span>Python</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Tech troubleshooting" data-category="Coding &amp; IT"><span>Tech troubleshooting</span></label></div></fieldset>
+<fieldset class="pf-skillgroup" data-category="Tutoring &amp; Review"><legend class="pf-skillgroup__title"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-book"/></svg>Tutoring &amp; Review<span class="pf-skillgroup__count">0</span></legend><div class="pf-pills"><label class="pf-pill"><input type="checkbox" name="skill" value="Math" data-category="Tutoring &amp; Review"><span>Math</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Science" data-category="Tutoring &amp; Review"><span>Science</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Programming basics" data-category="Tutoring &amp; Review"><span>Programming basics</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Exam review" data-category="Tutoring &amp; Review"><span>Exam review</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Thesis consultation" data-category="Tutoring &amp; Review"><span>Thesis consultation</span></label></div></fieldset>
+<fieldset class="pf-skillgroup" data-category="Media &amp; Content"><legend class="pf-skillgroup__title"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-camera"/></svg>Media &amp; Content<span class="pf-skillgroup__count">0</span></legend><div class="pf-pills"><label class="pf-pill"><input type="checkbox" name="skill" value="Video editing" data-category="Media &amp; Content"><span>Video editing</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Photography" data-category="Media &amp; Content"><span>Photography</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Social media management" data-category="Media &amp; Content"><span>Social media management</span></label><label class="pf-pill"><input type="checkbox" name="skill" value="Content planning" data-category="Media &amp; Content"><span>Content planning</span></label></div></fieldset>
+<fieldset class="pf-skillgroup" data-category="Other" hidden><legend class="pf-skillgroup__title"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-tag"/></svg>Other<span class="pf-skillgroup__count">0</span></legend><div class="pf-pills"></div></fieldset>
+</div>
+
+        <div class="field pf-custom-field">
+          <label for="custom-skill">Don’t see your skill? Add your own</label>
+          <div class="pf-custom">
+            <input class="input" id="custom-skill" type="text" maxlength="30" placeholder="e.g. Canva, Video captions, Statistics">
+            <button class="btn btn--ghost" type="button" id="btn-custom-skill"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-plus"/></svg> Add skill</button>
+          </div>
+        </div>
+
+        <div class="field pf-accomplishments">
+          <label for="accomplishments">Accomplishments</label>
+          <textarea class="textarea" id="accomplishments" name="accomplishments" rows="5" placeholder="One per line, for example:&#10;Designed the 2025 Org Fest poster&#10;Dean’s Lister, 1st Semester&#10;Tutored 12 classmates in Calculus"></textarea>
+          <p class="field__hint">One per line. Awards, projects, certifications, or results you’re proud of.</p>
+        </div>
+      </section>
+
+      <div class="pf-actions">
+        <button class="btn btn--ghost" type="button" id="btn-reset"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-trash"/></svg> Clear all</button>
+        <span class="pf-status" id="pf-status" role="status" aria-live="polite">Not saved yet</span>
+        <button class="btn btn--primary btn--lg" type="submit"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-save"/></svg> Save profile</button>
+      </div>
+    </form>
+
+    <aside class="pf-side" aria-label="Profile strength and resume preview">
+      <section class="pf-card pf-strength" aria-labelledby="pf-strength-title">
+        <div class="pf-strength__top">
+          <h2 id="pf-strength-title">Profile strength</h2>
+          <strong class="pf-strength__pct"><span id="pf-pct">0</span>%</strong>
+        </div>
+        <div class="pf-meter" id="pf-meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="pf-strength-title"><span id="pf-meter-fill"></span></div>
+        <ul class="pf-checklist" id="pf-checklist"></ul>
+      </section>
+
+      <section class="pf-card pf-preview" id="pf-preview" tabindex="-1" aria-labelledby="pf-preview-title">
+        <header class="pf-preview__head">
+          <h2 id="pf-preview-title">Resume preview</h2>
+          <span class="badge badge--open">Live</span>
+        </header>
+        <article class="pf-paper" id="pf-paper"><h3 class="pf-paper__name is-placeholder">Your Name</h3><p class="pf-paper__empty">Fill in the sections on the left and your resume will build itself here.</p></article>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<template id="tpl-education">
+  <div class="pf-entry">
+    <div class="pf-entry__head">
+      <h3 class="pf-entry__title" data-label="Education"></h3>
+      <button class="btn btn--red-soft pf-remove" type="button" data-remove aria-label="Remove this education entry"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-trash"/></svg> Remove</button>
+    </div>
+    <div class="pf-grid">
+      <label class="field"><span class="field__label">School</span><input class="input" type="text" data-f="school" maxlength="100" placeholder="e.g. National University – Laguna"></label>
+      <label class="field"><span class="field__label">Program / degree</span><input class="input" type="text" data-f="program" maxlength="100" placeholder="e.g. BS Information Technology"></label>
+      <label class="field"><span class="field__label">Year level or dates</span><input class="input" type="text" data-f="years" maxlength="40" placeholder="e.g. 3rd Year · 2023 – Present"></label>
+      <label class="field"><span class="field__label">Honors / notes</span><input class="input" type="text" data-f="details" maxlength="120" placeholder="e.g. Dean’s Lister"></label>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-experience">
+  <div class="pf-entry">
+    <div class="pf-entry__head">
+      <h3 class="pf-entry__title" data-label="Experience"></h3>
+      <button class="btn btn--red-soft pf-remove" type="button" data-remove aria-label="Remove this experience entry"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-trash"/></svg> Remove</button>
+    </div>
+    <div class="pf-grid">
+      <label class="field"><span class="field__label">Role</span><input class="input" type="text" data-f="role" maxlength="80" placeholder="e.g. Layout Artist"></label>
+      <label class="field"><span class="field__label">Organization</span><input class="input" type="text" data-f="org" maxlength="100" placeholder="e.g. NU Arts Collective"></label>
+      <label class="field"><span class="field__label">Start</span><input class="input" type="text" data-f="start" maxlength="24" placeholder="e.g. Aug 2024"></label>
+      <label class="field"><span class="field__label">End</span><input class="input" type="text" data-f="end" maxlength="24" placeholder="e.g. Present"></label>
+      <label class="field pf-span"><span class="field__label">What you did</span><textarea class="textarea" data-f="description" rows="3" maxlength="400" placeholder="Describe your responsibilities and results."></textarea></label>
+    </div>
+  </div>
+</template>
+
+<div class="pf-toast" id="pf-toast" role="status" aria-live="polite" hidden></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -9,7 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Bootstrap provides the responsive wireframe grid and accessible UI primitives. -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/variable.css">
+  <link rel="stylesheet" href="css/resets.css">
+  <link rel="stylesheet" href="css/components.css">
 </head>
 <body>
   <!-- SVG sprite sheet import -->
@@ -48,7 +50,7 @@
 <!-- HEADER -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="homepage.html" aria-label="SkillSwap NU Laguna home">
+      <a class="brand" href="homepage.php" aria-label="SkillSwap NU Laguna home">
         <span class="brand__mark">
           <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
         </span>
@@ -59,13 +61,13 @@
       </a>
       <!-- NAV BAR CODE-->
       <nav class="main-nav" aria-label="Main">
-        <a href="homepage.html" aria-current="page">Find a Commission</a>
-        <a href="post_commission.html">Find Student Help</a>
-        <a href="dashboard.html">My Dashboard</a>
+        <a href="homepage.php" aria-current="page">Find a Commission</a>
+        <a href="post_commission.php">Find Student Help</a>
+        <a href="dashboard.php">My Dashboard</a>
       </nav>
             <!-- USER BAR CODE -->
       <div class="user-bar">
-        <a class="icon-btn" href="notifications.html" aria-label="Notifications">
+        <a class="icon-btn" href="notifications.php" aria-label="Notifications">
           <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
         </a>
         <div class="user-menu">
@@ -75,8 +77,8 @@
             <svg class="ic ic-sm user-chip__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
           </button>
           <div class="user-menu__dropdown" id="user-menu" role="menu" hidden>
-            <a href="dashboard.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
-            <a href="login.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
+            <a href="profile.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
+            <a href="login.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
           </div>
         </div>
       </div>
@@ -102,14 +104,14 @@
         </div>
       </section>
       <section class="cta-row" aria-label="What would you like to do?">
-        <a class="cta cta--navy" href="homepage.html">
+        <a class="cta cta--navy" href="homepage.php">
           <span class="cta__label">
             <svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg> Find a commission
           </span>
           <h2>Browse open commission and earn</h2>
           <p>Students post tasks they need done — pick one that matches your skills and get paid.</p>
         </a>
-        <a class="cta cta--gold" href="post_commission.html">
+        <a class="cta cta--gold" href="post_commission.php">
           <span class="cta__label">
             <svg class="ic ic-sm" aria-hidden="true"><use href="#i-users"/></svg> Find student help
           </span>
@@ -118,7 +120,7 @@
         </a>
       </section>
 
-      <form class="search-row" role="search" action="homepage.html" method="get">
+      <form class="search-row" role="search" action="homepage.php" method="get">
         <div class="search-field">
           <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
           <label class="sr-only" for="q">Search commissions</label>
@@ -207,7 +209,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">3 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -229,7 +231,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">5 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -251,7 +253,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">2 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -273,7 +275,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">4 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -295,7 +297,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">1 applicant</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -317,7 +319,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">2 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
           </div>
@@ -332,7 +334,7 @@
             </div>
           </nav>
         </section>
-      </div>
+      </section>
     </div>
   </main>
 

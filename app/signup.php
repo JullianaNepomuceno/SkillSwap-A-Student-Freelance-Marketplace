@@ -9,7 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Bootstrap provides the same responsive base used across the marketplace. -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/variable.css">
+  <link rel="stylesheet" href="css/resets.css">
+  <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/auth.css">
 </head>
 <body class="auth-page">
@@ -26,7 +28,7 @@
   <!-- Shared SkillSwap brand header. -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="index.html" aria-label="SkillSwap NU Laguna home">
+      <a class="brand" href="index.php" aria-label="SkillSwap NU Laguna home">
         <span class="brand__mark">
           <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
         </span>
@@ -37,7 +39,7 @@
       </a>
       <div class="user-bar">
         <span class="user-chip__name">Already a member?</span>
-        <a class="btn btn--ghost btn--sm" href="login.html">Log in</a>
+        <a class="btn btn--ghost btn--sm" href="login.php">Log in</a>
       </div>
     </div>
   </header>
@@ -97,7 +99,7 @@
           </div>
           <label class="auth-note"><input type="checkbox" name="terms" required> I agree to the SkillSwap terms and student community guidelines.</label>
           <button class="btn btn--primary btn--lg btn--block" type="submit">Create account</button>
-          <p class="auth-note">Already have an account? <a class="auth-link" href="login.html">Log in</a></p>
+          <p class="auth-note">Already have an account? <a class="auth-link" href="login.php">Log in</a></p>
         </form>
       </div>
     </section>

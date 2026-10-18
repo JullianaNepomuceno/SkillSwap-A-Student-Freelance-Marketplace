@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SkillSwap · NU Laguna — For Nationalians, by Nationalians</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variable.css">
+<link rel="stylesheet" href="css/resets.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/landing.css">
+</head>
+
+<body id="top">
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="m17 3 4 4-4 4"/><path d="M3 7h18"/><path d="m7 21-4-4 4-4"/><path d="M21 17H3"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 22a10 10 0 1 1 10-10c0 3-2 4-4 4h-2a2 2 0 0 0-1 3.7c.6.5.5 2.3-3 2.3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="12" cy="7" r="1"/><circle cx="16.5" cy="10" r="1"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+  <symbol id="i-landmark" viewBox="0 0 24 24"><path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="m12 2 9 5H3z"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.9 4.2 11 8l3.8 1.1L11 10.2 9.9 14l-1.1-3.8L5 9.1l3.8-1.1z"/><path d="m18 14 .7 2.3L21 17l-2.3.7L18 20l-.7-2.3L15 17l2.3-.7z"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
+</svg>
+
+<header class="site-header lp-header">
+  <div class="site-header__inner">
+    <a class="brand" href="#top" aria-label="SkillSwap NU Laguna home">
+      <span class="brand__mark"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg></span>
+      <span><span class="brand__name">SkillSwap</span><span class="brand__school">NU LAGUNA</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <a href="#how">How It Works</a>
+      <a href="#skills">Skills</a>
+      <a href="#commissions">Commissions</a>
+      <a href="#talents">Talents</a>
+    </nav>
+    <div class="lp-actions">
+      <a class="btn btn--primary" href="login.php">Log in</a>
+      <a class="btn btn--gold" href="signup.php">Sign up</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lp-hero" aria-labelledby="lp-title">
+    <div class="lp-hero__inner">
+      <div>
+        <span class="lp-eyebrow"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-cap"/></svg> For Nationalians, by Nationalians</span>
+        <h1 id="lp-title">The Skills Marketplace <em>for Nationalians</em> at NU Laguna</h1>
+        <p class="lp-hero__lead">Got a skill? <strong>Earn from it.</strong> Need help? <strong>Find a fellow Nationalian</strong> who can do it. Post a commission, apply to one, and get paid in ₱ — all within your campus.</p>
+        <div class="lp-cta">
+          <a class="btn btn--gold" href="signup.php">Find a Commission</a>
+          <a class="btn btn--white-outline" href="signup.php">Post a Commission</a>
+        </div>
+        <p class="lp-hero__note">
+          <span><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> NU Laguna students only</span>
+          <span><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Student-friendly ₱100–₱2,000 budgets</span>
+          <span><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> No middlemen, no fees</span>
+        </p>
+      </div>
+      <a class="lp-stack" href="signup.php" aria-label="Sign up to get started">
+        <div class="lp-stack__tilt">
+          <div class="lp-mini"><span class="lp-mini__av">AR</span><div><strong>Alex Rivera</strong><span class="sub">Graphic Designer · NU Laguna</span><br><span class="tag">Available</span></div><span class="price">₱500</span></div>
+          <div class="lp-mini"><span class="lp-mini__av lp-mini__av--gold">DL</span><div><strong>Club landing page</strong><span class="sub">Dev Society · Coding &amp; IT</span><br><span class="tag">5 applicants</span></div><span class="price">₱1,500</span></div>
+          <div class="lp-mini"><span class="lp-mini__av lp-mini__av--green">MS</span><div><strong>Marc Santos</strong><span class="sub">Academic Editor · NU Laguna</span><br><span class="tag">Available</span></div><span class="price">₱250</span></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="lp-strip" aria-label="SkillSwap at a glance">
+    <div class="lp-strip__inner">
+      <a href="signup.php"><strong>12</strong><span>Open commissions</span></a>
+      <a href="signup.php"><strong>5</strong><span>Skill areas</span></a>
+      <a href="signup.php"><strong>₱100–₱2,000</strong><span>Student-friendly budgets</span></a>
+      <a href="signup.php"><strong>100%</strong><span>NU Laguna Nationalians</span></a>
+    </div>
+  </section>
+
+  <section class="lp-section" id="how"><div class="lp-wrap">
+    <div class="lp-section__head"><div><p class="lp-kicker">How it works</p><h2>Swap skills in three steps.</h2></div></div>
+    <div class="lp-steps">
+      <a class="lp-step" href="signup.php"><h3>Post or browse</h3><p>Need help? Post a commission with a clear brief and a fair ₱ budget. Want to earn? Browse open commissions by skill area.</p></a>
+      <a class="lp-step" href="signup.php"><h3>Apply and connect</h3><p>Nationalians send a short proposal with their portfolio and rate. Posters review applicants and accept the best fit.</p></a>
+      <a class="lp-step" href="signup.php"><h3>Deliver and earn</h3><p>Finish the work, mark it completed, and build your portfolio while earning extra — all inside the NU Laguna community.</p></a>
+    </div>
+  </div></section>
+
+  <section class="lp-section" id="skills"><div class="lp-wrap">
+    <div class="lp-section__head">
+      <div><p class="lp-kicker">Skills &amp; talents</p><h2>Whatever you need, a Nationalian can do it.</h2>
+      <p class="lp-section__sub">Pick a skill area to find commissions that match what you’re good at.</p></div>
+      <a class="btn btn--ghost" href="signup.php">Browse all skills <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+    <div class="lp-skills">
+<a class="lp-skill" href="signup.php"><span class="lp-skill__ic"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-code"/></svg></span><h3>Coding & IT</h3><p>Websites, apps, scripts, and tech troubleshooting.</p><small>4 open</small></a>
+<a class="lp-skill" href="signup.php"><span class="lp-skill__ic"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-palette"/></svg></span><h3>Arts & Design</h3><p>Logos, posters, social posts, and layouts.</p><small>3 open</small></a>
+<a class="lp-skill" href="signup.php"><span class="lp-skill__ic"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-pen"/></svg></span><h3>Writing & Research</h3><p>Articles, abstracts, editing, and proofreading.</p><small>2 open</small></a>
+<a class="lp-skill" href="signup.php"><span class="lp-skill__ic"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-book"/></svg></span><h3>Tutoring & Review</h3><p>One-on-one study sessions and exam review.</p><small>2 open</small></a>
+<a class="lp-skill" href="signup.php"><span class="lp-skill__ic"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-camera"/></svg></span><h3>Media & Content</h3><p>Photo edits, video cuts, and content creation.</p><small>1 open</small></a>
+    </div>
+  </div></section>
+
+  <section class="lp-section" id="commissions"><div class="lp-wrap">
+    <div class="lp-section__head">
+      <div><p class="lp-kicker">Look for commissions</p><h2>Fresh commissions from your campus.</h2>
+      <p class="lp-section__sub">Students post tasks they need done — pick one that matches your skills and get paid.</p></div>
+      <a class="btn btn--ghost" href="signup.php">See all 12 commissions <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+    <div class="card-grid">
+<article class="gig" data-category="Arts & Design">
+  <div class="gig__top">
+    <span class="gig__cat"><span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></span>Arts & Design</span>
+    <a class="gig__save" href="signup.php" aria-label="Sign up to save"><svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg></a>
+  </div>
+  <h3>Logo for NU Laguna Org Fest</h3>
+  <p class="gig__by">Student Council – NU Laguna</p>
+  <p class="gig__desc">Create a vibrant logo for our annual campus organization fair representing all NU Laguna colleges.</p>
+  <div class="gig__meta"><span class="price">₱500</span><span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 20</span></div>
+  <div class="gig__foot"><span class="pill">3 applicants</span><a class="btn btn--primary btn--sm" href="signup.php">View &amp; Apply</a></div>
+</article>
+<article class="gig" data-category="Coding & IT">
+  <div class="gig__top">
+    <span class="gig__cat"><span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-code"/></svg></span>Coding & IT</span>
+    <a class="gig__save" href="signup.php" aria-label="Sign up to save"><svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg></a>
+  </div>
+  <h3>Club landing page</h3>
+  <p class="gig__by">Dev Society – NU Laguna</p>
+  <p class="gig__desc">Build a responsive one-page site for our NU Laguna student developer community.</p>
+  <div class="gig__meta"><span class="price">₱1,500</span><span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 22</span></div>
+  <div class="gig__foot"><span class="pill">5 applicants</span><a class="btn btn--primary btn--sm" href="signup.php">View &amp; Apply</a></div>
+</article>
+<article class="gig" data-category="Writing & Research">
+  <div class="gig__top">
+    <span class="gig__cat"><span class="gig__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg></span>Writing & Research</span>
+    <a class="gig__save" href="signup.php" aria-label="Sign up to save"><svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg></a>
+  </div>
+  <h3>NU campus newsletter article</h3>
+  <p class="gig__by">The Nationalian Press</p>
+  <p class="gig__desc">Write a 600-word feature on student-led sustainability projects on our campus.</p>
+  <div class="gig__meta"><span class="price">₱350</span><span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 18</span></div>
+  <div class="gig__foot"><span class="pill">2 applicants</span><a class="btn btn--primary btn--sm" href="signup.php">View &amp; Apply</a></div>
+</article>
+    </div>
+  </div></section>
+
+  <section class="lp-section" id="talents"><div class="lp-wrap">
+    <div class="lp-section__head">
+      <div><p class="lp-kicker">Student talents</p><h2>Meet skilled Nationalians.</h2>
+      <p class="lp-section__sub">Portfolio-backed students ready to help with your project, at student-friendly rates.</p></div>
+      <a class="btn btn--ghost" href="signup.php">Post a commission <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </div>
+    <div class="lp-talents">
+<a class="talent" href="signup.php">
+  <div class="talent__top"><span class="avatar">AR</span>
+    <div><h3>Alex Rivera <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></h3><span class="talent__sub">Graphic Designer</span></div></div>
+  <p class="talent__sub">BS Multimedia Arts · 3rd Year</p>
+  <div class="talent__skills"><span class="pill">Logo</span><span class="pill">Posters</span><span class="pill">Branding</span></div>
+  <div class="talent__foot"><span>Starting at</span><strong>₱300</strong></div>
+</a>
+<a class="talent" href="signup.php">
+  <div class="talent__top"><span class="avatar">DL</span>
+    <div><h3>Dan Lim <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></h3><span class="talent__sub">Full-stack Developer</span></div></div>
+  <p class="talent__sub">BSIT · 4th Year</p>
+  <div class="talent__skills"><span class="pill">HTML/CSS</span><span class="pill">PHP</span><span class="pill">MySQL</span></div>
+  <div class="talent__foot"><span>Starting at</span><strong>₱800</strong></div>
+</a>
+<a class="talent" href="signup.php">
+  <div class="talent__top"><span class="avatar">MS</span>
+    <div><h3>Marc Santos <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></h3><span class="talent__sub">Academic Editor</span></div></div>
+  <p class="talent__sub">BSBA · 3rd Year</p>
+  <div class="talent__skills"><span class="pill">Editing</span><span class="pill">Research</span><span class="pill">Proofreading</span></div>
+  <div class="talent__foot"><span>Starting at</span><strong>₱150</strong></div>
+</a>
+<a class="talent" href="signup.php">
+  <div class="talent__top"><span class="avatar">EA</span>
+    <div><h3>Eri Arandela <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></h3><span class="talent__sub">Math Tutor</span></div></div>
+  <p class="talent__sub">BSIT · 2nd Year</p>
+  <div class="talent__skills"><span class="pill">Calculus</span><span class="pill">Algebra</span><span class="pill">Review</span></div>
+  <div class="talent__foot"><span>Starting at</span><strong>₱250</strong></div>
+</a>
+    </div>
+  </div></section>
+
+  <div class="lp-band"><div class="lp-band__box">
+    <div><h2>For Nationalians, <em>by Nationalians.</em></h2><p>Join SkillSwap and turn your skills into something real.</p></div>
+    <div class="lp-cta">
+      <a class="btn btn--gold" href="signup.php">Create your account</a>
+      <a class="btn btn--white-outline" href="signup.php">Browse commissions</a>
+    </div>
+  </div></div>
+</main>
+<footer class="site-footer lp-footer">
+  <span class="brand"><span class="brand__mark"><svg class="ic" aria-hidden="true"><use href="#i-swap"/></svg></span> SkillSwap · NU Laguna · For Nationalians, by Nationalians.</span>
+  <span>© 2026 NU Laguna SkillSwap · Student-exclusive marketplace</span>
+</footer>
+
+</body>
+</html>

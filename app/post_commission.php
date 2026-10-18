@@ -9,7 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Bootstrap provides the responsive wireframe grid and accessible UI primitives. -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/variable.css">
+  <link rel="stylesheet" href="css/resets.css">
+  <link rel="stylesheet" href="css/components.css">
 </head>
 <body>
 
@@ -47,7 +49,7 @@
 
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="homepage.html" aria-label="SkillSwap NU Laguna home">
+      <a class="brand" href="homepage.php" aria-label="SkillSwap NU Laguna home">
         <span class="brand__mark">
           <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
         </span>
@@ -58,13 +60,13 @@
       </a>
 
       <nav class="main-nav" aria-label="Main">
-        <a href="homepage.html">Find a Commission</a>
-        <a href="post_commission.html" aria-current="page">Find Student Help</a>
-        <a href="dashboard.html">My Dashboard</a>
+        <a href="homepage.php">Find a Commission</a>
+        <a href="post_commission.php" aria-current="page">Find Student Help</a>
+        <a href="dashboard.php">My Dashboard</a>
       </nav>
 
       <div class="user-bar">
-        <a class="icon-btn" href="notifications.html" aria-label="Notifications">
+        <a class="icon-btn" href="notifications.php" aria-label="Notifications">
           <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
         </a>
         <div class="user-menu">
@@ -74,8 +76,8 @@
             <svg class="ic ic-sm user-chip__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
           </button>
           <div class="user-menu__dropdown" id="user-menu" role="menu" hidden>
-            <a href="dashboard.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
-            <a href="login.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
+            <a href="profile.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
+            <a href="login.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
           </div>
         </div>
       </div>
@@ -84,7 +86,7 @@
 
   <main>
     <div class="page">
-      <a class="back-link" href="homepage.html"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-left"/></svg> Back to Find a Commission</a>
+      <a class="back-link" href="homepage.php"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-left"/></svg> Back to Find a Commission</a>
 
       <section class="hero hero--compact" aria-labelledby="post-hero">
         <div>
@@ -103,16 +105,18 @@
       </section>
 
       <section class="cta-row" aria-label="Posting options">
-        <a class="cta cta--soft" href="homepage.html">
+        <a class="cta cta--navy" href="homepage.php">
           <span class="cta__label">
-            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg> Find a commission instead?
+            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg> Find a commission
           </span>
+          <h2>Find a commission instead?</h2>
           <p>Browse open commissions posted by fellow Nationalians and earn by using your skills.</p>
         </a>
-        <div class="cta cta--navy-compact">
+        <div class="cta cta--gold" aria-current="page">
           <span class="cta__label">
-            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-users"/></svg> You’re posting a commission
+            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-users"/></svg> Find student help
           </span>
+          <h2>You’re posting a commission</h2>
           <p>Describe your task, set a student-friendly ₱ budget, and let skilled Nationalians apply.</p>
         </div>
       </section>
@@ -194,7 +198,7 @@
           <section class="preview" aria-labelledby="preview-title">
             <div class="preview__head">
               <h3 id="preview-title"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg> Live Preview</h3>
-              <span class="badge">Not published</span>
+              <span class="badge" id="pv-state">Not published</span>
             </div>
             <p>Here’s how your commission will appear in the NU Laguna SkillSwap marketplace once published.</p>
             <article class="commission">
@@ -202,21 +206,21 @@
                 <span class="commission__cat">
                   <span class="commission__cat-ic"><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg></span>Arts &amp; Design
                 </span>
-                <span class="badge badge--draft">Draft</span>
+                <span class="badge badge--draft" id="pv-badge">Draft</span>
               </div>
-              <h3>Logo for NU Laguna Org Fest</h3>
+              <h3 id="pv-title">Logo for NU Laguna Org Fest</h3>
               <p class="commission__by">Jamie Santos – NU Laguna</p>
-              <p class="commission__desc">Create a fresh, vibrant logo for our annual campus organization fair. We need two initial concepts, one revision, and final SVG…</p>
+              <p class="commission__desc" id="pv-desc">Create a fresh, vibrant logo for our annual campus organization fair. We need two initial concepts, one revision, and final SVG…</p>
               <div class="commission__meta">
-                <span class="due due--pending">Budget pending</span>
-                <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> Due Oct 20</span>
+                <span class="due due--pending" id="pv-budget">Budget pending</span>
+                <span class="due"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-calendar"/></svg> <span id="pv-due">Due Oct 20</span></span>
               </div>
               <div class="commission__foot">
                 <span class="pill">0 applicants</span>
                 <span class="btn btn--ghost btn--sm" aria-disabled="true">View &amp; Apply</span>
               </div>
             </article>
-            <div class="preview__note">
+            <div class="preview__note" id="pv-note">
               <svg class="ic ic-sm" aria-hidden="true"><use href="#i-alert"/></svg> Your ₱ budget will appear here after you enter a valid number above.
             </div>
           </section>
@@ -226,7 +230,7 @@
             <ul class="checklist">
               <li class="done"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Clear title and skill area category</li>
               <li class="done"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Deadline and deliverables added</li>
-              <li class="todo"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg> Valid ₱ budget still needed</li>
+              <li class="todo" id="ck-budget"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg> Valid ₱ budget still needed</li>
             </ul>
             <div class="fair-note">
               <svg class="ic ic-sm" aria-hidden="true"><use href="#i-bulb"/></svg>
@@ -240,7 +244,7 @@
             <p>SkillSwap is exclusive to the NU Laguna community. Build your portfolio, earn extra, and help fellow Nationalians — all within your campus.</p>
           </div>
         </aside>
-      </div>
+      </section>
     </div>
   </main>
 
