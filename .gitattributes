@@ -1,0 +1,11 @@
+*.php linguist-language=PHP
+
+app/commission.php linguist-language=HTML linguist-detectable=true
+app/dashboard.php linguist-language=HTML linguist-detectable=true
+app/homepage.php linguist-language=HTML linguist-detectable=true
+app/index.php linguist-language=HTML linguist-detectable=true
+app/login.php linguist-language=HTML linguist-detectable=true
+app/notifications.php linguist-language=HTML linguist-detectable=true
+app/post_commission.php linguist-language=HTML linguist-detectable=true
+app/profile.php linguist-language=HTML linguist-detectable=true
+app/signup.php linguist-language=HTML linguist-detectable=true
