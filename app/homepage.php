@@ -11,7 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/variable.css">
   <link rel="stylesheet" href="css/resets.css">
-  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/components.css?v=20261018-icons">
 </head>
 <body>
   <!-- SVG sprite sheet import -->
@@ -50,7 +50,7 @@
 <!-- HEADER -->
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="homepage.html" aria-label="SkillSwap NU Laguna home">
+      <a class="brand" href="homepage.php" aria-label="SkillSwap NU Laguna home">
         <span class="brand__mark">
           <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
         </span>
@@ -61,13 +61,13 @@
       </a>
       <!-- NAV BAR CODE-->
       <nav class="main-nav" aria-label="Main">
-        <a href="homepage.html" aria-current="page">Find a Commission</a>
-        <a href="post_commission.html">Find Student Help</a>
-        <a href="dashboard.html">My Dashboard</a>
+        <a href="homepage.php" aria-current="page">Find a Commission</a>
+        <a href="post_commission.php">Find Student Help</a>
+        <a href="dashboard.php">My Dashboard</a>
       </nav>
             <!-- USER BAR CODE -->
       <div class="user-bar">
-        <a class="icon-btn" href="notifications.html" aria-label="Notifications">
+        <a class="icon-btn" href="notifications.php" aria-label="Notifications">
           <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
         </a>
         <div class="user-menu">
@@ -77,8 +77,8 @@
             <svg class="ic ic-sm user-chip__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
           </button>
           <div class="user-menu__dropdown" id="user-menu" role="menu" hidden>
-            <a href="profile.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
-            <a href="login.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
+            <a href="profile.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
+            <a href="login.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
           </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
           <p>Earn by helping fellow Nationalians — or find the right student for your project.</p>
         </div>
         <div class="hero__stats">
-          <div class="stat"><strong>12</strong><span>Open commissions</span></div>
+          <div class="stat"><strong id="open-commission-count">0</strong><span>Open commissions</span></div>
           <div class="hero__divider"></div>
           <div class="stat"><strong>5</strong><span>Skill areas</span></div>
           <div class="hero__badge">
@@ -104,14 +104,14 @@
         </div>
       </section>
       <section class="cta-row" aria-label="What would you like to do?">
-        <a class="cta cta--navy" href="homepage.html">
+        <a class="cta cta--navy" href="homepage.php">
           <span class="cta__label">
             <svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg> Find a commission
           </span>
           <h2>Browse open commission and earn</h2>
           <p>Students post tasks they need done — pick one that matches your skills and get paid.</p>
         </a>
-        <a class="cta cta--gold" href="post_commission.html">
+        <a class="cta cta--gold" href="post_commission.php">
           <span class="cta__label">
             <svg class="ic ic-sm" aria-hidden="true"><use href="#i-users"/></svg> Find student help
           </span>
@@ -120,7 +120,7 @@
         </a>
       </section>
 
-      <form class="search-row" role="search" action="homepage.html" method="get">
+      <form class="search-row" role="search" action="homepage.php" method="get">
         <div class="search-field">
           <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
           <label class="sr-only" for="q">Search commissions</label>
@@ -179,7 +179,7 @@
 
         <section aria-labelledby="results-title">
           <div class="results-head">
-            <h2 id="results-title">Open commissions <small>(12 results)</small></h2>
+            <h2 id="results-title">Open commissions <small>(0 results)</small></h2>
             <label class="sort" for="sort">Sort by:
               <select id="sort">
                 <option>Newest first</option>
@@ -190,7 +190,8 @@
             </label>
           </div>
 
-          <div class="card-grid">
+          <div class="card-grid" id="open-commissions-grid">
+            <div hidden aria-hidden="true">
             <article class="commission" data-category="Arts & Design">
               <div class="commission__top">
                 <span class="commission__cat">
@@ -209,7 +210,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">3 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -231,7 +232,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">5 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -253,7 +254,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">2 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -275,7 +276,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">4 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -297,7 +298,7 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">1 applicant</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
 
@@ -319,9 +320,10 @@
               </div>
               <div class="commission__foot">
                 <span class="pill">2 applicants</span>
-                <a class="btn btn--primary btn--sm" href="commission.html">View &amp; Apply</a>
+                <a class="btn btn--primary btn--sm" href="commission.php">View &amp; Apply</a>
               </div>
             </article>
+            </div>
           </div>
 
           <nav class="pagination" aria-label="Pagination">
@@ -349,6 +351,6 @@
   <!-- Bootstrap bundle enables future component behavior; app.js owns marketplace interactions. -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=20261018-notification-icons1"></script>
 </body>
 </html>

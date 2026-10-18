@@ -1,6 +1,354 @@
 /* Shared SkillSwap interactions. All handlers are guarded so each static page
    can use the same script without console errors. */
 document.addEventListener("DOMContentLoaded", () => {
+  // Replace the static header placeholder with the authenticated session user.
+  const loadCurrentUser = async () => {
+    const userChips = Array.from(document.querySelectorAll(".user-chip"));
+    if (!userChips.length) return;
+
+    try {
+      const response = await fetch("../api/auth/me.php", {
+        credentials: "same-origin",
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success || !result.user) {
+        if (response.status === 401) {
+          window.location.href = "login.php";
+        }
+        return;
+      }
+
+      const fullName = String(result.user.full_name || "").trim();
+      const nameParts = fullName.split(/\s+/).filter(Boolean);
+      const initials = nameParts
+        .slice(0, 2)
+        .map((part) => part.charAt(0).toUpperCase())
+        .join("");
+
+      userChips.forEach((chip) => {
+        const avatar = chip.querySelector(".avatar");
+        const name = chip.querySelector(".user-chip__name");
+        if (avatar) {
+          avatar.textContent = initials || "?";
+          avatar.setAttribute("aria-label", fullName || "Account");
+        }
+        if (name) name.textContent = fullName ? `Hi, ${fullName}` : "Hi, Nationalian";
+      });
+    } catch (error) {
+      console.error("Unable to load the current user.", error);
+    }
+  };
+
+  loadCurrentUser();
+
+  const updateNotificationBadge = async () => {
+    const notificationLinks = document.querySelectorAll(".icon-btn[href='notifications.php']");
+    if (!notificationLinks.length) return;
+    try {
+      const response = await fetch("../api/notifications/count.php", {
+        credentials: "same-origin",
+        cache: "no-store",
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Unable to load notification count.");
+      const unreadCount = Number(result.unread_count) || 0;
+      notificationLinks.forEach((link) => {
+        let badge = link.querySelector(".notification-badge");
+        if (unreadCount > 0) {
+          if (!badge) {
+            badge = document.createElement("span");
+            badge.className = "notification-badge";
+            link.append(badge);
+          }
+          badge.textContent = unreadCount > 99 ? "99+" : String(unreadCount);
+          badge.setAttribute("aria-label", `${unreadCount} unread notification${unreadCount === 1 ? "" : "s"}`);
+          link.setAttribute("aria-label", `Notifications, ${unreadCount} unread`);
+        } else {
+          badge?.remove();
+          link.setAttribute("aria-label", "Notifications");
+        }
+      });
+    } catch (error) {
+      console.error("Unable to load notification count.", error);
+    }
+  };
+
+  updateNotificationBadge();
+  window.setInterval(updateNotificationBadge, 30000);
+
+  const loadDashboardData = async () => {
+    const bars = document.getElementById("application-bars");
+    if (!bars) return;
+    const commissionRows = document.getElementById("my-commissions-body");
+    if (commissionRows) commissionRows.replaceChildren();
+    const commissionSummary = document.getElementById("my-commissions-summary");
+    if (commissionSummary) commissionSummary.textContent = "Loading your commissions...";
+
+    try {
+      const response = await fetch("../api/dashboard/stats.php", {
+        credentials: "same-origin",
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Unable to load dashboard activity.");
+      }
+
+      const metrics = result.metrics || {};
+      const setText = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = String(value ?? 0);
+      };
+      setText("metric-posted", metrics.posted);
+      setText("metric-in-progress", metrics.in_progress);
+      setText("metric-completed", metrics.completed);
+      setText("metric-applications", metrics.total_applications);
+      setText("hero-commissions-posted", Number(metrics.posted) + Number(metrics.in_progress) + Number(metrics.completed));
+      setText("hero-applications", metrics.total_applications);
+
+      const activity = Array.isArray(result.activity) ? result.activity : [];
+      const counts = activity.map((day) => Number(day.count) || 0);
+      const maximum = Math.max(...counts, 1);
+      const total = counts.reduce((sum, count) => sum + count, 0);
+      setText("chart-total", total);
+
+      const range = document.getElementById("chart-range");
+      if (range && result.activity_start && result.activity_end) {
+        range.textContent = `${result.activity_start}–${result.activity_end}`;
+      }
+
+      const barColumns = Array.from(bars.querySelectorAll(".bars__col"));
+      barColumns.forEach((column, index) => {
+        const count = counts[index] || 0;
+        const bar = column.querySelector(".bars__bar");
+        column.firstChild.textContent = String(count);
+        column.classList.toggle("bars__col--peak", count > 0 && count === maximum);
+        if (bar) bar.style.height = `${count ? Math.max((count / maximum) * 78, 8) : 0}%`;
+      });
+
+      const labels = document.querySelectorAll("#application-bar-labels span");
+      labels.forEach((label, index) => {
+        label.textContent = activity[index]?.label || "—";
+      });
+
+      const ariaLabel = activity
+        .map((day) => `${day.label} ${day.count}`)
+        .join(", ");
+      bars.setAttribute("aria-label", `Applications per day: ${ariaLabel}`);
+
+      const busiest = activity.reduce(
+        (current, day) => (Number(day.count) > Number(current?.count || 0) ? day : current),
+        null,
+      );
+      const chartFoot = document.getElementById("chart-foot");
+      if (chartFoot) {
+        chartFoot.textContent =
+          busiest && Number(busiest.count) > 0
+            ? `${busiest.label} was your busiest day with ${busiest.count} application${busiest.count === 1 ? "" : "s"}.`
+            : "No applications were received during this period.";
+      }
+
+      const rows = document.getElementById("my-commissions-body");
+      if (rows) {
+        rows.replaceChildren();
+        const iconByCategory = {
+          "Coding & IT": "code",
+          "Arts & Design": "palette",
+          "Writing & Research": "pen",
+          "Tutoring & Review": "book",
+          "Media & Content": "camera",
+        };
+        const commissions = Array.isArray(result.commissions) ? result.commissions : [];
+        commissions.forEach((commission) => {
+          const row = document.createElement("tr");
+          const cell = document.createElement("td");
+          const titleCell = document.createElement("div");
+          titleCell.className = "title-cell";
+          const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          icon.className = "ic ic-sm";
+          const use = document.createElement("use");
+          use.setAttribute("href", `#i-${iconByCategory[commission.category] || "briefcase"}`);
+          icon.append(use);
+          const titleInfo = document.createElement("div");
+          const title = document.createElement("strong");
+          title.textContent = commission.title;
+          const details = document.createElement("span");
+          details.textContent = `${commission.category} · ${commission.application_count} applicants`;
+          titleInfo.append(title, details);
+          titleCell.append(icon, titleInfo);
+          cell.append(titleCell);
+          row.append(cell);
+
+          const statusCell = document.createElement("td");
+          const status = document.createElement("span");
+          status.className = `badge badge--${commission.status === "Open" ? "open" : commission.status === "Completed" ? "done" : "progress"}`;
+          status.textContent = commission.status;
+          statusCell.append(status);
+          row.append(statusCell);
+
+          const budgetCell = document.createElement("td");
+          budgetCell.className = "rate";
+          budgetCell.textContent = `₱${Number(commission.budget).toLocaleString()}`;
+          row.append(budgetCell);
+
+          const deadlineCell = document.createElement("td");
+          deadlineCell.textContent = new Date(`${commission.deadline}T00:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+          row.append(deadlineCell);
+
+          const actionCell = document.createElement("td");
+          const action = document.createElement("a");
+          action.className = "btn btn--outline";
+          action.href = `commission.php?id=${encodeURIComponent(commission.id)}`;
+          action.textContent = commission.status === "In Progress" ? "Mark Completed" : commission.status === "Completed" ? "View details" : "View applicants";
+          actionCell.append(action);
+          row.append(actionCell);
+          rows.append(row);
+        });
+
+        const summary = document.getElementById("my-commissions-summary");
+        if (summary) summary.textContent = commissions.length ? `Showing ${commissions.length} of ${commissions.length} posted commissions` : "You have not posted any commissions.";
+        const upNext = commissions.find((commission) => commission.status === "In Progress") || commissions.find((commission) => commission.status === "Open");
+        const upNextName = document.getElementById("upnext-name");
+        const upNextDescription = document.getElementById("upnext-description");
+        const upNextLink = document.getElementById("upnext-link");
+        if (upNext) {
+          upNextName.textContent = upNext.title;
+          upNextDescription.textContent = `${new Date(`${upNext.deadline}T00:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" })} · ${upNext.application_count} student${Number(upNext.application_count) === 1 ? "" : "s"} waiting to hear from you.`;
+          upNextLink.href = `commission.php?id=${encodeURIComponent(upNext.id)}`;
+          upNextLink.lastChild.textContent = " Review applicants";
+        }
+      }
+    } catch (error) {
+      const chartFoot = document.getElementById("chart-foot");
+      if (chartFoot) chartFoot.textContent = "Unable to load application activity.";
+      console.error("Unable to load dashboard data.", error);
+    }
+  };
+
+  loadDashboardData();
+
+  const loadOpenCommissionCount = async () => {
+    const countElement = document.getElementById("open-commission-count");
+    if (!countElement) return;
+    try {
+      const response = await fetch("../api/commissions/list.php?limit=50", {
+        credentials: "same-origin",
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Unable to load commission count.");
+      const commissions = Array.isArray(result.commissions) ? result.commissions : [];
+      countElement.textContent = String(Number.isFinite(Number(result.total)) ? result.total : commissions.length);
+      const skillAreaCount = document.getElementById("open-skill-area-count");
+      if (skillAreaCount) {
+        const categories = new Set(
+          commissions
+            .map((commission) => String(commission.category || "").trim())
+            .filter(Boolean),
+        );
+        skillAreaCount.textContent = String(categories.size);
+      }
+    } catch (error) {
+      console.error("Unable to load open commission count.", error);
+    }
+  };
+
+  loadOpenCommissionCount();
+
+  const loadNotifications = async () => {
+    const list = document.getElementById("notifications-list");
+    if (!list) return;
+    try {
+      const response = await fetch("../api/notifications/list.php", { credentials: "same-origin" });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Unable to load notifications.");
+      list.replaceChildren();
+      const iconByType = {
+        application_received: ["send", "gold", "New application received"],
+        application_accepted: ["check", "green", "Application accepted"],
+        application_rejected: ["bell", "red", "Application update"],
+        commission_completed: ["check", "green", "Commission completed"],
+      };
+      (result.notifications || []).forEach((notification) => {
+        const [iconName, tone, title] = iconByType[notification.type] || ["bell", "", "Notification"];
+        const article = document.createElement("article");
+        article.className = `notification${Number(notification.is_read) ? " notification--read" : ""}`;
+        const commissionId = Number(notification.commission_id);
+        if (Number.isInteger(commissionId) && commissionId > 0) {
+          article.classList.add("notification--link");
+          article.dataset.notificationId = notification.id;
+          article.dataset.commissionId = commissionId;
+          article.tabIndex = 0;
+          article.setAttribute("role", "link");
+          article.setAttribute("aria-label", `${title}: ${notification.message}`);
+        }
+        const iconWrap = document.createElement("span");
+        iconWrap.className = `notification__icon${tone ? ` notification__icon--${tone}` : ""}`;
+        const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        icon.setAttribute("class", "ic");
+        icon.setAttribute("viewBox", "0 0 24 24");
+        icon.setAttribute("aria-hidden", "true");
+        const iconReference = `#i-${iconName}`;
+        const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+        use.setAttribute("href", iconReference);
+        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", iconReference);
+        icon.append(use);
+        iconWrap.append(icon);
+        const body = document.createElement("div");
+        body.className = "notification__body";
+        const heading = document.createElement("strong");
+        heading.textContent = title;
+        const message = document.createElement("p");
+        message.textContent = notification.message;
+        const time = document.createElement("span");
+        time.className = "notification__time";
+        time.textContent = new Date(notification.created_at.replace(" ", "T")).toLocaleString();
+        body.append(heading, message, time);
+        article.append(iconWrap, body);
+        if (!Number(notification.is_read)) {
+          const unread = document.createElement("span");
+          unread.className = "notification__status";
+          unread.setAttribute("aria-label", "Unread");
+          article.append(unread);
+        }
+        list.append(article);
+      });
+      const openNotification = async (article) => {
+        const notificationId = article.dataset.notificationId;
+        const commissionId = article.dataset.commissionId;
+        if (!commissionId) return;
+        try {
+          const response = await fetch(`../api/notifications/mark_read.php?id=${encodeURIComponent(notificationId)}`, {
+            method: "POST",
+            credentials: "same-origin",
+          });
+          const result = await response.json();
+          if (!response.ok || !result.success) {
+            throw new Error(result.message || "Unable to mark notification as read.");
+          }
+        } catch (error) {
+          console.error("Unable to mark notification as read.", error);
+        } finally {
+          window.location.href = `commission.php?id=${encodeURIComponent(commissionId)}`;
+        }
+      };
+      list.addEventListener("click", (event) => {
+        const article = event.target.closest(".notification--link");
+        if (article) openNotification(article);
+      });
+      list.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        const article = event.target.closest(".notification--link");
+        if (!article) return;
+        event.preventDefault();
+        openNotification(article);
+      });
+    } catch (error) {
+      list.textContent = "Unable to load notifications.";
+      console.error("Unable to load notifications.", error);
+    }
+  };
+
+  loadNotifications();
+
   // User menu: keep profile actions keyboard- and pointer-accessible.
   document.querySelectorAll(".user-menu").forEach((menu) => {
     const toggle = menu.querySelector(".user-chip");
@@ -48,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Browse page: search, category, budget, status, sorting, saving, and paging.
-  const cards = Array.from(document.querySelectorAll(".card-grid .commission"));
+  let cards = Array.from(document.querySelectorAll(".card-grid .commission"));
   const filters = document.getElementById("filters");
   const searchForm = document.querySelector("form[role='search']");
   const queryInput = document.getElementById("q");
@@ -139,7 +487,118 @@ document.addEventListener("DOMContentLoaded", () => {
   if (filters) {
     filters.addEventListener("input", () => {
       currentPage = 1;
+      const loadOpenCommissions = async () => {
+        const grid = document.getElementById("open-commissions-grid");
+        if (!grid) return;
+
+        // Never display the server-rendered sample cards while the database is loading.
+        grid.replaceChildren();
+        cards = [];
+        try {
+          const response = await fetch(`../api/commissions/list.php?_=${Date.now()}`, {
+            credentials: "same-origin",
+            cache: "no-store",
+          });
+          const result = await response.json();
+          if (!response.ok || !result.success) {
+            throw new Error(result.message || "Unable to load commissions.");
+          }
+
+          const iconByCategory = {
+            "Coding & IT": "code",
+            "Arts & Design": "palette",
+            "Writing & Research": "pen",
+            "Tutoring & Review": "book",
+            "Media & Content": "camera",
+          };
+          const commissions = Array.isArray(result.commissions) ? result.commissions : [];
+          grid.replaceChildren();
+          commissions.forEach((commission) => {
+            const card = document.createElement("article");
+            card.className = "commission";
+            card.dataset.category = commission.category;
+            card.dataset.id = commission.id;
+
+            const top = document.createElement("div");
+            top.className = "commission__top";
+            const category = document.createElement("span");
+            category.className = "commission__cat";
+            const categoryIcon = document.createElement("span");
+            categoryIcon.className = "commission__cat-ic";
+            const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            icon.setAttribute("class", "ic");
+            icon.setAttribute("aria-hidden", "true");
+            const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+            const iconReference = `#i-${iconByCategory[commission.category] || "briefcase"}`;
+            use.setAttribute("href", iconReference);
+            use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", iconReference);
+            icon.append(use);
+            categoryIcon.append(icon);
+            category.append(categoryIcon, document.createTextNode(commission.category));
+            const save = document.createElement("button");
+            save.className = "commission__save";
+            save.type = "button";
+            save.setAttribute("aria-label", "Save commission");
+            const saveIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            saveIcon.setAttribute("class", "ic");
+            saveIcon.setAttribute("viewBox", "0 0 24 24");
+            const saveUse = document.createElement("use");
+            saveUse.setAttribute("href", "#i-bookmark");
+            saveIcon.append(saveUse);
+            save.append(saveIcon);
+            top.append(category, save);
+
+            const title = document.createElement("h3");
+            title.textContent = commission.title;
+            const owner = document.createElement("p");
+            owner.className = "commission__by";
+            owner.textContent = commission.owner_name;
+            const description = document.createElement("p");
+            description.className = "commission__desc";
+            description.textContent = commission.description;
+            const meta = document.createElement("div");
+            meta.className = "commission__meta";
+            const price = document.createElement("span");
+            price.className = "price";
+            price.textContent = `₱${Number(commission.budget).toLocaleString()}`;
+            const due = document.createElement("span");
+            due.className = "due";
+            due.textContent = `Due ${new Date(`${commission.deadline}T00:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+            meta.append(price, due);
+            const footer = document.createElement("div");
+            footer.className = "commission__foot";
+            const applicants = document.createElement("span");
+            applicants.className = "pill";
+            applicants.textContent = `${commission.applicant_count} applicant${Number(commission.applicant_count) === 1 ? "" : "s"}`;
+            const link = document.createElement("a");
+            link.className = "btn btn--primary btn--sm";
+            link.href = `commission.php?id=${encodeURIComponent(commission.id)}`;
+            link.textContent = "View & Apply";
+            footer.append(applicants, link);
+            card.append(top, title, owner, description, meta, footer);
+            grid.append(card);
+          });
+
+          cards = Array.from(grid.querySelectorAll(".commission"));
+          const countElement = document.getElementById("open-commission-count");
+          if (countElement) {
+            countElement.textContent = String(Number.isFinite(Number(result.total)) ? result.total : commissions.length);
+          }
+          if (!commissions.length) {
+            if (resultTitle) resultTitle.textContent = "(0 results)";
+            if (resultSummary) resultSummary.textContent = "No open commissions have been posted yet.";
+          }
+          applyBrowseFilters();
+        } catch (error) {
+          console.error("Unable to load open commissions.", error);
+          cards = [];
+          if (resultTitle) resultTitle.textContent = "(unable to load)";
+          if (resultSummary) resultSummary.textContent = "Unable to load commissions from the database.";
+        }
+      };
+
       applyBrowseFilters();
+      loadOpenCommissions();
     });
     filters.addEventListener("reset", () =>
       window.setTimeout(() => {
@@ -147,6 +606,11 @@ document.addEventListener("DOMContentLoaded", () => {
         applyBrowseFilters();
       }),
     );
+    filters.dispatchEvent(new Event("input"));
+    window.addEventListener("pageshow", () => {
+      currentPage = 1;
+      filters.dispatchEvent(new Event("input"));
+    });
   }
   if (searchForm) {
     searchForm.addEventListener("submit", (event) => {
@@ -195,35 +659,71 @@ document.addEventListener("DOMContentLoaded", () => {
     const budget = document.getElementById("budget");
     const deadline = document.getElementById("deadline");
     const details = document.getElementById("details");
+    const previewAuthor = document.getElementById("pv-author");
     const submitButton = postForm.querySelector("button[type='submit']");
     const preview = postForm.parentElement?.querySelector(
       ".preview .commission",
     );
+    const budgetField = budget?.closest(".field");
+    const budgetIcon = budget?.closest(".field-wrap")?.querySelector(".ic");
     const error = document.getElementById("budget-error");
+    const categoryIcons = {
+      "Coding & IT": "#i-code",
+      "Arts & Design": "#i-palette",
+      "Writing & Research": "#i-pen",
+      "Tutoring & Review": "#i-book",
+      "Media & Content": "#i-camera",
+    };
     const today = new Date().toISOString().split("T")[0];
     if (deadline) deadline.min = today;
+    fetch("../api/auth/me.php", { credentials: "same-origin", cache: "no-store" })
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok || !result.success || !result.user) {
+          throw new Error(result.message || "Unable to load your account details.");
+        }
+        const fullName = String(result.user.full_name || "").trim();
+        if (previewAuthor) previewAuthor.textContent = fullName || "Your name";
+      })
+      .catch((error) => {
+        if (previewAuthor) previewAuthor.textContent = "Your name";
+        console.error("Unable to load the preview author.", error);
+      });
 
     const updatePreview = () => {
       const previewTitle = preview?.querySelector("h3");
       const previewCategory = preview?.querySelector(".commission__cat");
       const previewDescription = preview?.querySelector(".commission__desc");
-      const previewBudget = preview?.querySelector(".due--pending");
-      const previewDeadline = preview?.querySelector(
-        ".commission__meta .due:last-child",
-      );
+      const previewBudget = document.getElementById("pv-budget");
+      const previewDeadline = document.getElementById("pv-due");
       if (previewTitle)
         previewTitle.textContent =
           title?.value.trim() || "Your commission title";
       if (previewCategory)
         previewCategory.lastChild.textContent = category?.value || "Skill area";
+      const previewCategoryIcon = previewCategory?.querySelector("use");
+      if (previewCategoryIcon) {
+        const iconReference =
+          categoryIcons[category?.value] || "#i-briefcase";
+        previewCategoryIcon.setAttribute(
+          "href",
+          iconReference,
+        );
+        previewCategoryIcon.setAttributeNS(
+          "http://www.w3.org/1999/xlink",
+          "xlink:href",
+          iconReference,
+        );
+      }
       if (previewDescription)
         previewDescription.textContent =
           details?.value.trim() ||
           "Your commission description will appear here.";
-      const budgetOk = Number(budget?.value) > 0;
+      const budgetValue = Number((budget?.value || "").replace(/,/g, "").trim());
+      const budgetOk = Number.isFinite(budgetValue) && budgetValue > 0;
       if (previewBudget)
         previewBudget.textContent = budgetOk
-          ? `₱${Number(budget.value).toLocaleString()}`
+          ? `₱${budgetValue.toLocaleString()}`
           : "Budget pending";
       previewBudget?.classList.toggle("due--pending", !budgetOk);
       document.getElementById("pv-note")?.toggleAttribute("hidden", budgetOk);
@@ -250,25 +750,53 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (previewDeadline && deadline?.value) {
         const date = new Date(`${deadline.value}T00:00:00`);
-        previewDeadline.lastChild.textContent = ` Due ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+        previewDeadline.textContent = `Due ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
       }
     };
     const validatePost = () => {
-      const validBudget = Number(budget?.value) > 0;
+      const budgetValue = Number((budget?.value || "").replace(/,/g, "").trim());
+      const validBudget = Number.isFinite(budgetValue) && budgetValue > 0;
       const validDeadline = Boolean(deadline?.value) && deadline.value >= today;
-      const validText =
-        Boolean(title?.value.trim()) && Boolean(details?.value.trim());
-      budget?.classList.toggle("input--invalid", !validBudget);
+      const validTitle = Boolean(title?.value.trim());
+      const validCategory = Boolean(category?.value.trim());
+      const validDetails = Boolean(details?.value.trim());
+      const validText = validTitle && validDetails;
+      const setChecklistState = (id, isComplete, incompleteText, completeText) => {
+        const item = document.getElementById(id);
+        if (!item) return;
+        item.classList.toggle("done", isComplete);
+        item.classList.toggle("todo", !isComplete);
+        const text = item.querySelector("span") || item.lastChild;
+        if (text) text.textContent = ` ${isComplete ? completeText : incompleteText}`;
+        item.querySelector("use")?.setAttribute("href", isComplete ? "#i-check" : "#i-clock");
+      };
+      setChecklistState(
+        "ck-brief",
+        validTitle && validCategory,
+        " Clear title and skill area category still needed",
+        " Clear title and skill area category added",
+      );
+      setChecklistState(
+        "ck-details",
+        validDeadline && validDetails,
+        " Deadline and deliverables still needed",
+        " Deadline and deliverables added",
+      );
+      if (budgetField) budgetField.classList.toggle("field--error", !validBudget);
+      if (budget) budget.classList.toggle("input--invalid", !validBudget);
+      budget?.setAttribute("aria-invalid", String(!validBudget));
+      if (budgetIcon) budgetIcon.hidden = validBudget;
       deadline?.classList.toggle("input--invalid", !validDeadline);
       if (error) error.hidden = validBudget;
       if (submitButton)
-        submitButton.disabled = !(validBudget && validDeadline && validText);
+        submitButton.disabled = !(validBudget && validDeadline && validTitle && validCategory && validDetails);
       updatePreview();
-      return validBudget && validDeadline && validText;
+      return validBudget && validDeadline && validTitle && validCategory && validDetails;
     };
-    [title, category, budget, deadline, details].forEach((field) =>
-      field?.addEventListener("input", validatePost),
-    );
+    [title, category, budget, deadline, details].forEach((field) => {
+      field?.addEventListener("input", validatePost);
+      field?.addEventListener("change", validatePost);
+    });
     const syncChips = () =>
       document
         .querySelectorAll(".chip")
@@ -294,66 +822,334 @@ document.addEventListener("DOMContentLoaded", () => {
         validatePost();
       });
     });
-    postForm.addEventListener("submit", (event) => {
+    postForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      if (validatePost())
-        showMessage("Your commission is ready to publish.", "success");
-      else showMessage("Please complete the highlighted fields.", "error");
+      if (!validatePost()) {
+        showMessage("Please complete the highlighted fields.", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      const data = new FormData(postForm);
+      data.set("description", data.get("details") || "");
+      try {
+        const response = await fetch("../api/commissions/create.php", {
+          method: "POST",
+          body: data,
+          credentials: "same-origin",
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || "Unable to publish commission.");
+        }
+        showMessage("Commission published successfully.", "success");
+        window.setTimeout(() => {
+          window.location.href = "dashboard.php";
+        }, 300);
+      } catch (error) {
+        submitButton.disabled = false;
+        showMessage(
+          error instanceof Error ? error.message : "Unable to publish commission.",
+          "error",
+        );
+      }
     });
     postForm.addEventListener("reset", () => window.setTimeout(validatePost));
     validatePost();
   }
 
-  // Commission details: client-side applicant decisions and apply validation.
-  document.querySelectorAll(".actions button").forEach((button) => {
-    button.addEventListener("click", () => {
-      const row = button.closest("tr");
-      if (!row) return;
-      const name = row.querySelector("strong")?.textContent || "Applicant";
-      const accepted = button.textContent.trim() === "Accept";
-      const actionCell = button.closest("td");
-      if (actionCell)
-        actionCell.innerHTML = `<span class="badge ${accepted ? "badge--open" : "badge--muted"}">${accepted ? "Accepted" : "Rejected"}</span>`;
-      showMessage(
-        `${name} was ${accepted ? "accepted" : "rejected"}.`,
-        accepted ? "success" : "error",
-      );
-    });
+  // Commission details: load the posted commission and its applicants.
+  const applicantBody = document.getElementById("applicants-body");
+  const clientView = document.querySelector(".client-view");
+  const applyPanel = document.getElementById("apply-panel");
+  const commissionId = new URLSearchParams(window.location.search).get("id");
+  if (commissionId && document.querySelector(".detail")) {
+    const loadCommission = async () => {
+      try {
+        const response = await fetch(`../api/commissions/get.php?id=${encodeURIComponent(commissionId)}`, {
+          credentials: "same-origin",
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message || "Unable to load commission.");
+
+        const commission = result.commission;
+        const formatDate = (value) => new Date(`${value}T00:00:00`).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+        const setText = (id, value) => {
+          const element = document.getElementById(id);
+          if (element) element.textContent = String(value);
+        };
+        const budget = Number(commission.budget);
+        setText("commission-category", commission.category);
+        setText("commission-status", commission.status);
+        const statusBadge = document.getElementById("commission-status");
+        if (statusBadge) {
+          statusBadge.className = `badge badge--${commission.status === "Open" ? "open" : commission.status === "Completed" ? "done" : "progress"}`;
+        }
+        setText("commission-title", commission.title);
+        setText("commission-owner", commission.owner_name);
+        setText("commission-created", formatDate(commission.created_at.slice(0, 10)));
+        setText("commission-budget", `₱${budget.toLocaleString()}`);
+        setText("commission-deadline", formatDate(commission.deadline));
+        setText("commission-description", commission.description);
+        const applicationCount = Number(commission.application_count) || 0;
+        setText("commission-application-count", `${applicationCount} applicant${applicationCount === 1 ? "" : "s"}`);
+        document.title = `${commission.title} · SkillSwap NU Laguna`;
+        const budgetHint = document.getElementById("commission-budget-hint");
+        if (budgetHint) budgetHint.textContent = `Stay within the ₱${budget.toLocaleString()} project budget.`;
+        const rate = document.getElementById("rate");
+        if (rate) rate.max = String(budget);
+
+        if (!result.is_owner) {
+          if (clientView) clientView.hidden = true;
+          const existingApplication = result.my_application;
+          if (existingApplication && applyPanel) {
+            const alreadyApplied = document.getElementById("already-applied");
+            const status = String(existingApplication.status || "Pending").toLowerCase();
+            if (alreadyApplied) {
+              alreadyApplied.textContent = `You have already applied to this commission. Your application is ${status}.`;
+              alreadyApplied.hidden = false;
+            }
+            if (applyForm) applyForm.hidden = true;
+          }
+          if (commission.status !== "Open" && !result.accepted_contact && applyPanel) {
+            applyPanel.hidden = true;
+          }
+          const acceptedContact = result.accepted_contact;
+          if (acceptedContact && applyPanel) {
+            const contact = document.getElementById("accepted-contact");
+            if (contact) {
+              contact.textContent = `Your application was accepted. Contact ${acceptedContact.owner_name} at ${acceptedContact.owner_email}.`;
+              contact.hidden = false;
+            }
+            if (applyForm) applyForm.hidden = true;
+          }
+          return;
+        }
+
+        if (applyPanel) applyPanel.hidden = true;
+        const editButton = document.getElementById("edit-commission-button");
+        const editForm = document.getElementById("edit-commission-form");
+        if (editButton && editForm && commission.status === "Open") {
+          editButton.hidden = false;
+          document.getElementById("edit-title").value = commission.title;
+          document.getElementById("edit-category").value = commission.category;
+          document.getElementById("edit-budget").value = commission.budget;
+          document.getElementById("edit-deadline").value = commission.deadline;
+          document.getElementById("edit-description").value = commission.description;
+          editButton.addEventListener("click", () => {
+            editForm.hidden = false;
+            editButton.hidden = true;
+            document.getElementById("edit-title")?.focus();
+          });
+          document.getElementById("cancel-edit-commission")?.addEventListener("click", () => {
+            editForm.hidden = true;
+            editButton.hidden = false;
+          });
+          editForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (!editForm.reportValidity()) return;
+            const saveButton = editForm.querySelector("button[type='submit']");
+            const message = document.getElementById("edit-commission-message");
+            saveButton.disabled = true;
+            try {
+              const response = await fetch(`../api/commissions/update.php?id=${encodeURIComponent(commissionId)}`, {
+                method: "POST",
+                body: new FormData(editForm),
+                credentials: "same-origin",
+              });
+              const updateResult = await response.json();
+              if (!response.ok || !updateResult.success) {
+                throw new Error(updateResult.message || "Unable to update commission.");
+              }
+              showMessage("Commission updated successfully.", "success");
+              window.setTimeout(() => window.location.reload(), 300);
+            } catch (error) {
+              saveButton.disabled = false;
+              if (message) message.textContent = error instanceof Error ? error.message : "Unable to update commission.";
+            }
+          });
+        }
+        const applications = Array.isArray(result.applications) ? result.applications : [];
+        const count = document.getElementById("applicant-count");
+        const countLabel = `${applications.length} applicant${applications.length === 1 ? "" : "s"}`;
+        if (count) count.textContent = countLabel;
+        const detailCount = document.getElementById("commission-application-count");
+        if (detailCount) detailCount.textContent = countLabel;
+        applicantBody.replaceChildren();
+
+        if (!applications.length) {
+          const row = document.createElement("tr");
+          const cell = document.createElement("td");
+          cell.colSpan = 4;
+          cell.textContent = "No students have applied to this commission yet.";
+          row.append(cell);
+          applicantBody.append(row);
+          return;
+        }
+
+        applications.forEach((application) => {
+          const row = document.createElement("tr");
+          row.dataset.applicationId = application.id;
+          const nameCell = document.createElement("td");
+          const who = document.createElement("div");
+          who.className = "who";
+          const avatar = document.createElement("span");
+          avatar.className = "avatar";
+          avatar.textContent = String(application.applicant_name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+          const info = document.createElement("div");
+          const name = document.createElement("strong");
+          name.textContent = application.applicant_name || "Applicant";
+          const proposal = document.createElement("span");
+          proposal.textContent = application.proposal || "No proposal provided.";
+          info.append(name, proposal);
+          who.append(avatar, info);
+          nameCell.append(who);
+          row.append(nameCell);
+
+          const proposalCell = document.createElement("td");
+          proposalCell.textContent = application.status === "Accepted"
+            ? (application.applicant_email || "Email unavailable")
+            : "Available after acceptance";
+          row.append(proposalCell);
+
+          const rateCell = document.createElement("td");
+          rateCell.className = "rate";
+          rateCell.textContent = `₱${Number(application.proposed_rate).toLocaleString()}`;
+          row.append(rateCell);
+
+          const actionCell = document.createElement("td");
+          if (application.status === "Pending" && commission.status === "Open") {
+            const actions = document.createElement("div");
+            actions.className = "actions";
+            ["Accepted", "Rejected"].forEach((status) => {
+              const button = document.createElement("button");
+              button.className = status === "Accepted" ? "btn btn--green" : "btn btn--red-soft";
+              button.type = "button";
+              button.dataset.status = status;
+              button.textContent = status === "Accepted" ? "Accept" : "Reject";
+              actions.append(button);
+            });
+            actionCell.append(actions);
+          } else {
+            const status = document.createElement("span");
+            status.className = `badge ${application.status === "Accepted" ? "badge--open" : "badge--muted"}`;
+            status.textContent = application.status;
+            actionCell.append(status);
+          }
+          row.append(actionCell);
+          applicantBody.append(row);
+        });
+      } catch (error) {
+        if (clientView) clientView.hidden = true;
+        if (applyPanel) applyPanel.hidden = true;
+        showMessage(error instanceof Error ? error.message : "Unable to load commission.", "error");
+        console.error("Unable to load commission.", error);
+      }
+    };
+    loadCommission();
+  }
+
+  applicantBody?.addEventListener("click", async (event) => {
+    const button = event.target.closest("button[data-status]");
+    const row = button?.closest("tr");
+    if (!button || !row) return;
+    button.disabled = true;
+    try {
+      const response = await fetch(`../api/applications/update_status.php?id=${encodeURIComponent(row.dataset.applicationId)}`, {
+        method: "POST",
+        body: new URLSearchParams({ status: button.dataset.status }),
+        credentials: "same-origin",
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Unable to update application.");
+      window.location.reload();
+    } catch (error) {
+      button.disabled = false;
+      showMessage(error instanceof Error ? error.message : "Unable to update application.", "error");
+    }
   });
   const applyForm = document.getElementById("apply-form");
   if (applyForm) {
-    applyForm.addEventListener("submit", (event) => {
+    const fullNameInput = document.getElementById("full-name");
+    const emailInput = document.getElementById("email");
+    const rateInput = document.getElementById("rate");
+    const rateError = document.getElementById("rate-error");
+    fetch("../api/auth/me.php", { credentials: "same-origin", cache: "no-store" })
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok || !result.success || !result.user) {
+          throw new Error(result.message || "Unable to load your account details.");
+        }
+        if (fullNameInput) fullNameInput.value = result.user.full_name || "";
+        if (emailInput) emailInput.value = result.user.email || "";
+      })
+      .catch((error) => {
+        showMessage(error instanceof Error ? error.message : "Unable to load your account details.", "error");
+      });
+
+    const validateRate = () => {
+      const budget = Number(rateInput?.max || 0);
+      const rate = rateInput?.valueAsNumber || 0;
+      let message = "";
+      if (!rateInput?.value || !Number.isFinite(rate) || rate <= 0) {
+        message = "Enter a rate greater than ₱0.";
+      } else if (budget && rate > budget) {
+        message = `Rate cannot exceed the ₱${budget.toLocaleString()} project budget.`;
+      }
+      if (rateError) {
+        rateError.textContent = message;
+        rateError.hidden = !message;
+      }
+      rateInput?.classList.toggle("input--invalid", Boolean(message));
+      return !message;
+    };
+    rateInput?.addEventListener("input", validateRate);
+    applyForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const rate = Number(
-        (document.getElementById("rate")?.value || "").replace(/[^\d.]/g, ""),
-      );
+      const submitButton = applyForm.querySelector("button[type='submit']");
+      const rate = rateInput?.valueAsNumber || 0;
       const valid =
-        Boolean(document.getElementById("full-name")?.value.trim()) &&
+        Boolean(fullNameInput?.value.trim()) &&
+        Boolean(emailInput?.value.trim()) &&
         Boolean(document.getElementById("proposal")?.value.trim()) &&
-        rate > 0 &&
-        rate <= 500;
-      if (valid)
-        showMessage(
-          "Application submitted — the client can now review your proposal.",
-          "success",
-        );
-      else
-        showMessage(
-          "Add your name, proposal, and a valid rate up to ₱500.",
-          "error",
-        );
+        validateRate();
+      if (!valid || !applyForm.checkValidity()) {
+        applyForm.reportValidity();
+        showMessage("Complete your account details, proposal, and a valid rate.", "error");
+        return;
+      }
+      if (submitButton) submitButton.disabled = true;
+      try {
+        const response = await fetch(`../api/applications/create.php?commission_id=${encodeURIComponent(commissionId)}`, {
+          method: "POST",
+          body: new URLSearchParams({
+            proposal: document.getElementById("proposal").value.trim(),
+            proposed_rate: String(rate),
+          }),
+          credentials: "same-origin",
+        });
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message || "Unable to submit application.");
+        showMessage("Application submitted — the client can now review your proposal.", "success");
+        applyForm.reset();
+      } catch (error) {
+        showMessage(error instanceof Error ? error.message : "Unable to submit application.", "error");
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
     });
   }
 
   // Dashboard: filter rows and provide a simple status transition for prototypes.
   const dashboardStatus = document.getElementById("mine-status");
-  const dashboardRows = Array.from(
-    document.querySelectorAll(".mine__head + .table-wrap tbody tr"),
-  );
   if (dashboardStatus) {
     const filterRows = () => {
       const selected = dashboardStatus.value;
-      dashboardRows.forEach((row) => {
+      document.querySelectorAll("#my-commissions-body tr").forEach((row) => {
         const status = row.querySelector(".badge")?.textContent.trim() || "";
         row.hidden = selected !== "All statuses" && status !== selected;
       });
@@ -361,22 +1157,29 @@ document.addEventListener("DOMContentLoaded", () => {
     dashboardStatus.addEventListener("change", filterRows);
     filterRows();
   }
-  document
-    .querySelectorAll(".mine__head + .table-wrap .btn--outline")
-    .forEach((button) => {
-      if (button.textContent.includes("Mark Completed")) {
-        button.addEventListener("click", () => {
-          const row = button.closest("tr");
-          const badge = row?.querySelector(".badge");
-          if (badge) {
-            badge.textContent = "Completed";
-            badge.className = "badge badge--done";
-          }
-          button.textContent = "View details";
-          showMessage("Commission marked as completed.", "success");
-        });
-      }
-    });
+  const commissionTable = document.getElementById("my-commissions-body");
+  commissionTable?.addEventListener("click", async (event) => {
+    const button = event.target.closest("a");
+    if (!button || !button.textContent.includes("Mark Completed")) return;
+    event.preventDefault();
+    const id = new URL(button.href, window.location.href).searchParams.get("id");
+    if (!id) return;
+    button.setAttribute("aria-disabled", "true");
+    try {
+      const response = await fetch(`../api/commissions/update_status.php?id=${encodeURIComponent(id)}`, {
+        method: "POST",
+        body: new URLSearchParams({ status: "Completed" }),
+        credentials: "same-origin",
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Unable to update commission.");
+      showMessage("Commission marked as completed.", "success");
+      window.setTimeout(() => window.location.reload(), 300);
+    } catch (error) {
+      button.removeAttribute("aria-disabled");
+      showMessage(error instanceof Error ? error.message : "Unable to update commission.", "error");
+    }
+  });
 });
 
 // Profile page: resume builder, skill pills, live preview, and autosave.

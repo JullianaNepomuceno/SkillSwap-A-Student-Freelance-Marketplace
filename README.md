@@ -4,7 +4,7 @@ A web platform where students offer their skills for hire and clients post small
 
 > **Course:** WEBPROG Final Project · **Section:** BSCS241A
 > **Team:** Arandela, Jherrymei D. · Nepomuceno, Julliana P.
-> **Status:** In development (see [Roadmap](docs/ROADMAP.md) and [Change-logs](docs/CHANGELOG.md))
+> **Status:** Functional prototype (see [Roadmap](docs/ROADMAP.md) and [Changelog](docs/CHANGELOG.md))
 
 ---
 
@@ -37,10 +37,12 @@ Students have skills such as graphic design, programming, writing, and tutoring 
 
 ## Features
 
-- **Interactive commission Posting Form:** clients enter a title, category, budget, deadline, and description.
-- **Persistent Storage (PHP & MySQL):** commissions and applications are saved securely and retrieved from a MySQL database.
-- **commission Board with Category Filter & Search:** browse open commissions as cards and filter or search by keyword dynamically using JavaScript DOM manipulation.
-- **Application & Status Tracking:** freelancers apply with a short proposal and proposed rate; each commission moves through **Open → In Progress → Completed**.
+- **Interactive commission posting and editing:** owners enter or update a title, category, budget, deadline, and description with client- and server-side validation.
+- **Persistent Storage (PHP & MySQL):** accounts, commissions, applications, and notifications are stored in MySQL and accessed through authenticated JSON APIs.
+- **Live open commission board:** only database commissions with `Open` status are shown; search, category filtering, sorting, empty states, and cache-safe refreshes are supported.
+- **Application and status tracking:** freelancers submit one application per commission with a proposal and proposed rate; each commission moves through **Open → In Progress → Completed**.
+- **Application workflow:** owners accept or reject applicants. Accepting one applicant rejects other pending applicants and automatically moves the commission to `In Progress`.
+- **Notifications:** users receive in-app notifications for applications, acceptance, rejection, and completion. Unread counts appear on the notification bell.
 - **Responsive Dashboard with Activity Chart:** CSS Grid/Flexbox layout for mobile and laptop, with a Chart.js bar chart of applications received over the last 7 days.
 
 Full details: [docs/FEATURES.md](docs/FEATURES.md)
@@ -75,13 +77,15 @@ Planned layout:
 SkillSwap-A-Student-Freelance.../
 ├── .vscode/
 ├── app/
-│   ├── index.html          # public landing page
-│   ├── signup.html
-│   ├── login.html
-│   ├── homepage.html       # post-login home
-│   ├── commission.html
-│   ├── post_commission.html
-│   ├── dashboard.html
+│   ├── index.php            # public landing page
+│   ├── signup.php
+│   ├── login.php
+│   ├── homepage.php         # post-login commission board
+│   ├── commission.php
+│   ├── post_commission.php
+│   ├── notifications.php
+│   ├── profile.php
+│   ├── dashboard.php
 │   ├── css/
 │   │   ├── styles.css      # shared styles, including the former patch rules
 │   │   └── auth.css        # login/signup only
@@ -91,15 +95,13 @@ SkillSwap-A-Student-Freelance.../
 │   │   └── auth.js
 │   └── img/
 ├── api/
-│   ├── config/db.php
-│   ├── commissions_list.php
-│   ├── commission_get.php
-│   ├── commission_create.php
-│   ├── commission_update_status.php
-│   ├── commission_delete.php
-│   ├── application_create.php
-│   ├── application_update_status.php
-│   └── dashboard_stats.php
+│   ├── auth/             # login, signup, logout, current user
+│   ├── commissions/      # list, get, create, update, delete, status
+│   ├── applications/     # create, list, review status
+│   ├── notifications/    # list, unread count, mark read
+│   ├── dashboard/        # dashboard aggregates
+│   ├── profile/          # profile data
+│   └── src/              # auth, validation, services, repositories
 ├── database/skillswap.sql   # Database schema
 ├── docs/                # Project documentation
 └── README.md
@@ -122,10 +124,10 @@ SkillSwap-A-Student-Freelance.../
 2. **Move it into your web root** (e.g. `C:\xampp\htdocs\skillswap`).
 3. **Create the database**
    ```bash
-   mysql -u root -p < database/schema.sql
+   mysql -u root -p < database/skillswap.sql
    ```
-4. **Configure the connection** in `includes/db.php` (host, database name, user, password).
-5. **Start Apache and MySQL**, then open `http://localhost/skillswap/`.
+4. **Configure the connection** in `api/config/config.php` or with the documented `SKILLSWAP_DB_*` environment variables.
+5. **Start Apache and MySQL**, then open `http://localhost/SkillSwap-A-Student-Freelance-Marketplace/app/`.
 
 See [docs/SETUP.md](docs/SETUP.md) for detailed steps and troubleshooting.
 
@@ -139,6 +141,7 @@ See [docs/SETUP.md](docs/SETUP.md) for detailed steps and troubleshooting.
 | [docs/WIREFRAMES.md](docs/WIREFRAMES.md) | Screen layouts |
 | [docs/SETUP.md](docs/SETUP.md) | Installation and configuration |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Timeline and milestones |
+| [docs/CHANGELOG.md](docs/CHANGELOG.md) | Implemented changes and release notes |
 
 ## Team
 

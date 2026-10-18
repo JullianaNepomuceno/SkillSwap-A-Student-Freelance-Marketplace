@@ -11,16 +11,14 @@
 
 ## Progress Checklist
 
-- [ ] Phase 1: schema and HTML/CSS layout
-- [ ] Phase 2: PHP backend (post commission, apply, list commissions)
-- [ ] Phase 3: JS validation, filter/search, status updates, chart
-- [ ] Phase 4: testing and polish
+- [x] Phase 1: schema and HTML/CSS layout
+- [x] Phase 2: PHP backend (post, edit, apply, list commissions)
+- [x] Phase 3: JS validation, filter/search, status updates, live preview, chart
+- [x] Phase 4: testing and polish
 - [ ] Final submission
 
 ## Future Ideas
 
-- User accounts and login (freelancer and client roles)
-- Freelancer profiles with portfolio links
 - In-app messaging between clients and freelancers
 - Ratings and reviews after a commission is completed
-- Email notifications for new applications
+- Email or push notifications for new applications

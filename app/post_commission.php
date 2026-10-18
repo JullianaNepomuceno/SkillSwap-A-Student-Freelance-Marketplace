@@ -49,7 +49,7 @@
 
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="homepage.html" aria-label="SkillSwap NU Laguna home">
+      <a class="brand" href="homepage.php" aria-label="SkillSwap NU Laguna home">
         <span class="brand__mark">
           <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
         </span>
@@ -60,13 +60,13 @@
       </a>
 
       <nav class="main-nav" aria-label="Main">
-        <a href="homepage.html">Find a Commission</a>
-        <a href="post_commission.html" aria-current="page">Find Student Help</a>
-        <a href="dashboard.html">My Dashboard</a>
+        <a href="homepage.php">Find a Commission</a>
+        <a href="post_commission.php" aria-current="page">Find Student Help</a>
+        <a href="dashboard.php">My Dashboard</a>
       </nav>
 
       <div class="user-bar">
-        <a class="icon-btn" href="notifications.html" aria-label="Notifications">
+        <a class="icon-btn" href="notifications.php" aria-label="Notifications">
           <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
         </a>
         <div class="user-menu">
@@ -76,8 +76,8 @@
             <svg class="ic ic-sm user-chip__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
           </button>
           <div class="user-menu__dropdown" id="user-menu" role="menu" hidden>
-            <a href="profile.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
-            <a href="login.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
+            <a href="profile.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
+            <a href="login.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@
 
   <main>
     <div class="page">
-      <a class="back-link" href="homepage.html"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-left"/></svg> Back to Find a Commission</a>
+      <a class="back-link" href="homepage.php"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-left"/></svg> Back to Find a Commission</a>
 
       <section class="hero hero--compact" aria-labelledby="post-hero">
         <div>
@@ -95,9 +95,9 @@
           <p>Need help with a project or task? Post your commission and connect with a skilled Nationalian. Student-friendly budgets in ₱ PHP.</p>
         </div>
         <div class="hero__stats">
-          <div class="stat"><strong>12</strong><span>Open commissions</span></div>
+          <div class="stat"><strong id="open-commission-count">0</strong><span>Open commissions</span></div>
           <div class="hero__divider"></div>
-          <div class="stat"><strong>5</strong><span>Skill areas</span></div>
+          <div class="stat"><strong id="open-skill-area-count">0</strong><span>Skill areas</span></div>
           <div class="hero__badge">
             <svg class="ic ic-lg" aria-hidden="true"><use href="#i-sparkles"/></svg>
           </div>
@@ -105,7 +105,7 @@
       </section>
 
       <section class="cta-row" aria-label="Posting options">
-        <a class="cta cta--navy" href="homepage.html">
+        <a class="cta cta--navy" href="homepage.php">
           <span class="cta__label">
             <svg class="ic ic-sm" aria-hidden="true"><use href="#i-briefcase"/></svg> Find a commission
           </span>
@@ -135,7 +135,7 @@
           <div class="form-grid">
             <div class="field">
               <label for="title">Commission Title</label>
-              <input class="input" id="title" name="title" type="text" value="Logo for NU Laguna Org Fest" required>
+              <input class="input" id="title" name="title" type="text" required placeholder="Your Commission Title">
               <span class="field__hint">e.g. “Make a poster for our org event”, “Help me review Calculus”</span>
             </div>
             <div class="field">
@@ -156,14 +156,14 @@
               </div>
             </div>
             <div class="form-split">
-              <div class="field field--error">
+              <div class="field">
                 <span class="label-row">
                   <label for="budget">Budget (Philippine Pesos)</label>
                   <span class="tag-php">PHP</span>
                 </span>
                 <div class="field-wrap">
-                  <input class="input" id="budget" name="budget" type="text" inputmode="numeric" value="five hundred" aria-invalid="true" aria-describedby="budget-error budget-tip" required>
-                  <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>
+                  <input class="input" id="budget" name="budget" type="number" inputmode="decimal" min="1" step="0.01" value="500" aria-invalid="false" aria-describedby="budget-error budget-tip" required>
+                  <svg class="ic" aria-hidden="true" hidden><use href="#i-alert"/></svg>
                 </div>
                 <span class="field__hint field__hint--error" id="budget-error" role="alert">! Budget must be a number &gt; 0</span>
                 <span class="field__hint" id="budget-tip">Tip: Student-friendly budgets range from ₱100 – ₱2,000.</span>
@@ -177,7 +177,7 @@
             </div>
             <div class="field">
               <label for="details">Details / Description</label>
-              <textarea class="textarea" id="details" name="details" rows="5" required>Create a fresh, vibrant logo for our annual campus organization fair. We need two initial concepts, one revision, and final SVG and PNG files. Use an NU blue and gold palette and deliver by Oct 20.</textarea>
+              <textarea class="textarea" id="details" name="details" rows="5" required placeholder="Enter your project description"></textarea>
               <span class="field__hint">Include deliverables, requirements, and a realistic timeline. The more specific you are, the better the applicants.</span>
             </div>
             <div class="form-banner">
@@ -209,7 +209,7 @@
                 <span class="badge badge--draft" id="pv-badge">Draft</span>
               </div>
               <h3 id="pv-title">Logo for NU Laguna Org Fest</h3>
-              <p class="commission__by">Jamie Santos – NU Laguna</p>
+              <p class="commission__by"><span id="pv-author">Loading your name...</span> – NU Laguna</p>
               <p class="commission__desc" id="pv-desc">Create a fresh, vibrant logo for our annual campus organization fair. We need two initial concepts, one revision, and final SVG…</p>
               <div class="commission__meta">
                 <span class="due due--pending" id="pv-budget">Budget pending</span>
@@ -228,8 +228,8 @@
           <section class="card card--pad" aria-labelledby="checklist-title">
             <h3 class="card__title card__title--sm" id="checklist-title">Before you post</h3>
             <ul class="checklist">
-              <li class="done"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Clear title and skill area category</li>
-              <li class="done"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Deadline and deliverables added</li>
+              <li class="todo" id="ck-brief"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg><span> Clear title and skill area category</span></li>
+              <li class="todo" id="ck-details"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg><span> Deadline and deliverables added</span></li>
               <li class="todo" id="ck-budget"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg> Valid ₱ budget still needed</li>
             </ul>
             <div class="fair-note">
@@ -259,6 +259,6 @@
   <!-- Bootstrap bundle enables future component behavior; app.js owns marketplace interactions. -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=20261018-notification-icons1"></script>
 </body>
 </html>

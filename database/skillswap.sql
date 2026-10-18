@@ -1,6 +1,7 @@
 -- SkillSwap: A Student Freelance Marketplace
 -- Course: WEBPROG BSCS241A
--- Purpose: Complete MySQL schema and realistic sample data for SkillSwap.
+-- Purpose: Complete MySQL schema (accounts, commissions, applications,
+-- notifications, and resume profiles) and realistic sample data for SkillSwap.
 -- Import: Run this file in MySQL or phpMyAdmin; it creates and selects the
 -- skillswap database, then recreates all tables and inserts sample records.
 
@@ -11,6 +12,10 @@ CREATE DATABASE IF NOT EXISTS skillswap
 USE skillswap;
 
 -- Drop child tables before their parent tables so this file is safe to re-import.
+DROP TABLE IF EXISTS user_skills;
+DROP TABLE IF EXISTS experience_entries;
+DROP TABLE IF EXISTS education_entries;
+DROP TABLE IF EXISTS profiles;
 DROP TABLE IF EXISTS notifications;
 DROP TABLE IF EXISTS applications;
 DROP TABLE IF EXISTS commissions;
@@ -138,6 +143,130 @@ CREATE TABLE notifications (
   DEFAULT CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
+-- Profiles hold the optional resume details shown on profile.php. There is at
+-- most one profile per user (1-to-1). The user's full name and email are NOT
+-- repeated here; they stay in users so there is a single source of truth.
+CREATE TABLE profiles (
+  -- Surrogate identifier for each profile.
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- Account that owns this profile; unique so a user has only one profile.
+  user_id INT UNSIGNED NOT NULL,
+  -- Short line under the name, e.g. "BSIT 3rd Year - Web Developer".
+  headline VARCHAR(80) NULL,
+  -- Contact phone number, stored as typed (spaces and leading zero allowed).
+  phone VARCHAR(24) NULL,
+  -- City or area, e.g. "Calamba, Laguna".
+  location VARCHAR(80) NULL,
+  -- Portfolio link as typed (the form accepts links without https://).
+  portfolio_url VARCHAR(160) NULL,
+  -- Two or three sentences about the user (400-character limit in the form).
+  summary VARCHAR(400) NULL,
+  -- Accomplishments, one per line, exactly as entered in the textarea.
+  accomplishments TEXT NULL,
+  -- Time when the profile was first saved.
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  -- Time when the profile was last saved.
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_profiles_user (user_id),
+  CONSTRAINT fk_profiles_user
+    FOREIGN KEY (user_id) REFERENCES users (id)
+    ON DELETE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+-- Education entries are the "Educational attainment" rows on the profile form.
+-- A user can add several (1-to-many).
+CREATE TABLE education_entries (
+  -- Surrogate identifier for each education entry.
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- Account that owns the entry.
+  user_id INT UNSIGNED NOT NULL,
+  -- School name.
+  school VARCHAR(100) NOT NULL,
+  -- Program or degree, e.g. "BS Information Technology".
+  program VARCHAR(100) NULL,
+  -- Year level or dates as free text, e.g. "3rd Year - 2023 to Present".
+  period VARCHAR(40) NULL,
+  -- Honors or notes, e.g. "Dean's Lister".
+  notes VARCHAR(120) NULL,
+  -- Position in the list so the user's chosen order is kept (0 = first).
+  sort_order TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  -- Time when the entry was created.
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_education_user (user_id),
+  CONSTRAINT fk_education_user
+    FOREIGN KEY (user_id) REFERENCES users (id)
+    ON DELETE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+-- Experience entries are the "Work / volunteer experience" rows on the profile
+-- form. A user can add several (1-to-many).
+CREATE TABLE experience_entries (
+  -- Surrogate identifier for each experience entry.
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- Account that owns the entry.
+  user_id INT UNSIGNED NOT NULL,
+  -- Role or job title (named role_title to avoid confusion with users.role).
+  role_title VARCHAR(80) NOT NULL,
+  -- Organization or employer.
+  organization VARCHAR(100) NULL,
+  -- Start and end as free text because the form accepts values like "Aug 2024"
+  -- and "Present", which are not valid DATE values.
+  start_text VARCHAR(24) NULL,
+  end_text VARCHAR(24) NULL,
+  -- What the user did and achieved (400-character limit in the form).
+  description VARCHAR(400) NULL,
+  -- Position in the list so the user's chosen order is kept (0 = first).
+  sort_order TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  -- Time when the entry was created.
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_experience_user (user_id),
+  CONSTRAINT fk_experience_user
+    FOREIGN KEY (user_id) REFERENCES users (id)
+    ON DELETE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+-- Skills selected on the profile form, including custom skills a user adds
+-- (stored under category 'Other'). The category values match
+-- commissions.category, plus 'Other', so skills can later be matched to
+-- commissions.
+CREATE TABLE user_skills (
+  -- Surrogate identifier for each saved skill.
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- Account that offers the skill.
+  user_id INT UNSIGNED NOT NULL,
+  -- Skill name as shown on the profile (30-character limit for custom skills).
+  skill_name VARCHAR(30) NOT NULL,
+  -- Skill group the skill belongs to.
+  category ENUM(
+    'Coding & IT',
+    'Arts & Design',
+    'Writing & Research',
+    'Tutoring & Review',
+    'Media & Content',
+    'Other'
+  ) NOT NULL,
+  -- Time when the skill was added.
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  -- A user cannot list the same skill twice.
+  UNIQUE KEY uq_user_skill (user_id, skill_name),
+  KEY idx_user_skills_category (category),
+  CONSTRAINT fk_user_skills_user
+    FOREIGN KEY (user_id) REFERENCES users (id)
+    ON DELETE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
 -- Business rule enforced in PHP, not by this schema:
 -- A user may not apply to their own commission (applications.user_id must
 -- differ from commissions.user_id). This is enforced in PHP, not in the schema.
@@ -212,3 +341,65 @@ VALUES
   (5, 2, 5, 'application_accepted', 'Your application for Research Abstract Editing was accepted.', 1, '2026-10-12 14:00:00'),
   (6, 3, 7, 'application_received', 'Mia Santos applied to Student Portfolio Landing Page.', 0, '2026-10-13 16:10:00'),
   (7, 2, 5, 'commission_completed', 'Research Abstract Editing has been marked completed.', 1, '2026-10-14 12:00:00');
+
+-- Sample profiles for the four sample users. Phone numbers and links are fake.
+INSERT INTO profiles
+  (id, user_id, headline, phone, location, portfolio_url, summary, accomplishments)
+VALUES
+  (1, 1, 'BSIT 2nd Year - Student Organizer', NULL, 'Calamba, Laguna', NULL,
+   'I organize campus events and often need design, writing, and tutoring help from fellow Nationalians.',
+   'Led the 2026 Org Fest planning committee\nRaised funds for a student outreach drive'),
+  (2, 2, 'BSIT 3rd Year - Web Developer and Writer', '0900 000 0002', 'Calamba, Laguna', 'portfolio.example.test/mia',
+   'I build clean, responsive pages and write clear feature articles and edited abstracts.',
+   'Dean''s Lister, 1st Semester\nBuilt the landing page for a student developer community'),
+  (3, 3, 'BS Multimedia Arts 3rd Year - Designer', '0900 000 0003', 'Santa Rosa, Laguna', 'portfolio.example.test/yana',
+   'Brand and poster designer who also tutors math and shoots campus events.',
+   'Designed the 2025 Org Fest poster\nTutored 12 classmates in Calculus'),
+  (4, 4, 'BSIT 2nd Year - Illustrator and Editor', NULL, 'Biñan, Laguna', NULL,
+   'I draw illustrations and edit student papers for clarity and tone.',
+   'Illustrated a student zine\nEdited 10 research abstracts');
+
+-- Sample education entries (all at the campus, with different programs).
+INSERT INTO education_entries
+  (id, user_id, school, program, period, notes, sort_order)
+VALUES
+  (1, 1, 'National University - Laguna', 'BS Information Technology', '2nd Year - 2024 to Present', NULL, 0),
+  (2, 2, 'National University - Laguna', 'BS Information Technology', '3rd Year - 2023 to Present', 'Dean''s Lister', 0),
+  (3, 3, 'National University - Laguna', 'BS Multimedia Arts', '3rd Year - 2023 to Present', NULL, 0),
+  (4, 4, 'National University - Laguna', 'BS Information Technology', '2nd Year - 2024 to Present', NULL, 0);
+
+-- Sample experience entries (organization roles and school projects).
+INSERT INTO experience_entries
+  (id, user_id, role_title, organization, start_text, end_text, description, sort_order)
+VALUES
+  (1, 1, 'Events Committee Head', 'NU Student Council', 'Aug 2025', 'Present',
+   'Planned and coordinated campus events for more than 500 attendees.', 0),
+  (2, 2, 'Web Developer', 'NU Developers Society', 'Aug 2024', 'Present',
+   'Built and maintained the organization website with responsive layouts.', 0),
+  (3, 3, 'Layout Artist', 'NU Arts Collective', 'Aug 2024', 'Present',
+   'Designed posters and social media graphics for campus events.', 0),
+  (4, 3, 'Peer Tutor', 'NU Academic Support', 'Jan 2025', 'May 2025',
+   'Tutored first-year students in math and exam review.', 1),
+  (5, 4, 'Staff Illustrator', 'NU Student Publication', 'Sep 2024', 'Present',
+   'Drew illustrations and edited student articles before publication.', 0);
+
+-- Sample skills across the categories. 'Canva' is a custom skill, so it is
+-- stored under 'Other'.
+INSERT INTO user_skills
+  (id, user_id, skill_name, category)
+VALUES
+  (1, 1, 'Social media management', 'Media & Content'),
+  (2, 1, 'Content planning', 'Media & Content'),
+  (3, 2, 'Article writing', 'Writing & Research'),
+  (4, 2, 'Editing', 'Writing & Research'),
+  (5, 2, 'HTML & CSS', 'Coding & IT'),
+  (6, 2, 'JavaScript', 'Coding & IT'),
+  (7, 3, 'Logo design', 'Arts & Design'),
+  (8, 3, 'Poster layout', 'Arts & Design'),
+  (9, 3, 'Branding', 'Arts & Design'),
+  (10, 3, 'Math', 'Tutoring & Review'),
+  (11, 3, 'Photography', 'Media & Content'),
+  (12, 3, 'Canva', 'Other'),
+  (13, 4, 'Illustration', 'Arts & Design'),
+  (14, 4, 'Editing', 'Writing & Research'),
+  (15, 4, 'Proofreading', 'Writing & Research');

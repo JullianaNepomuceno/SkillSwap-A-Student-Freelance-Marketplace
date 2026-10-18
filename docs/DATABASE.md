@@ -39,7 +39,7 @@ Stores project requests posted by clients. Categories match the post form and br
 
 ### `applications`
 
-Stores one application from a freelancer for a commission. The applicant name is obtained by joining `applications.user_id` to `users.id`; there is no duplicated name column.
+Stores one application from a freelancer for a commission. The applicant name and email are obtained by joining `applications.user_id` to `users.id`; contact data is not duplicated.
 
 | Column | Type | Constraints |
 | --- | --- | --- |
@@ -73,8 +73,11 @@ Stores user-specific event messages for applications and completed commissions.
 - `users` 1-to-many `applications`: one user can submit many applications.
 - `users` 1-to-many `notifications`: one user can receive many notifications.
 - `commissions` 1-to-many `notifications`: one commission can be linked to many notifications.
+- `applications` has a unique `(commission_id, user_id)` pair, preventing duplicate applications.
 
-The database does not enforce that an applicant differs from the commission owner. PHP must reject applications where `applications.user_id = commissions.user_id`.
+The database does not enforce that an applicant differs from the commission owner. PHP rejects applications where `applications.user_id = commissions.user_id`.
+
+Application acceptance and commission closing are coordinated by the service in a transaction. The resulting application and commission statuses, plus notification rows, are persisted together.
 
 ## Common queries
 

@@ -24,7 +24,7 @@
 
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="brand" href="homepage.html" aria-label="SkillSwap NU Laguna home">
+      <a class="brand" href="homepage.php" aria-label="SkillSwap NU Laguna home">
         <span class="brand__mark">
           <svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg>
         </span>
@@ -34,12 +34,12 @@
         </span>
       </a>
       <nav class="main-nav" aria-label="Main">
-        <a href="homepage.html">Find a Commission</a>
-        <a href="post_commission.html">Find Student Help</a>
-        <a href="dashboard.html">My Dashboard</a>
+        <a href="homepage.php">Find a Commission</a>
+        <a href="post_commission.php">Find Student Help</a>
+        <a href="dashboard.php">My Dashboard</a>
       </nav>
       <div class="user-bar">
-        <a class="icon-btn" href="notifications.html" aria-label="Notifications" aria-current="page">
+        <a class="icon-btn" href="notifications.php" aria-label="Notifications" aria-current="page">
           <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
         </a>
         <div class="user-menu">
@@ -49,8 +49,8 @@
             <svg class="ic ic-sm user-chip__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
           </button>
           <div class="user-menu__dropdown" id="user-menu" role="menu" hidden>
-            <a href="dashboard.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
-            <a href="login.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
+            <a href="profile.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
+            <a href="login.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
           </div>
         </div>
       </div>
@@ -67,40 +67,7 @@
         <button class="btn btn--ghost btn--sm" type="button">Mark all as read</button>
       </div>
 
-      <section class="notifications-list" aria-label="Recent notifications">
-        <article class="notification">
-          <span class="notification__icon notification__icon--gold" aria-hidden="true">
-            <svg class="ic" aria-hidden="true"><use href="#i-send"/></svg>
-          </span>
-          <div class="notification__body">
-            <strong>Your application was sent</strong>
-            <p>Your application for “Campus Sustainability Feature” is now under review.</p>
-            <span class="notification__time">Today · 10:42 AM</span>
-          </div>
-          <span class="notification__status" aria-label="Unread"></span>
-        </article>
-        <article class="notification">
-          <span class="notification__icon notification__icon--green" aria-hidden="true">
-            <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>
-          </span>
-          <div class="notification__body">
-            <strong>Commission application accepted</strong>
-            <p>Your application for “Derivative Review Sessions” was accepted by Mia Santos.</p>
-            <span class="notification__time">Yesterday · 4:18 PM</span>
-          </div>
-          <span class="notification__status" aria-label="Unread"></span>
-        </article>
-        <article class="notification notification--read">
-          <span class="notification__icon" aria-hidden="true">
-            <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
-          </span>
-          <div class="notification__body">
-            <strong>New commissions are available</strong>
-            <p>There are new opportunities in Writing &amp; Research and Coding &amp; IT.</p>
-            <span class="notification__time">Oct 12, 2026 · 9:00 AM</span>
-          </div>
-          <span class="notification__status" aria-hidden="true"></span>
-        </article>
+      <section class="notifications-list" id="notifications-list" aria-label="Recent notifications">
       </section>
     </div>
   </main>
@@ -109,6 +76,6 @@
     <span>© 2026 NU Laguna SkillSwap · Student-exclusive marketplace</span>
   </footer>
   <script src="js/ui.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=20261018-notification-icons1"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,17 +42,17 @@
 
 <header class="site-header">
   <div class="site-header__inner">
-    <a class="brand" href="homepage.html" aria-label="SkillSwap NU Laguna home">
+    <a class="brand" href="homepage.php" aria-label="SkillSwap NU Laguna home">
       <span class="brand__mark"><svg class="ic ic-lg" aria-hidden="true"><use href="#i-swap"/></svg></span>
       <span><span class="brand__name">SkillSwap</span><span class="brand__school">NU LAGUNA</span></span>
     </a>
     <nav class="main-nav" aria-label="Main">
-      <a href="homepage.html">Find a Commission</a>
-      <a href="post_commission.html">Find Student Help</a>
-      <a href="dashboard.html">My Dashboard</a>
+      <a href="homepage.php">Find a Commission</a>
+      <a href="post_commission.php">Find Student Help</a>
+      <a href="dashboard.php">My Dashboard</a>
     </nav>
     <div class="user-bar">
-      <a class="icon-btn" href="notifications.html" aria-label="Notifications"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg></a>
+      <a class="icon-btn" href="notifications.php" aria-label="Notifications"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg></a>
       <div class="user-menu">
         <button class="user-chip" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-menu">
           <span class="avatar">JS</span>
@@ -59,8 +60,8 @@
           <svg class="ic ic-sm user-chip__chevron" aria-hidden="true"><use href="#i-chevron"/></svg>
         </button>
         <div class="user-menu__dropdown" id="user-menu" role="menu" hidden>
-          <a href="profile.html" role="menuitem" aria-current="page"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
-          <a href="login.html" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
+          <a href="profile.php" role="menuitem" aria-current="page"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
+          <a href="login.php" role="menuitem"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-log-out"/></svg>Log out</a>
         </div>
       </div>
     </div>
@@ -264,6 +265,6 @@
 
 <div class="pf-toast" id="pf-toast" role="status" aria-live="polite" hidden></div>
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=20261018-notification-icons1"></script>
 </body>
 </html>
