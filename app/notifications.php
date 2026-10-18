@@ -76,6 +76,6 @@
     <span>© 2026 NU Laguna SkillSwap · Student-exclusive marketplace</span>
   </footer>
   <script src="js/ui.js"></script>
-  <script src="js/app.js?v=20261018-notifications1"></script>
+  <script src="js/app.js?v=20261018-notification-icons1"></script>
 </body>
 </html>

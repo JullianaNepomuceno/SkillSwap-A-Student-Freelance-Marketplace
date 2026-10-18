@@ -41,6 +41,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadCurrentUser();
 
+  const updateNotificationBadge = async () => {
+    const notificationLinks = document.querySelectorAll(".icon-btn[href='notifications.php']");
+    if (!notificationLinks.length) return;
+    try {
+      const response = await fetch("../api/notifications/count.php", {
+        credentials: "same-origin",
+        cache: "no-store",
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Unable to load notification count.");
+      const unreadCount = Number(result.unread_count) || 0;
+      notificationLinks.forEach((link) => {
+        let badge = link.querySelector(".notification-badge");
+        if (unreadCount > 0) {
+          if (!badge) {
+            badge = document.createElement("span");
+            badge.className = "notification-badge";
+            link.append(badge);
+          }
+          badge.textContent = unreadCount > 99 ? "99+" : String(unreadCount);
+          badge.setAttribute("aria-label", `${unreadCount} unread notification${unreadCount === 1 ? "" : "s"}`);
+          link.setAttribute("aria-label", `Notifications, ${unreadCount} unread`);
+        } else {
+          badge?.remove();
+          link.setAttribute("aria-label", "Notifications");
+        }
+      });
+    } catch (error) {
+      console.error("Unable to load notification count.", error);
+    }
+  };
+
+  updateNotificationBadge();
+  window.setInterval(updateNotificationBadge, 30000);
+
   const loadDashboardData = async () => {
     const bars = document.getElementById("application-bars");
     if (!bars) return;
@@ -248,9 +283,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const iconWrap = document.createElement("span");
         iconWrap.className = `notification__icon${tone ? ` notification__icon--${tone}` : ""}`;
         const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        icon.className = "ic";
-        const use = document.createElement("use");
-        use.setAttribute("href", `#i-${iconName}`);
+        icon.setAttribute("class", "ic");
+        icon.setAttribute("viewBox", "0 0 24 24");
+        icon.setAttribute("aria-hidden", "true");
+        const iconReference = `#i-${iconName}`;
+        const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+        use.setAttribute("href", iconReference);
+        use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", iconReference);
         icon.append(use);
         iconWrap.append(icon);
         const body = document.createElement("div");
@@ -620,6 +659,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const budget = document.getElementById("budget");
     const deadline = document.getElementById("deadline");
     const details = document.getElementById("details");
+    const previewAuthor = document.getElementById("pv-author");
     const submitButton = postForm.querySelector("button[type='submit']");
     const preview = postForm.parentElement?.querySelector(
       ".preview .commission",
@@ -636,15 +676,26 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const today = new Date().toISOString().split("T")[0];
     if (deadline) deadline.min = today;
+    fetch("../api/auth/me.php", { credentials: "same-origin", cache: "no-store" })
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok || !result.success || !result.user) {
+          throw new Error(result.message || "Unable to load your account details.");
+        }
+        const fullName = String(result.user.full_name || "").trim();
+        if (previewAuthor) previewAuthor.textContent = fullName || "Your name";
+      })
+      .catch((error) => {
+        if (previewAuthor) previewAuthor.textContent = "Your name";
+        console.error("Unable to load the preview author.", error);
+      });
 
     const updatePreview = () => {
       const previewTitle = preview?.querySelector("h3");
       const previewCategory = preview?.querySelector(".commission__cat");
       const previewDescription = preview?.querySelector(".commission__desc");
-      const previewBudget = preview?.querySelector(".due--pending");
-      const previewDeadline = preview?.querySelector(
-        ".commission__meta .due:last-child",
-      );
+      const previewBudget = document.getElementById("pv-budget");
+      const previewDeadline = document.getElementById("pv-due");
       if (previewTitle)
         previewTitle.textContent =
           title?.value.trim() || "Your commission title";
@@ -699,15 +750,38 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (previewDeadline && deadline?.value) {
         const date = new Date(`${deadline.value}T00:00:00`);
-        previewDeadline.lastChild.textContent = ` Due ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+        previewDeadline.textContent = `Due ${date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
       }
     };
     const validatePost = () => {
       const budgetValue = Number((budget?.value || "").replace(/,/g, "").trim());
       const validBudget = Number.isFinite(budgetValue) && budgetValue > 0;
       const validDeadline = Boolean(deadline?.value) && deadline.value >= today;
-      const validText =
-        Boolean(title?.value.trim()) && Boolean(details?.value.trim());
+      const validTitle = Boolean(title?.value.trim());
+      const validCategory = Boolean(category?.value.trim());
+      const validDetails = Boolean(details?.value.trim());
+      const validText = validTitle && validDetails;
+      const setChecklistState = (id, isComplete, incompleteText, completeText) => {
+        const item = document.getElementById(id);
+        if (!item) return;
+        item.classList.toggle("done", isComplete);
+        item.classList.toggle("todo", !isComplete);
+        const text = item.querySelector("span") || item.lastChild;
+        if (text) text.textContent = ` ${isComplete ? completeText : incompleteText}`;
+        item.querySelector("use")?.setAttribute("href", isComplete ? "#i-check" : "#i-clock");
+      };
+      setChecklistState(
+        "ck-brief",
+        validTitle && validCategory,
+        " Clear title and skill area category still needed",
+        " Clear title and skill area category added",
+      );
+      setChecklistState(
+        "ck-details",
+        validDeadline && validDetails,
+        " Deadline and deliverables still needed",
+        " Deadline and deliverables added",
+      );
       if (budgetField) budgetField.classList.toggle("field--error", !validBudget);
       if (budget) budget.classList.toggle("input--invalid", !validBudget);
       budget?.setAttribute("aria-invalid", String(!validBudget));
@@ -715,13 +789,14 @@ document.addEventListener("DOMContentLoaded", () => {
       deadline?.classList.toggle("input--invalid", !validDeadline);
       if (error) error.hidden = validBudget;
       if (submitButton)
-        submitButton.disabled = !(validBudget && validDeadline && validText);
+        submitButton.disabled = !(validBudget && validDeadline && validTitle && validCategory && validDetails);
       updatePreview();
-      return validBudget && validDeadline && validText;
+      return validBudget && validDeadline && validTitle && validCategory && validDetails;
     };
-    [title, category, budget, deadline, details].forEach((field) =>
-      field?.addEventListener("input", validatePost),
-    );
+    [title, category, budget, deadline, details].forEach((field) => {
+      field?.addEventListener("input", validatePost);
+      field?.addEventListener("change", validatePost);
+    });
     const syncChips = () =>
       document
         .querySelectorAll(".chip")
@@ -830,6 +905,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!result.is_owner) {
           if (clientView) clientView.hidden = true;
+          const existingApplication = result.my_application;
+          if (existingApplication && applyPanel) {
+            const alreadyApplied = document.getElementById("already-applied");
+            const status = String(existingApplication.status || "Pending").toLowerCase();
+            if (alreadyApplied) {
+              alreadyApplied.textContent = `You have already applied to this commission. Your application is ${status}.`;
+              alreadyApplied.hidden = false;
+            }
+            if (applyForm) applyForm.hidden = true;
+          }
           if (commission.status !== "Open" && !result.accepted_contact && applyPanel) {
             applyPanel.hidden = true;
           }
@@ -846,6 +931,48 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (applyPanel) applyPanel.hidden = true;
+        const editButton = document.getElementById("edit-commission-button");
+        const editForm = document.getElementById("edit-commission-form");
+        if (editButton && editForm && commission.status === "Open") {
+          editButton.hidden = false;
+          document.getElementById("edit-title").value = commission.title;
+          document.getElementById("edit-category").value = commission.category;
+          document.getElementById("edit-budget").value = commission.budget;
+          document.getElementById("edit-deadline").value = commission.deadline;
+          document.getElementById("edit-description").value = commission.description;
+          editButton.addEventListener("click", () => {
+            editForm.hidden = false;
+            editButton.hidden = true;
+            document.getElementById("edit-title")?.focus();
+          });
+          document.getElementById("cancel-edit-commission")?.addEventListener("click", () => {
+            editForm.hidden = true;
+            editButton.hidden = false;
+          });
+          editForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (!editForm.reportValidity()) return;
+            const saveButton = editForm.querySelector("button[type='submit']");
+            const message = document.getElementById("edit-commission-message");
+            saveButton.disabled = true;
+            try {
+              const response = await fetch(`../api/commissions/update.php?id=${encodeURIComponent(commissionId)}`, {
+                method: "POST",
+                body: new FormData(editForm),
+                credentials: "same-origin",
+              });
+              const updateResult = await response.json();
+              if (!response.ok || !updateResult.success) {
+                throw new Error(updateResult.message || "Unable to update commission.");
+              }
+              showMessage("Commission updated successfully.", "success");
+              window.setTimeout(() => window.location.reload(), 300);
+            } catch (error) {
+              saveButton.disabled = false;
+              if (message) message.textContent = error instanceof Error ? error.message : "Unable to update commission.";
+            }
+          });
+        }
         const applications = Array.isArray(result.applications) ? result.applications : [];
         const count = document.getElementById("applicant-count");
         const countLabel = `${applications.length} applicant${applications.length === 1 ? "" : "s"}`;

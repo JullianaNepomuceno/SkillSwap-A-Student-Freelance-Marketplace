@@ -135,7 +135,7 @@
           <div class="form-grid">
             <div class="field">
               <label for="title">Commission Title</label>
-              <input class="input" id="title" name="title" type="text" value="Logo for NU Laguna Org Fest" required>
+              <input class="input" id="title" name="title" type="text" required placeholder="Your Commission Title">
               <span class="field__hint">e.g. “Make a poster for our org event”, “Help me review Calculus”</span>
             </div>
             <div class="field">
@@ -177,7 +177,7 @@
             </div>
             <div class="field">
               <label for="details">Details / Description</label>
-              <textarea class="textarea" id="details" name="details" rows="5" required>Create a fresh, vibrant logo for our annual campus organization fair. We need two initial concepts, one revision, and final SVG and PNG files. Use an NU blue and gold palette and deliver by Oct 20.</textarea>
+              <textarea class="textarea" id="details" name="details" rows="5" required placeholder="Enter your project description"></textarea>
               <span class="field__hint">Include deliverables, requirements, and a realistic timeline. The more specific you are, the better the applicants.</span>
             </div>
             <div class="form-banner">
@@ -209,7 +209,7 @@
                 <span class="badge badge--draft" id="pv-badge">Draft</span>
               </div>
               <h3 id="pv-title">Logo for NU Laguna Org Fest</h3>
-              <p class="commission__by">Jamie Santos – NU Laguna</p>
+              <p class="commission__by"><span id="pv-author">Loading your name...</span> – NU Laguna</p>
               <p class="commission__desc" id="pv-desc">Create a fresh, vibrant logo for our annual campus organization fair. We need two initial concepts, one revision, and final SVG…</p>
               <div class="commission__meta">
                 <span class="due due--pending" id="pv-budget">Budget pending</span>
@@ -228,8 +228,8 @@
           <section class="card card--pad" aria-labelledby="checklist-title">
             <h3 class="card__title card__title--sm" id="checklist-title">Before you post</h3>
             <ul class="checklist">
-              <li class="done"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Clear title and skill area category</li>
-              <li class="done"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg> Deadline and deliverables added</li>
+              <li class="todo" id="ck-brief"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg><span> Clear title and skill area category</span></li>
+              <li class="todo" id="ck-details"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg><span> Deadline and deliverables added</span></li>
               <li class="todo" id="ck-budget"><svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg> Valid ₱ budget still needed</li>
             </ul>
             <div class="fair-note">
@@ -259,6 +259,6 @@
   <!-- Bootstrap bundle enables future component behavior; app.js owns marketplace interactions. -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/app.js?v=20261018"></script>
+  <script src="js/app.js?v=20261018-notification-icons1"></script>
 </body>
 </html>

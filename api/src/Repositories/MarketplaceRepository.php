@@ -161,6 +161,15 @@ final class MarketplaceRepository
         return (bool) $statement->fetchColumn();
     }
 
+    public function applicationForUser(int $commissionId, int $userId): ?array
+    {
+        $statement = $this->db->prepare(
+            'SELECT id, status FROM applications WHERE commission_id = ? AND user_id = ? LIMIT 1'
+        );
+        $statement->execute([$commissionId, $userId]);
+        return $statement->fetch() ?: null;
+    }
+
     public function setApplicationStatus(int $id, string $status): void
     {
         $statement = $this->db->prepare('UPDATE applications SET status = ? WHERE id = ?');

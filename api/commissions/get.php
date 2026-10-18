@@ -11,5 +11,8 @@ if (!$commission) throw new SkillSwap\Exceptions\NotFoundException('Commission n
 $isOwner = (int) $commission['user_id'] === Auth::currentId();
 $result = ['commission' => $commission, 'is_owner' => $isOwner];
 if ($isOwner) $result['applications'] = $repository->applicationsForCommission($id);
-if (!$isOwner) $result['accepted_contact'] = $repository->acceptedContact($id, Auth::currentId());
+if (!$isOwner) {
+    $result['accepted_contact'] = $repository->acceptedContact($id, Auth::currentId());
+    $result['my_application'] = $repository->applicationForUser($id, Auth::currentId());
+}
 Response::json(['success' => true] + $result);

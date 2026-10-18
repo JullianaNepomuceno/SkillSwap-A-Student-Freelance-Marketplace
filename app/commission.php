@@ -109,6 +109,41 @@
               <h2>About this commission</h2>
               <p id="commission-description">Loading commission description...</p>
             </div>
+            <button class="btn btn--outline" id="edit-commission-button" type="button" hidden>Edit commission</button>
+            <form class="card card--pad" id="edit-commission-form" hidden>
+              <h2>Edit commission</h2>
+              <div class="field">
+                <label for="edit-title">Commission title</label>
+                <input class="input" id="edit-title" name="title" type="text" maxlength="150" required>
+              </div>
+              <div class="field">
+                <label for="edit-category">Skill area</label>
+                <select class="select" id="edit-category" name="category" required>
+                  <option>Coding &amp; IT</option>
+                  <option>Arts &amp; Design</option>
+                  <option>Writing &amp; Research</option>
+                  <option>Tutoring &amp; Review</option>
+                  <option>Media &amp; Content</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="edit-budget">Budget (PHP)</label>
+                <input class="input" id="edit-budget" name="budget" type="number" min="0.01" step="0.01" required>
+              </div>
+              <div class="field">
+                <label for="edit-deadline">Deadline</label>
+                <input class="input" id="edit-deadline" name="deadline" type="date" required>
+              </div>
+              <div class="field">
+                <label for="edit-description">Description</label>
+                <textarea class="textarea" id="edit-description" name="description" rows="6" maxlength="10000" required></textarea>
+              </div>
+              <div class="form-foot">
+                <span class="form-foot__msg" id="edit-commission-message"></span>
+                <button class="btn btn--ghost" id="cancel-edit-commission" type="button">Cancel</button>
+                <button class="btn btn--primary" type="submit">Save changes</button>
+              </div>
+            </form>
           </article>
 
           <section class="card client-view" aria-labelledby="client-view-title">
@@ -140,6 +175,7 @@
             <h2 id="apply-title">Apply to this Commission</h2>
             <p class="apply__intro">Introduce yourself and show why you’re a great fit for this project.</p>
             <p class="apply__fine" id="accepted-contact" hidden></p>
+            <p class="apply__fine" id="already-applied" hidden></p>
             <form action="../api/applications/create.php" method="post" id="apply-form">
               <div class="field">
                 <label for="full-name">Full Name</label>
@@ -185,6 +221,6 @@
   <!-- Bootstrap bundle enables future component behavior; app.js owns marketplace interactions. -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/app.js?v=20261018"></script>
+  <script src="js/app.js?v=20261018-notification-icons1"></script>
 </body>
 </html>

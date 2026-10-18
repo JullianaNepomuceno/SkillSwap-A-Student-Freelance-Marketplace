@@ -265,6 +265,6 @@
 
 <div class="pf-toast" id="pf-toast" role="status" aria-live="polite" hidden></div>
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=20261018-notification-icons1"></script>
 </body>
 </html>

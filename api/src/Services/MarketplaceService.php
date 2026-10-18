@@ -54,7 +54,9 @@ final class MarketplaceService
 
     public function updateCommission(int $id, int $userId, array $data): void
     {
-        if (!$this->repository->commission($id)) throw new NotFoundException('Commission not found.');
+        $commission = $this->repository->commission($id);
+        if (!$commission) throw new NotFoundException('Commission not found.');
+        if ($commission['status'] !== 'Open') throw new ConflictException('Only open commissions can be edited.');
         if (!$this->repository->updateCommission($id, $userId, $this->commissionData($data))) throw new AuthorizationException('Only the owner can update this commission.');
     }
 
