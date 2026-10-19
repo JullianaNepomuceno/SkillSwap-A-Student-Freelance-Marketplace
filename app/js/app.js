@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
           checkedCategories.includes(data.category)) &&
         data.budget >= minBudget &&
         data.budget <= maxBudget &&
-        status === "Open"
+        card.dataset.status === status
       );
     });
 
@@ -495,10 +495,14 @@ document.addEventListener("DOMContentLoaded", () => {
         grid.replaceChildren();
         cards = [];
         try {
-          const response = await fetch(`../api/commissions/list.php?_=${Date.now()}`, {
+          const selectedStatus = document.getElementById("status")?.value || "Open";
+          const response = await fetch(
+            `../api/commissions/list.php?status=${encodeURIComponent(selectedStatus)}&_=${Date.now()}`,
+            {
             credentials: "same-origin",
             cache: "no-store",
-          });
+            },
+          );
           const result = await response.json();
           if (!response.ok || !result.success) {
             throw new Error(result.message || "Unable to load commissions.");
@@ -518,6 +522,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = "commission";
             card.dataset.category = commission.category;
             card.dataset.id = commission.id;
+            card.dataset.status = commission.status;
 
             const top = document.createElement("div");
             top.className = "commission__top";

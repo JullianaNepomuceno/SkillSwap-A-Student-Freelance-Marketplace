@@ -32,8 +32,13 @@ final class MarketplaceRepository
 
     public function commissions(array $filters): array
     {
-        $where = ["c.status = 'Open'"];
-        $params = [];
+        $status = (string) ($filters['status'] ?? 'Open');
+        $allowedStatuses = ['Open', 'In Progress', 'Completed'];
+        if (!in_array($status, $allowedStatuses, true)) {
+            $status = 'Open';
+        }
+        $where = ['c.status = ?'];
+        $params = [$status];
         if (!empty($filters['category'])) { $where[] = 'c.category = ?'; $params[] = $filters['category']; }
         if (!empty($filters['keyword'])) { $where[] = '(c.title LIKE ? OR c.description LIKE ?)'; $term = '%' . $filters['keyword'] . '%'; $params[] = $term; $params[] = $term; }
         if (isset($filters['min_budget']) && $filters['min_budget'] !== '') { $where[] = 'c.budget >= ?'; $params[] = (float) $filters['min_budget']; }
